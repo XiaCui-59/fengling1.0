@@ -332,10 +332,6 @@
 				'content-type': 'application/json',
 				"app-id": urlSetting.urls.appid,
 				"open-id": uni.getStorageSync("openid") ? uni.getStorageSync("openid") : "",
-				"ad-project-id": _this.params.project ? _this.params.project : "",
-				"click-id": _this.params.gdt_vid ? _this.params.gdt_vid : "",
-				"ad-platform": _this.params.ad_platform ? _this.params.ad_platform : "",
-				"ad-sub-platform": _this.params.platform ? _this.params.platform : "",
 				"address": encodeURIComponent(JSON.stringify(_this.location)),
 				"Authorization": "bearer " + token,
 			}
