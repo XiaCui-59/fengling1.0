@@ -1,0 +1,1 @@
+<view class="content"><view data-ref="rich-content" class="{{['rich-content','vue-ref',(showCursor)?'show-cursor':'']}}"><rich-text space="nbsp" nodes="{{nodes}}" data-event-opts="{{[['itemclick',[['codeCopy',['$event']]]]]}}" binditemclick="__e"></rich-text></view></view>

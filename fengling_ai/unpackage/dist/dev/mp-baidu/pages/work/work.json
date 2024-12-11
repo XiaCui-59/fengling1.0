@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "灵动优聘",
+  "enablePullDownRefresh": false,
+  "enableShare": true,
+  "component": true,
+  "usingComponents": {
+    "login": "/components/login",
+    "tabbar": "/components/tabbar",
+    "custom-header": "/components/custom_header",
+    "add-base": "/components/add_base_info"
+  }
+}

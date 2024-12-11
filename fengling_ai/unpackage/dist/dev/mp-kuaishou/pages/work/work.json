@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "推荐工作",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tabbar": "/components/tabbar",
+    "custom-header": "/components/custom_header"
+  }
+}

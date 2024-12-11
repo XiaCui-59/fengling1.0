@@ -1,0 +1,294 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+image.data-v-011d540c {
+  will-change: transform;
+  width: auto;
+  height: auto;
+}
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.bg_right.data-v-011d540c {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+}
+.bg_bottom.data-v-011d540c {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  font-size: 0;
+}
+.middle_bg.data-v-011d540c {
+  position: fixed;
+  width: 100%;
+  left: 0;
+}
+.middle_bg image.data-v-011d540c {
+  width: 100%;
+  will-change: transform;
+}
+.cont.data-v-011d540c {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  padding: 0 28rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.cont .inner.data-v-011d540c {
+  height: 100%;
+  position: relative;
+  background: url("https://static.test.swiftwd.com/worker/ic_baoming_bg2.png") no-repeat;
+  background-size: cover;
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+}
+.cont .inner > image.data-v-011d540c {
+  width: 100%;
+  height: 100%;
+}
+.cont .inner .subtitle.data-v-011d540c {
+  height: 80rpx;
+  line-height: 80rpx;
+  padding-left: 56rpx;
+  box-sizing: border-box;
+  font-size: 30rpx;
+  color: #333;
+  box-sizing: border-box;
+  background: url("https://static.test.swiftwd.com/worker/ic_tit_bg.png") no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+}
+.cont .inner .subtitle .share_icon.data-v-011d540c {
+  position: fixed;
+  top: 12%;
+  right: 125rpx;
+  font-size: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  z-index: 200;
+}
+.cont .inner .subtitle .share_icon.data-v-011d540c::after {
+  border: none;
+}
+.cont .inner .subtitle .share_icon image.data-v-011d540c {
+  width: 40rpx;
+  height: 40rpx;
+}
+.cont .inner .subtitle image.data-v-011d540c {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 8rpx;
+}
+.cont .inner .base.data-v-011d540c {
+  padding: 0 56rpx;
+}
+.cont .inner .base .line.data-v-011d540c {
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 28rpx;
+  border-bottom: 1px dashed #DFDFDF;
+}
+.cont .inner .base .line.labels.data-v-011d540c {
+  flex-wrap: wrap;
+  height: auto;
+  line-height: auto;
+  padding-top: 20rpx;
+}
+.cont .inner .base .line.labels .label.data-v-011d540c {
+  width: 22%;
+  height: 46rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+  line-height: 46rpx;
+  background: rgba(234, 153, 0, 0.06);
+  border-radius: 6rpx;
+  border: 1px solid #EA9900;
+  font-size: 23rpx;
+  color: #EA9900;
+  margin-right: 3%;
+}
+.cont .inner .base .line.labels .label.data-v-011d540c:nth-child(4n) {
+  margin-right: 0;
+}
+.cont .inner .base .line.address.data-v-011d540c {
+  height: auto;
+}
+.cont .inner .base .line.address .address_text.data-v-011d540c {
+  width: calc(100% - 140rpx);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 32rpx;
+  white-space: wrap;
+}
+.cont .inner .base .line.address .text.data-v-011d540c {
+  width: 100%;
+  white-space: wrap;
+  overflow: visible;
+}
+.cont .inner .base .line .tit.data-v-011d540c {
+  width: 140rpx;
+  color: #5A5A5A;
+}
+.cont .inner .base .line .text.data-v-011d540c {
+  width: calc(100% - 140rpx);
+  color: #333;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.cont .inner .base .line .text .period.data-v-011d540c {
+  font-size: 24rpx;
+  color: #A8A8A8;
+}
+.cont .inner .more.data-v-011d540c {
+  padding: 0 56rpx;
+}
+.cont .inner .more .tit.data-v-011d540c {
+  font-size: 30rpx;
+  color: #F7BB05;
+  margin: 40rpx 0 10rpx 0;
+}
+.cont .inner .more .textarea.data-v-011d540c {
+  position: relative;
+  background: #fff;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #5A5A5A;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+.cont .inner .more .textarea ._p.data-v-011d540c {
+  margin-bottom: 20rpx;
+}
+.cont .inner .more .textarea rich-text.data-v-011d540c {
+  line-height: 50rpx;
+}
+.cont .inner .more .textarea .showtotal.data-v-011d540c {
+  color: #F7BB05;
+  margin: 20rpx auto;
+  text-align: center;
+  position: relative;
+  z-index: 100;
+}
+.cont .inner .more .textarea .showtotal image.data-v-011d540c {
+  width: 32rpx;
+  height: 32rpx;
+  vertical-align: middle;
+}
+.cont .inner .bot.data-v-011d540c {
+  width: calc(100% - 80rpx);
+  left: 40rpx;
+  position: absolute;
+}
+.cont .inner .bot .btn.data-v-011d540c {
+  width: 48%;
+  position: relative;
+  font-size: 0;
+  margin: 0 auto;
+  padding: 0;
+}
+.cont .inner .bot .btn.data-v-011d540c::after {
+  border: none;
+}
+.cont .inner .bot .btn image.data-v-011d540c {
+  width: 100%;
+  will-change: transform;
+}
+.cont .inner .bot .btn text.data-v-011d540c {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 100%;
+  text-align: center;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  color: #fff;
+  font-weight: bold;
+  font-size: 30rpx;
+}
+.mask .inner.data-v-011d540c {
+  width: 71%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+}
+.mask .inner .bg.data-v-011d540c {
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.mask .inner .tit.data-v-011d540c {
+  font-size: 36rpx;
+  color: #fff;
+  font-weight: bold;
+  position: absolute;
+  top: 13%;
+  left: 10%;
+}
+.mask .inner .info.data-v-011d540c {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 75%;
+}
+.mask .inner .info .tit2.data-v-011d540c {
+  font-size: 36rpx;
+  color: #FFB103;
+  font-weight: bold;
+}
+.mask .inner .info .text.data-v-011d540c {
+  margin: 20rpx auto 56rpx auto;
+  font-size: 28rpx;
+  color: #333333;
+  width: 80%;
+}
+.mask .inner .info .btn.data-v-011d540c {
+  height: 88rpx;
+  line-height: 88rpx;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 16rpx;
+  color: #fff;
+}
+.mask .inner .info .blue.data-v-011d540c {
+  background: #3780FF;
+}
+.mask .inner .info .yellow.data-v-011d540c {
+  background: #FFB103;
+}
+

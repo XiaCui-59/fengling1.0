@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "uni-data-select": "/uni_modules/uni-data-select/components/uni-data-select/uni-data-select",
+    "tabbar": "/components/tabbar",
+    "custom-header": "/components/custom_header"
+  }
+}

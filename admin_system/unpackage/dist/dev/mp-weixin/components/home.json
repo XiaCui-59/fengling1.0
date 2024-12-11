@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "bot-footer": "/components/bot_footer"
+  }
+}

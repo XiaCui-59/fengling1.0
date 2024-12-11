@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "消息",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "tabbar": "/components/tabbar",
+    "custom-header": "/components/custom_header",
+    "info-first": "/components/info_first"
+  }
+}

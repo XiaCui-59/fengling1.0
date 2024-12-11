@@ -1,0 +1,23 @@
+{
+  "navigationBarTitleText": "灵动优聘",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "top-header": "/components/top_header",
+    "left-menu": "/components/left_menu",
+    "home": "/components/home",
+    "add-project": "/components/add_project",
+    "project-list": "/components/project_list",
+    "pro-detail": "/components/project_detail",
+    "edit-project": "/components/edit_project",
+    "upload-checkin": "/components/upload_checkin",
+    "checkin-list": "/components/checkin_list",
+    "checkin-temp": "/components/checkin_temp",
+    "recharge-record": "/components/recharge_record",
+    "cost-record": "/components/cost_record",
+    "sign-record": "/components/sign_record",
+    "financial-account": "/components/financial_account",
+    "choose-pay": "/components/choose_pay",
+    "wechat-pay": "/components/wechat_pay",
+    "ali-pay": "/components/alipay_page"
+  }
+}

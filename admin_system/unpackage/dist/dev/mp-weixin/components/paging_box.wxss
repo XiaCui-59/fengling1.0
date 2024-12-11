@@ -1,0 +1,87 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.btn {
+  cursor: pointer;
+}
+.btn:hover {
+  background: #f6f6f6;
+}
+.paging_box {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  border-top: 1px solid #e7e7e7;
+  position: relative;
+  margin-top: 15px;
+}
+.paging_box .inner {
+  font-size: 14px;
+  color: #666;
+  position: relative;
+  top: 0;
+  left: 0;
+  -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+.paging_box .inner .opera {
+  margin: 0 20px;
+}
+.paging_box .inner .opera .item {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 2px;
+  border: 1px solid #d4d4d4;
+  margin: 0 5px;
+}
+.paging_box .inner .opera .item image {
+  width: 15px;
+  vertical-align: middle;
+}
+.paging_box .inner .opera .item.btn {
+  background: #fff;
+}
+.paging_box .inner .input .btn,
+.paging_box .inner .input input {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 2px;
+  border: 1px solid #d4d4d4;
+  margin: 0 5px;
+  font-size: 14px;
+}
+.paging_box .inner .input .btn {
+  width: 60px;
+  background: #226FF9;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 8px;
+}
+

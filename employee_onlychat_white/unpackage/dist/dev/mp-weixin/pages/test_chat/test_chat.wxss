@@ -1,0 +1,425 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+image {
+  will-change: transform;
+  width: auto;
+  height: auto;
+}
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.single_page {
+  width: 100%;
+  height: 100vh;
+  background: url("https://static.test.swiftwd.com/worker/welcome_pink.png") no-repeat;
+  background-size: cover;
+  position: relative;
+}
+.single_page .intro {
+  width: 75%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.single_page .intro .title {
+  margin-bottom: 27rpx;
+}
+.single_page .intro .title .tit {
+  font-family: YEFONTTangYingHei;
+  font-size: 46rpx;
+  color: #fff;
+  line-height: 65rpx;
+  font-weight: 600;
+}
+.single_page .intro .text {
+  font-family: PingFangSC, PingFang SC;
+  font-weight: 400;
+  font-size: 31rpx;
+  color: #333333;
+  line-height: 60rpx;
+}
+.single_page .intro .btn {
+  background: linear-gradient(136deg, #FFFFFF 0%, #FFE8C2 100%);
+  box-shadow: 0rpx 4rpx 8rpx 0rpx rgba(78, 28, 100, 0.43);
+  border-radius: 8rpx;
+  font-family: STHeiti;
+  font-size: 35rpx;
+  color: #333333;
+  height: 88rpx;
+  text-align: center;
+  line-height: 88rpx;
+  letter-spacing: 1px;
+  margin-top: 80rpx;
+}
+.single_page .intro .btn image {
+  width: 48rpx;
+  margin-left: 34rpx;
+  vertical-align: middle;
+}
+.voice_icon {
+  height: 34rpx;
+  width: 34rpx;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  flex-shrink: 0;
+}
+.voice_icon_right {
+  background-image: url("https://static.test.swiftwd.com/worker/voice-left-3.png");
+  margin-left: 10rpx;
+}
+.voice_icon_right_an {
+  -webkit-animation: voiceAn_right 1s linear alternate infinite;
+          animation: voiceAn_right 1s linear alternate infinite;
+}
+@-webkit-keyframes voiceAn_right {
+0% {
+    background-image: url("https://static.test.swiftwd.com/worker/voice-left-1.png");
+}
+50% {
+    background-image: url("https://static.test.swiftwd.com/worker/voice-left-2.png");
+}
+100% {
+    background-image: url("https://static.test.swiftwd.com/worker/voice-left-3.png");
+}
+}
+@keyframes voiceAn_right {
+0% {
+    background-image: url("https://static.test.swiftwd.com/worker/voice-left-1.png");
+}
+50% {
+    background-image: url("https://static.test.swiftwd.com/worker/voice-left-2.png");
+}
+100% {
+    background-image: url("https://static.test.swiftwd.com/worker/voice-left-3.png");
+}
+}
+/* 定义过渡效果 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+.inputing {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 110;
+  background: rgba(0, 0, 0, 0.7);
+}
+.inputing text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  color: #fff;
+  font-size: 30rpx;
+}
+.inputing > image {
+  width: 80%;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.inputing .bot_bg {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+}
+.inputing .bot_bg .text {
+  font-size: 29rpx;
+  color: #FFFFFF;
+  line-height: 40rpx;
+  text-align: center;
+  margin: 30rpx 0;
+}
+.inputing .bot_bg image {
+  width: 100%;
+}
+::-webkit-input-placeholder {
+  font-weight: 400;
+  font-size: 27rpx;
+  color: #9E9E9E;
+}
+ .input-value-border, .input-value {
+  border: none !important;
+  height: 84rpx !important;
+  font-size: 28rpx !important;
+}
+.ai_inner {
+  overflow: scroll;
+}
+.ai_icon {
+  position: fixed;
+  bottom: 25%;
+  right: 10rpx;
+  z-index: 100;
+}
+.ai_icon image {
+  width: 120rpx;
+}
+.ai_chat {
+  width: 100%;
+  height: 100vh;
+}
+.ai_chat .auth {
+  position: absolute;
+  width: 100%;
+  padding: 30rpx;
+  box-sizing: border-box;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+}
+.ai_chat .auth .btn {
+  width: 48%;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  background: #f6f6f6;
+  color: #333;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+}
+.ai_chat .auth .sure {
+  background: #106afa;
+  border: 1px solid #106afa;
+  color: #fff;
+}
+.ai_chat .ai_inner {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+  box-sizing: border-box;
+}
+.ai_chat .ai_inner .full_header {
+  background: url("https://static.test.swiftwd.com/worker/chat_top_bg.png") no-repeat;
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 105;
+}
+.ai_chat .ai_inner .full_header .page_top {
+  position: absolute;
+  left: 30rpx;
+  color: #fff;
+  font-weight: 600;
+  width: 100%;
+  text-align: center;
+}
+.ai_chat .ai_inner .full_header .page_top image {
+  width: 40rpx;
+}
+.ques_wrap {
+  width: calc(100% - 80rpx);
+  position: fixed;
+  bottom: 0;
+  left: 40rpx;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 10rpx;
+  margin: 0 auto;
+  box-sizing: border-box;
+  z-index: 100;
+}
+.ques_wrap.upper {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  z-index: 105;
+}
+.ques_wrap .input {
+  height: 100%;
+}
+.ques_wrap .input .input_right {
+  width: calc(100% - 50rpx);
+}
+.ques_wrap .input .input_right input {
+  width: calc(100% - 126rpx);
+  height: 100%;
+  font-size: 30rpx;
+  border-radius: 42rpx;
+  box-shadow: 0 2rpx 7rpx 0rpx #DDDDDD;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+}
+.ques_wrap .input .input_right .confirm_send {
+  width: 110rpx;
+  height: 62rpx;
+  line-height: 62rpx;
+  background: linear-gradient(135deg, #4F86FD 0%, #71BAFF 100%);
+  border-radius: 10rpx;
+  font-size: 29rpx;
+  color: #FFFFFF;
+  margin-left: 16rpx;
+  text-align: center;
+}
+.ques_wrap .input .btn {
+  width: 100%;
+  height: 80rpx;
+  text-align: center;
+  line-height: 100%;
+  border-radius: 42rpx;
+  font-size: 29rpx;
+  box-shadow: 0 2rpx 7rpx 0rpx #DDDDDD;
+}
+.ques_wrap .input .btn.press {
+  width: calc(100% - 50rpx);
+}
+.ques_wrap .input image {
+  width: 30px;
+  height: 30px;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+.ques_wrap .input .imgs image {
+  margin-left: 20rpx;
+}
+.ques_wrap .input .imgs image:nth-child(2) {
+  width: 26px;
+  height: 26px;
+}
+.chat_wrap {
+  padding: 40rpx 30rpx;
+  box-sizing: border-box;
+  background: #F4F9FF;
+}
+.chat_wrap .list .qa_item .line {
+  margin-top: 41rpx;
+  text-align: right;
+}
+.chat_wrap .list .qa_item .line image {
+  margin-left: 20rpx;
+}
+.chat_wrap .list .qa_item .line .inline_box {
+  width: calc(100% - 85rpx);
+}
+.chat_wrap .list .qa_item .line .inline_box > image {
+  width: 65rpx;
+  height: 65rpx;
+  flex-shrink: 0;
+  vertical-align: top;
+  margin-left: 0;
+  border-radius: 50%;
+}
+.chat_wrap .list .qa_item .line .inline_box .cont {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 42rpx;
+  font-size: 30rpx;
+  font-family: "微软雅黑";
+  text-align: left;
+}
+.chat_wrap .list .qa_item .line .inline_box .cont text {
+  padding: 20rpx;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  display: block;
+}
+.chat_wrap .list .qa_item .line.left {
+  text-align: left;
+}
+.chat_wrap .list .qa_item .line.left .inline_box {
+  justify-content: flex-start;
+  align-items: start;
+}
+.chat_wrap .list .qa_item .line.left image {
+  margin-right: 20rpx;
+}
+.chat_wrap .list .qa_item .line.left .cont text {
+  color: #333;
+  background: #fff;
+}
+.chat_wrap .list .qa_item .line.right {
+  display: flex;
+  justify-content: flex-end;
+}
+.chat_wrap .list .qa_item .line.right .inline_box {
+  align-items: start;
+  justify-content: flex-end;
+}
+.chat_wrap .list .qa_item .line.right .inline_box .cont {
+  width: 100%;
+  position: relative;
+  overflow: visible;
+}
+.chat_wrap .list .qa_item .line.right .inline_box .cont.textcont {
+  width: auto;
+  max-width: 100%;
+}
+.chat_wrap .list .qa_item .line.right .inline_box .cont text {
+  background: linear-gradient(117deg, #4F85FD 0%, #72BAFF 100%);
+  color: #fff;
+}
+.chat_wrap .list .qa_item .line.right .inline_box .cont .trans image {
+  width: 120rpx !important;
+  margin-right: 16rpx;
+  margin-left: 0;
+  flex-shrink: 0;
+}
+.chat_wrap .list .qa_item .line.right .inline_box .voice_wrap {
+  text-align: center;
+  background: linear-gradient(117deg, #4F85FD 0%, #72BAFF 100%);
+  color: #fff;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+}
+.chat_wrap .list .qa_item .line.right .inline_box .voice_wrap image {
+  width: 20rpx !important;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.chat_wrap .list .qa_item .line.right .inline_box .voice_wrap image.gif {
+  width: 50rpx !important;
+}
+.chat_wrap .list .qa_item .line.right .inline_box .trans_result {
+  padding: 20rpx;
+  border-radius: 16rpx;
+  box-sizing: border-box;
+  background: #fff;
+  margin-top: 10rpx;
+  font-size: 28rpx;
+  float: right;
+}
+.chat_wrap .list .qa_item .line.right .inline_box .trans_result image {
+  width: 80rpx;
+}
+

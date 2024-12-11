@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "uni-data-select": "/uni_modules/uni-data-select/components/uni-data-select/uni-data-select",
+    "uni-file-picker": "/uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker",
+    "tag-select": "/components/tags_select"
+  }
+}

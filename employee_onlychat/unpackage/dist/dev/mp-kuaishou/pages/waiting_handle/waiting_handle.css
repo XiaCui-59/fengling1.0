@@ -1,0 +1,229 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+image.data-v-668a5186 {
+  will-change: transform;
+  width: auto;
+  height: auto;
+}
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.data-v-668a5186 .uni-select {
+  border: none;
+  background: #fff;
+  height: 88rpx;
+  font-size: 28rpx;
+  border-radius: 8rpx;
+  padding: 0 40rpx;
+}
+.data-v-668a5186 .uni-icons {
+  display: none;
+}
+.data-v-668a5186 .uni-select__input-placeholder {
+  font-size: 28rpx;
+}
+.data-v-668a5186 .uni-date-x--border {
+  height: 88rpx;
+  line-height: 88rpx;
+  padding: 0 40rpx;
+  background: #fff;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+  border: none;
+}
+.data-v-668a5186 .uni-datetime-picker--btn,.data-v-668a5186 .uni-calendar-item__weeks-box .uni-calendar-item--checked {
+  background: #4284F4;
+}
+.data-v-668a5186 .uni-datetime-picker-btn-text {
+  color: #4284F4;
+}
+.top_area.data-v-668a5186 {
+  width: calc(100% - 96rpx);
+  position: fixed;
+  left: 48rpx;
+}
+.top_area .sele_box.data-v-668a5186 {
+  margin: 0 20rpx 20rpx 0;
+}
+.top_area .sele_box .text.data-v-668a5186 {
+  font-size: 28rpx;
+  color: #fff;
+  font-weight: bold;
+}
+.top_area .sele_box image.data-v-668a5186 {
+  width: 34rpx;
+  height: 30rpx;
+  margin-right: 8rpx;
+  will-change: transform;
+}
+.box.data-v-668a5186 {
+  position: fixed;
+  width: calc(100% - 80rpx);
+  left: 40rpx;
+  z-index: 3;
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+  overflow: hidden;
+}
+.box .item.data-v-668a5186 {
+  padding: 0 40rpx 40rpx 40rpx;
+  border-radius: 16rpx;
+  background: #fff;
+  box-shadow: 0 2rpx 6rpx 0 rgba(0, 0, 0, 0.15);
+  margin-bottom: 20rpx;
+  position: relative;
+}
+.box .item .top.data-v-668a5186 {
+  padding: 14rpx 0;
+  border-bottom: 1px dashed #979797;
+}
+.box .item .top .circle.data-v-668a5186 {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #DD0000;
+  margin-right: 8rpx;
+}
+.box .item .top .text.data-v-668a5186 {
+  font-weight: 600;
+  font-size: 27rpx;
+  color: #333333;
+}
+.box .item .middle.data-v-668a5186 {
+  font-size: 24rpx;
+  padding: 24rpx 0;
+}
+.box .item .middle .detail.data-v-668a5186 {
+  color: #5A5A5A;
+  line-height: 40rpx;
+}
+.box .item .middle .mark.data-v-668a5186 {
+  font-size: 36rpx;
+  color: #333;
+  margin-right: 8rpx;
+}
+.box .item .middle .yellow.data-v-668a5186 {
+  color: #4284F4;
+}
+.box .item .bottom.data-v-668a5186 {
+  height: 60rpx;
+  border-radius: 6rpx;
+  line-height: 60rpx;
+  background: #F6F6F6;
+  font-size: 24rpx;
+  color: #686868;
+}
+.box .item .bottom .opera.data-v-668a5186 {
+  font-size: 24rpx;
+  color: #4284F4;
+}
+.box .item .bottom image.data-v-668a5186 {
+  width: 20rpx;
+  height: 20rpx;
+}
+.box .item .read_label.data-v-668a5186 {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.box .item .read_label image.data-v-668a5186 {
+  width: 74rpx;
+  height: 74rpx;
+}
+.box .item2.data-v-668a5186 {
+  padding: 40rpx;
+  border-radius: 16rpx;
+  background: #fff;
+  box-shadow: 0 2rpx 6rpx 0 rgba(0, 0, 0, 0.15);
+  margin-bottom: 20rpx;
+}
+.box .item2 .top .title.data-v-668a5186 {
+  font-size: 36rpx;
+  padding-left: 22rpx;
+  position: relative;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.box .item2 .top .title.data-v-668a5186:before {
+  content: "";
+  width: 8rpx;
+  height: 36rpx;
+  background: #216FF9;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.box .item2 .middle.data-v-668a5186 {
+  margin-top: 28rpx;
+}
+.box .item2 .line.data-v-668a5186 {
+  margin-top: 16rpx;
+}
+.box .item2 .line .tit.data-v-668a5186 {
+  width: 80rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  background: #F0F5FF;
+  border-radius: 6rpx;
+  font-size: 24rpx;
+  color: #0E5FE7;
+  margin-right: 8rpx;
+}
+.box .item2 .line .text.data-v-668a5186 {
+  width: calc(100% - 88rpx);
+  font-size: 30rpx;
+  color: #333333;
+}
+.box .item2 .bottom .line.data-v-668a5186 {
+  width: 50%;
+}
+.box .item2 .bottom .line .blue.data-v-668a5186 {
+  font-weight: bold;
+  font-size: 36rpx;
+  color: #216FF9;
+}
+.box .item2 .bottom .line .period.data-v-668a5186 {
+  font-size: 24rpx;
+  color: #A8A8A8;
+  margin-left: 8rpx;
+}
+.box .item2 .bottom .company.data-v-668a5186 {
+  width: 50%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  background: #F6F6F6;
+  height: 60rpx;
+  border-radius: 6rpx;
+  line-height: 60rpx;
+  padding: 0 22rpx;
+  font-size: 28rpx;
+  color: #686868;
+}
+

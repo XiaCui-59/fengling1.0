@@ -1,0 +1,87 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"disableScroll": true
+			}
+		}, {
+			"path": "pages/invite/invite",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}, {
+			"path": "pages/balance/balance",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/vip/vip",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}, {
+			"path": "pages/invite_rule/invite_rule",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/tx_record/tx_record",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/about/about",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+
+		{
+			"path": "pages/test_chat/test_chat",
+			"style": {
+				"navigationBarTitleText": "",
+				"disableScroll": true
+			}
+		}, {
+			"path": "pages/chat/chat",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"softinputMode": "adjustResize"
+				}
+			}
+		},
+		{
+			"path": "pages/index_copy/index_copy",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "灵动优聘",
+		"navigationBarBackgroundColor": "#20b1f3",
+		// #ifdef MP-WEIXIN || MP-KUAISHOU
+		"navigationStyle": "custom",
+		// #endif
+		"backgroundColor": "#f6f6f6"
+	},
+	"singlePage": {
+		"path": "/pages/index/index",
+		"style": {
+			"navigationBarTitleText": "指定页面"
+		}
+	},
+	"onShareTimeline": {
+		"path": "/pages/index/index"
+	},
+	"uniIdRouter": {}
+}

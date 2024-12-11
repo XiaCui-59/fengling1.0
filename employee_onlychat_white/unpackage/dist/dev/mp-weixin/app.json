@@ -1,0 +1,39 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/invite/invite",
+    "pages/balance/balance",
+    "pages/vip/vip",
+    "pages/invite_rule/invite_rule",
+    "pages/tx_record/tx_record",
+    "pages/about/about",
+    "pages/test_chat/test_chat",
+    "pages/chat/chat",
+    "pages/index_copy/index_copy"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "灵动优聘",
+    "navigationBarBackgroundColor": "#20b1f3",
+    "navigationStyle": "custom",
+    "backgroundColor": "#f6f6f6"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "请授权您的地理位置以便更精准的为您推荐工作。"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "plugins": {
+    "WechatSI": {
+      "version": "0.3.5",
+      "provider": "wx069ba97219f66d99"
+    }
+  },
+  "usingComponents": {
+    "custom-modal": "/components/custom_modal"
+  }
+}

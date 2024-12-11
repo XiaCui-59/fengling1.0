@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "登录——灵动优聘后台系统",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "bot-footer": "/components/bot_footer"
+  }
+}

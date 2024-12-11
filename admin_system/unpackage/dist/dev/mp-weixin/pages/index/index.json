@@ -1,0 +1,21 @@
+{
+  "navigationBarTitleText": "蓝蜂用工",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "top-header": "/components/top_header",
+    "left-menu": "/components/left_menu",
+    "bot-footer": "/components/bot_footer",
+    "home": "/components/home",
+    "add-broker": "/components/add_broker",
+    "add-project": "/components/add_project",
+    "project-list": "/components/project_list",
+    "pro-detail": "/components/project_detail",
+    "broker-detail": "/components/broker_detail",
+    "edit-broker": "/components/edit_broker",
+    "edit-project": "/components/edit_project",
+    "broker-list": "/components/broker_list",
+    "cost-bill": "/components/cost_bill",
+    "cost-record": "/components/cost_record",
+    "employee-list": "/components/employee_list"
+  }
+}

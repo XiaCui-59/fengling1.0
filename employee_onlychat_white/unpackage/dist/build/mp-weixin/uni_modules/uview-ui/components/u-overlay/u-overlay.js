@@ -1,0 +1,10 @@
+(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["uni_modules/uview-ui/components/u-overlay/u-overlay"],{"1d95":function(n,t,e){},"381a":function(n,t,e){"use strict";e.r(t);var u=e("fbbc"),i=e("6c13");for(var o in i)["default"].indexOf(o)<0&&function(n){e.d(t,n,(function(){return i[n]}))}(o);e("5354");var c=e("828b"),r=Object(c["a"])(i["default"],u["b"],u["c"],!1,null,"72cb839f",null,!1,u["a"],void 0);t["default"]=r.exports},5354:function(n,t,e){"use strict";var u=e("1d95"),i=e.n(u);i.a},"6c13":function(n,t,e){"use strict";e.r(t);var u=e("e4db"),i=e.n(u);for(var o in u)["default"].indexOf(o)<0&&function(n){e.d(t,n,(function(){return u[n]}))}(o);t["default"]=i.a},e4db:function(n,t,e){"use strict";(function(n){var u=e("47a9");Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var i=u(e("26e6")),o={name:"u-overlay",mixins:[n.$u.mpMixin,n.$u.mixin,i.default],computed:{overlayStyle:function(){var t={position:"fixed",top:0,left:0,right:0,zIndex:this.zIndex,bottom:0,"background-color":"rgba(0, 0, 0, ".concat(this.opacity,")")};return n.$u.deepMerge(t,n.$u.addStyle(this.customStyle))}},methods:{clickHandler:function(){this.$emit("click")}}};t.default=o}).call(this,e("df3c")["default"])},fbbc:function(n,t,e){"use strict";e.d(t,"b",(function(){return i})),e.d(t,"c",(function(){return o})),e.d(t,"a",(function(){return u}));var u={uTransition:function(){return Promise.all([e.e("common/vendor"),e.e("uni_modules/uview-ui/components/u-transition/u-transition")]).then(e.bind(null,"ac1f"))}},i=function(){var n=this.$createElement;this._self._c},o=[]}}]);
+;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
+    'uni_modules/uview-ui/components/u-overlay/u-overlay-create-component',
+    {
+        'uni_modules/uview-ui/components/u-overlay/u-overlay-create-component':(function(module, exports, __webpack_require__){
+            __webpack_require__('df3c')['createComponent'](__webpack_require__("381a"))
+        })
+    },
+    [['uni_modules/uview-ui/components/u-overlay/u-overlay-create-component']]
+]);

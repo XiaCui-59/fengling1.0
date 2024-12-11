@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "custom-modal": "/components/custom_modal"
+  },
+  "component": true
+}

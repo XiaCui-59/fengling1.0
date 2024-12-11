@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "蓝蜂用工",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "custom-modal": "/components/custom_modal",
+    "tabbar": "/components/tabbar",
+    "custom-header": "/components/custom_header"
+  }
+}

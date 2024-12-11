@@ -1,0 +1,97 @@
+
+image.data-v-852a8b4e {
+		will-change: transform
+}
+.pub.data-v-852a8b4e {
+		position: fixed;
+		width: 80%;
+		height: 65rpx;
+		line-height: 65rpx;
+		background: #FFE000;
+		box-shadow: 0rpx 2rpx 4rpx 0rpx rgba(101, 101, 101, 0.3);
+		border-radius: 33rpx;
+		text-align: center;
+		font-weight: 400;
+		font-size: 23rpx;
+		color: #333333;
+		z-index: 99;
+		left: 50%;
+		-webkit-transform: translateX(-50%);
+		        transform: translateX(-50%);
+}
+.pub image.data-v-852a8b4e {
+		width: 46rpx;
+		height: 40rpx;
+		margin-right: 8rpx;
+		vertical-align: middle;
+}
+.tabbar.data-v-852a8b4e {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		z-index: 99;
+		width: 100%;
+		/* height: 92upx; */
+		display: flex;
+		align-items: center;
+		background: #fff;
+		justify-content: space-around;
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		/* padding: 20rpx 0; */
+		box-shadow: 0px -8rpx 12rpx 0px rgba(0, 0, 0, 0.1);
+		border-top-left-radius: 28rpx;
+		border-top-right-radius: 28rpx;
+		box-sizing: border-box;
+}
+.tabbar-item.data-v-852a8b4e {
+		padding: 0 40rpx;
+		position: relative;
+		text-align: center;
+		box-sizing: border-box;
+}
+.tabbar-item .badge.data-v-852a8b4e {
+		position: absolute;
+		top: 3rpx;
+		right: 30rpx;
+		z-index: 100;
+		background: #ff2c11;
+		width: 30rpx;
+		height: 30rpx;
+		line-height: 30rpx;
+		text-align: center;
+		border-radius: 50%;
+		color: #fff;
+		font-size: 24rpx;
+}
+.tabbar-item .badge.active.data-v-852a8b4e {
+		top: -24rpx;
+		right: 37rpx;
+}
+.img.data-v-852a8b4e {
+		/* height: 40upx;
+    width: 40upx; */
+		position: absolute;
+		/* bottom:30rpx; */
+		left: 50%;
+		-webkit-transform: translateX(-50%);
+		        transform: translateX(-50%);
+		will-change: transform;
+}
+
+	/*  .img.active{
+	  width:90rpx;
+	  height:90rpx;
+  } */
+.text.data-v-852a8b4e {
+		font-size: 28rpx;
+		font-family: PingFang SC-Regular, PingFang SC;
+		font-weight: 400;
+		color: #333;
+		line-height: 27rpx;
+		/* margin-top:40rpx; */
+}
+.text.active.data-v-852a8b4e {
+		color: #333;
+}
+

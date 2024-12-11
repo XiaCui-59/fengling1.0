@@ -1,0 +1,1 @@
+<view class="footer"><view>©灵动优聘 2023<text data-event-opts="{{[['tap',[['open',['$event']]]]]}}" bindtap="__e">备案号：蜀ICP备2024051734号-1</text></view></view>

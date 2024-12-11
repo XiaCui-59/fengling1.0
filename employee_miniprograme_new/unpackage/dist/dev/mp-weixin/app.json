@@ -1,0 +1,82 @@
+{
+  "pages": [
+    "pages/work/work",
+    "pages/index/index",
+    "pages/mine/mine",
+    "pages/waiting_handle/waiting_handle",
+    "pages/webview/webview",
+    "pages/fadada_return/fadada_return"
+  ],
+  "subPackages": [
+    {
+      "root": "subpkg",
+      "pages": [
+        "authentication/authentication",
+        "work_detail/work_detail",
+        "project_detail/project_detail",
+        "message_detail/message_detail",
+        "my_info/my_info",
+        "bank_card/bank_card",
+        "setting_password/setting_password",
+        "setting/setting",
+        "message/message",
+        "about_us/about_us",
+        "my_resume/my_resume",
+        "my_intro/my_intro"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "灵动优聘",
+    "navigationBarBackgroundColor": "#20b1f3",
+    "navigationStyle": "custom",
+    "backgroundColor": "#f6f6f6"
+  },
+  "tabBar": {
+    "color": "#757579",
+    "selectedColor": "#20b1f3",
+    "borderStyle": "white",
+    "backgroundColor": "#f6f6f6",
+    "fontSize": "16px",
+    "iconWidth": "20px",
+    "padding": "10rpx",
+    "list": [
+      {
+        "pagePath": "pages/work/work",
+        "text": "找工作"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "工作"
+      },
+      {
+        "pagePath": "pages/waiting_handle/waiting_handle",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "请授权您的地理位置以便更精准的为您推荐工作。"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation"
+  ],
+  "plugins": {
+    "WechatSI": {
+      "version": "0.3.5",
+      "provider": "wx069ba97219f66d99"
+    }
+  },
+  "usingComponents": {
+    "custom-modal": "/components/custom_modal",
+    "ai-chat": "/components/ai_chat",
+    "login": "/components/login"
+  }
+}

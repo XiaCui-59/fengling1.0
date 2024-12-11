@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "custom-modal": "/components/custom_modal",
+    "tabbar": "/components/tabbar",
+    "custom-header": "/components/custom_header"
+  }
+}

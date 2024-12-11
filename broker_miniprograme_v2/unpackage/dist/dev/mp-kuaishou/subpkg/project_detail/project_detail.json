@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "项目详情",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "custom-header": "/components/custom_header"
+  }
+}

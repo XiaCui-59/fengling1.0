@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "bot-footer": "/components/bot_footer",
+    "page-box": "/components/paging_box"
+  }
+}

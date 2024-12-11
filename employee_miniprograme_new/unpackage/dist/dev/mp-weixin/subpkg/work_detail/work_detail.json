@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "工作详情",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "l-painter": "/uni_modules/lime-painter/components/l-painter/l-painter",
+    "custom-header": "/components/custom_header",
+    "add-base": "/components/add_base_info"
+  }
+}

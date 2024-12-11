@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "公司信息",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "custom-header": "/components/custom_header"
+  }
+}

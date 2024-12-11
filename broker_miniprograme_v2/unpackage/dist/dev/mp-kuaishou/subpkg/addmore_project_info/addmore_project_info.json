@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "htz-image-upload": "/components/htz-image-upload/htz-image-upload",
+    "custom-modal": "/components/custom_modal",
+    "tag-select": "/components/tag_select",
+    "custom-header": "/components/custom_header"
+  }
+}

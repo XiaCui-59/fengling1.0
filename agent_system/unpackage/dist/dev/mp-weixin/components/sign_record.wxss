@@ -1,0 +1,340 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+image {
+  width: auto;
+  will-change: transform;
+  height: auto;
+}
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+ .search_box {
+  margin: 0;
+}
+ .uni-table .uni-table-tr:nth-child(n + 2):hover {
+  background-color: #dce4fa;
+  cursor: pointer;
+}
+ .uni-select {
+  height: 50px;
+}
+.sele_area {
+  width: 100px;
+}
+.labels .label {
+  padding: 5px 15px;
+  background: #e7ebef;
+  border-radius: 6px;
+  margin-right: 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.labels .label.active {
+  background: #0092ff;
+  color: #fff;
+}
+.text_area {
+  margin-top: 15px;
+}
+.text_area textarea {
+  min-height: 60px;
+  border: 1px solid #ddd;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+.btns {
+  margin-top: 15px;
+}
+.btns .btn {
+  margin-left: 15px;
+}
+.btns .btn.cancel {
+  background: #e7ebef;
+  color: #333;
+}
+.add_follow input {
+  height: 40px;
+  width: 340px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  padding: 0 10px;
+  margin-right: 15px;
+}
+.follow_record {
+  margin-top: 30px;
+  position: relative;
+}
+.follow_record::before {
+  content: "";
+  width: 2px;
+  height: 100%;
+  background: #ddd;
+  position: absolute;
+  top: 0;
+  left: 4px;
+}
+.follow_record .follow_item {
+  margin-bottom: 20px;
+  padding-left: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+.follow_record .follow_item::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: #0092ff;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
+.follow_record .follow_item .follow_cont {
+  color: #333;
+  margin-bottom: 8px;
+}
+.follow_record .follow_item .follow_time {
+  font-size: 14px;
+  color: #5a5a5a;
+}
+.follow_record .follow_item .follow_time .status {
+  margin-left: 10px;
+  color: #ff8b07;
+}
+.active {
+  color: #0da81f;
+}
+.disable {
+  color: #f00;
+}
+.disable {
+  color: #f00;
+}
+.ope {
+  position: relative;
+  padding: 0 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.ope .more {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  z-index: 9;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px 3px #ddd;
+  padding: 5px 0;
+}
+.ope .more .opera {
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+}
+.showmore {
+  width: 100%;
+  text-align: center;
+  margin: 15px 0;
+  cursor: pointer;
+}
+.showmore view {
+  display: inline-block;
+  color: #0F90FF;
+}
+.showmore image {
+  width: 20px;
+  vertical-align: middle;
+}
+.base {
+  padding: 0 0 10px 0;
+}
+.base.showall {
+  height: auto;
+  overflow: visible;
+}
+.base .out_line .line {
+  width: 40%;
+}
+.base .out_line .line .tit {
+  width: 90px;
+}
+.base .line {
+  margin: 15px 0;
+}
+.base .line .text {
+  color: #666;
+  font-size: 14px;
+}
+.base .line .text .tags {
+  padding: 5px 10px;
+  box-sizing: border-box;
+  background: #f1f1f1;
+  border-radius: 4px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+.table_wrap .tabs .tab {
+  width: 160px;
+}
+.table_wrap .btns {
+  margin-bottom: 15px;
+}
+.table_wrap .btns .btn {
+  margin-left: 15px;
+}
+.table_wrap .table_top {
+  margin-bottom: 15px;
+}
+.table_wrap .table_top .btn {
+  width: 100px;
+  margin-left: 15px;
+}
+.table_wrap .tips {
+  margin-bottom: 20px;
+}
+.table_wrap .tips view {
+  margin-right: 15px;
+  font-size: 14px;
+}
+.table_wrap .tips view text {
+  color: #0092ff;
+}
+.table_wrap .tips .tip {
+  color: #f00;
+}
+.box .box_item .tit {
+  width: auto;
+  white-space: nowrap;
+}
+.box .box_item:nth-child(2) {
+  padding-left: 20px;
+}
+.box .box_item:nth-child(2) .title {
+  height: 40px;
+  line-height: 40px;
+  margin: 0;
+  padding-left: 0;
+}
+.box .box_item:nth-child(2) .title:before {
+  display: none;
+}
+.box .box_item .l_tabs .l_tab {
+  padding-left: 15px;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+}
+.box .box_item .l_tabs .l_tab:hover {
+  color: #1890FF;
+  cursor: pointer;
+}
+.box .box_item .l_tabs .l_tab.active {
+  background: #E7F7FF;
+  color: #1890FF;
+  border-right: 3px solid #1890FF;
+}
+.box .box_item .l_tabs .l_tab .mark {
+  display: inline-block;
+  margin-left: 10px;
+  color: #f00;
+}
+.box .box_right {
+  width: calc(100% - 80px);
+}
+.mask .inner .title {
+  position: relative;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+.mask .inner .title text {
+  position: absolute;
+  font-size: 14px;
+  top: 50%;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  color: #226FF9;
+}
+.mask .inner .tabs {
+  margin-bottom: 15px;
+}
+.mask .inner .tabs .tab {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  margin-right: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.mask .inner .tabs .tab.active {
+  background: #226FF9;
+  color: #fff;
+  border: 1px solid #226FF9;
+}
+.mask .inner .setting_box {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+.mask .inner .setting_box .set_inner {
+  width: 230px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 100;
+  background: #fff;
+  padding: 20px;
+  border-radius: 6px;
+}
+.mask .inner .setting_box .set_inner .subtit {
+  font-size: 18px;
+}
+.mask .inner .setting_box .set_inner .line {
+  padding-left: 10px;
+  margin: 20px 0;
+}
+.mask .inner .setting_box .set_inner .line .tit {
+  width: 90px;
+}
+.mask .inner .setting_box .set_inner .line .input_wrap {
+  width: calc(100% - 70px);
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid #eee;
+}
+.mask .inner .setting_box .set_inner .line .input_wrap input {
+  height: 40px;
+  padding-left: 10px;
+}
+

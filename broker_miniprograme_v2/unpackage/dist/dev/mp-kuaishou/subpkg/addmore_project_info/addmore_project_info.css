@@ -1,0 +1,97 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+image {
+  width: auto;
+  will-change: transform;
+  height: auto;
+}
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+ .up_video .htz-image-upload-Item {
+  width: 100%;
+  height: 346rpx;
+  background: #F9F9F9;
+  border-radius: 8rpx;
+  border: 2rpx dashed #D5D5D5;
+}
+ .up_image .htz-image-upload-Item {
+  width: 45%;
+  height: 231rpx;
+  background: #F9F9F9;
+  border-radius: 8rpx;
+  border: 2rpx dashed #D5D5D5;
+}
+.inner {
+  position: fixed;
+  width: calc(100% - 92rpx);
+  height: 100vh;
+  left: 46rpx;
+  z-index: 99;
+}
+.inner .scroll_box {
+  background: #fff;
+  box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(0, 0, 0, 0.15);
+  border-radius: 16rpx;
+  overflow: hidden;
+  padding: 38rpx;
+  box-sizing: border-box;
+}
+.inner .up_box {
+  margin-top: 20rpx;
+}
+.inner .up_box .title {
+  font-weight: 400;
+  font-size: 27rpx;
+  color: #5A5A5A;
+  line-height: 38rpx;
+}
+.inner .btns {
+  position: fixed;
+  width: 100%;
+  left: 0rpx;
+  bottom: 0;
+  z-index: 100;
+  padding: 0 46rpx;
+  box-sizing: border-box;
+  background: #fff;
+}
+.inner .btns .btn {
+  width: 48%;
+  margin-top: 0;
+  background: #F7BC05;
+  border: 1px solid #F7BC05;
+  box-shadow: 0rpx 2rpx 4rpx 0rpx rgba(0, 0, 0, 0.15);
+  border-radius: 15rpx;
+  font-weight: 600;
+  font-size: 29rpx;
+  color: #FFFFFF;
+  margin-bottom: 0;
+}
+.inner .btns .btn.cancel {
+  background: #fff;
+  color: #666;
+  border: 1px solid #ccc;
+}
+

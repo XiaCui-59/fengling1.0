@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "markdown-render": "/uni_modules/markdown-render/components/markdown-render/markdown-render"
+  },
+  "component": true
+}

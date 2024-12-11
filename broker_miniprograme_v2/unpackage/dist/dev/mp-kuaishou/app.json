@@ -1,0 +1,67 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/mine/mine",
+    "pages/message/message"
+  ],
+  "subPackages": [
+    {
+      "root": "subpkg",
+      "pages": [
+        "authentication/authentication",
+        "work_detail/work_detail",
+        "project_detail/project_detail",
+        "contract_detail/contract_detail",
+        "message_detail/message_detail",
+        "my_info/my_info",
+        "my_contracts/my_contracts",
+        "bank_card/bank_card",
+        "modify_contact/modify_contact",
+        "setting/setting",
+        "setting_password/setting_password",
+        "two_card/two_card",
+        "project_worker_detail/project_worker_detail",
+        "test/test",
+        "about_us/about_us",
+        "add_project/add_project",
+        "set_fee/set_fee",
+        "edit_project/edit_project",
+        "addmore_project_info/addmore_project_info"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "蓝蜂用工",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#ffffff",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#333333",
+    "selectedColor": "#333333",
+    "borderStyle": "white",
+    "backgroundColor": "#f6f6f6",
+    "fontSize": "16px",
+    "iconWidth": "20px",
+    "padding": "10rpx",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "项目"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "待办"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {
+    "custom-modal": "/components/custom_modal"
+  }
+}

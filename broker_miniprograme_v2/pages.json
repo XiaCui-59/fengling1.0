@@ -1,0 +1,237 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "灵动优聘",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/sign_record/sign_record",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/test/test",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": true,
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/message/message",
+			"style": {
+				"navigationBarTitleText": "消息",
+				"enablePullDownRefresh": true
+			}
+		}
+	],
+	"subPackages": [{
+		"root": "subpkg",
+		"pages": [{
+				"path": "authentication/authentication",
+				"style": {
+					"navigationBarTitleText": "实名认证",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "work_detail/work_detail",
+				"style": {
+					"navigationBarTitleText": "职位详情",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "project_detail/project_detail",
+				"style": {
+					"navigationBarTitleText": "职位详情",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "contract_detail/contract_detail",
+				"style": {
+					"navigationBarTitleText": "合同详情",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "message_detail/message_detail",
+				"style": {
+					"navigationBarTitleText": "消息详情",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "my_info/my_info",
+				"style": {
+					"navigationBarTitleText": "公司信息",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "my_contracts/my_contracts",
+				"style": {
+					"navigationBarTitleText": "我的合同",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "bank_card/bank_card",
+				"style": {
+					"navigationBarTitleText": "银行卡",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "modify_contact/modify_contact",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "setting/setting",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "setting_password/setting_password",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "two_card/two_card",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "project_worker_detail/project_worker_detail",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "test/test",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "about_us/about_us",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "add_project/add_project",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "set_fee/set_fee",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "edit_project/edit_project",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "addmore_project_info/addmore_project_info",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "edit_my_info/edit_my_info",
+				"style": {
+					"navigationBarTitleText": ""
+				}
+			},
+			{
+				"path": "account/account",
+				"style": {
+					"navigationBarTitleText": ""
+				}
+			},
+			{
+				"path" : "recharge/recharge",
+				"style" : 
+				{
+					"navigationBarTitleText" : ""
+				}
+			},
+			{
+				"path" : "worker_detail/worker_detail",
+				"style" : 
+				{
+					"navigationBarTitleText" : ""
+				}
+			}
+		]
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "灵动优聘",
+		"navigationBarBackgroundColor": "#ffffff",
+		"backgroundColor": "#ffffff",
+		"navigationStyle": "custom"
+	},
+	"tabBar": {
+		"color": "#333333",
+		"selectedColor": "#333333",
+		"borderStyle": "white",
+		"backgroundColor": "#f6f6f6",
+		"fontSize": "16px",
+		"iconWidth": "20px",
+		"padding": "10rpx",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "职位"
+			},
+			{
+				"pagePath": "pages/sign_record/sign_record",
+				"text": "报名"
+			},
+			{
+				"pagePath": "pages/mine/mine",
+				"text": "我的"
+			}
+		]
+	},
+	"uniIdRouter": {}
+}

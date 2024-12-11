@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "工作详情",
+  "enablePullDownRefresh": true,
+  "enableShare": true,
+  "usingComponents": {
+    "custom-header": "/components/custom_header",
+    "add-base": "/components/add_base_info"
+  }
+}

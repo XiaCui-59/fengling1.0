@@ -1,0 +1,166 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+ uni-picker {
+  width: 100%;
+  padding: 0 15px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #e9e9e9;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+ .uni-select {
+  height: 30px;
+  font-size: 14px;
+}
+.box .sub_box {
+  width: 48%;
+}
+.box .line {
+  margin-bottom: 20px;
+}
+.box .line.scope {
+  align-items: start;
+}
+.box .line .tit {
+  color: rgba(0, 0, 0, 0.85);
+  line-height: 22px;
+}
+.box .line .input_wrap {
+  width: 460px;
+  height: 30px;
+  border-radius: 2px;
+  position: relative;
+  border: 1px solid #D9D9D9;
+  margin-top: 8px;
+}
+.box .line .input_wrap .more .subt {
+  white-space: nowrap;
+  color: #f47106;
+}
+.box .line .input_wrap .more uni-picker {
+  color: #f47106;
+}
+.box .line .input_wrap .more .month input {
+  width: 40px;
+  height: 30px;
+  text-align: center;
+  border: 1px solid #ccc;
+  padding: 0;
+  border-radius: 4px;
+  margin-right: 5px;
+  color: #f47106;
+}
+.box .line .input_wrap.age input {
+  border: 1px solid #e9e9e9;
+  width: 140px;
+  border-radius: 5px;
+}
+.box .line .input_wrap.age text {
+  display: inline-block;
+  margin: 0 10px;
+}
+.box .line .input_wrap .work_type {
+  position: relative;
+}
+.box .line .input_wrap .work_type .work {
+  height: 30px;
+  line-height: 30px;
+  padding-left: 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.box .line .input_wrap .work_type .work_wrap {
+  min-width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 99;
+  background: #fff;
+  box-shadow: 0 0 5px 5px #e8e8e8;
+  padding: 10px;
+  box-sizing: border-box;
+  height: 300px;
+  overflow: scroll;
+}
+.box .line .input_wrap .work_type .contract_wrap {
+  height: 110px;
+  padding: 0;
+}
+.box .line .input_wrap .work_type .contract_wrap .item {
+  font-size: 14px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+.box .line .input_wrap .work_type .contract_wrap .item:hover {
+  cursor: pointer;
+  background: #e8e8e8;
+  color: #226FF9;
+}
+.box .line .input_wrap .abso {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.box .line .input_wrap.noborder {
+  border: none;
+}
+.box .line .input_wrap input {
+  width: 100%;
+  height: 30px;
+  padding-left: 15px;
+  font-size: 14px;
+}
+.box .line .input_wrap .option {
+  margin-right: 20px;
+  cursor: pointer;
+}
+.box .line .input_wrap .option image {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.box .line .input_wrap .long image {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.box .line .input_wrap textarea {
+  width: 100%;
+  padding: 15px;
+  min-height: 30px;
+  max-height: 100px;
+  border: 1px solid #D9D9D9;
+  font-size: 14px;
+  overflow-y: scroll;
+}
+

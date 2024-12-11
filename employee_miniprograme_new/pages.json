@@ -1,0 +1,186 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/work/work",
+			"style": {
+				"navigationBarTitleText": "灵动优聘",
+				"enablePullDownRefresh": false,
+				"enableShare": true
+			}
+		}, // #ifdef MP-WEIXIN
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "工作",
+				"enablePullDownRefresh": true
+			}
+		},
+		// #endif
+		// {
+		// 	"path": "pages/login/login",
+		// 	"style": {
+		// 		"navigationBarTitleText": "登录",
+		// 		"enablePullDownRefresh": true
+		// 	}
+		// }, 
+		{
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/waiting_handle/waiting_handle",
+			"style": {
+				"navigationBarTitleText": "待办",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/webview/webview",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/fadada_return/fadada_return",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": true
+			}
+		}
+	],
+	"subPackages": [{
+		"root": "subpkg",
+		"pages": [{
+				"path": "authentication/authentication",
+				"style": {
+					"navigationBarTitleText": "实名认证",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "work_detail/work_detail",
+				"style": {
+					"navigationBarTitleText": "工作详情",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "project_detail/project_detail",
+				"style": {
+					"navigationBarTitleText": "工作详情",
+					"enablePullDownRefresh": true,
+					"enableShare": true
+				}
+			},
+			{
+				"path": "message_detail/message_detail",
+				"style": {
+					"navigationBarTitleText": "消息详情",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "my_info/my_info",
+				"style": {
+					"navigationBarTitleText": "我的资料",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "bank_card/bank_card",
+				"style": {
+					"navigationBarTitleText": "银行卡",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "setting_password/setting_password",
+				"style": {
+					"navigationBarTitleText": "设置密码",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "setting/setting",
+				"style": {
+					"navigationBarTitleText": "设置",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "message/message",
+				"style": {
+					"navigationBarTitleText": "消息",
+					"enablePullDownRefresh": true
+				}
+			},
+			{
+				"path": "about_us/about_us",
+				"style": {
+					"navigationBarTitleText": "",
+					"enablePullDownRefresh": false
+				}
+			},
+			{
+				"path": "my_resume/my_resume",
+				"style": {
+					"navigationBarTitleText": ""
+				}
+			},
+			{
+				"path": "my_intro/my_intro",
+				"style": {
+					"navigationBarTitleText": ""
+				}
+			}
+		]
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "灵动优聘",
+		"navigationBarBackgroundColor": "#20b1f3",
+		// #ifdef MP-WEIXIN || MP-KUAISHOU
+		"navigationStyle": "custom",
+		// #endif
+		"backgroundColor": "#f6f6f6"
+	},
+	"tabBar": {
+		"color": "#757579",
+		"selectedColor": "#20b1f3",
+		"borderStyle": "white",
+		"backgroundColor": "#f6f6f6",
+		"fontSize": "16px",
+		"iconWidth": "20px",
+		"padding": "10rpx",
+		"list": [
+
+			{
+				"pagePath": "pages/work/work",
+				// "iconPath": "static/ic_work.png",
+				// "selectedIconPath": "static/ic_work_active.png",
+				"text": "找工作"
+			},
+			// #ifdef MP-WEIXIN
+			{
+				"pagePath": "pages/index/index",
+				"text": "工作"
+			},
+			{
+				"pagePath": "pages/waiting_handle/waiting_handle",
+				"text": "消息"
+			},
+			// #endif
+			{
+				"pagePath": "pages/mine/mine",
+				// "iconPath": "static/ic_mine_normal.png",
+				// "selectedIconPath": "static/ic_mine_sele.png",
+				"text": "我的"
+			}
+		]
+	},
+	"uniIdRouter": {}
+}
