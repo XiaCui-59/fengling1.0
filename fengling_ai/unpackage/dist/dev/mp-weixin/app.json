@@ -12,7 +12,16 @@
     "pages/tx_record/tx_record",
     "pages/about/about"
   ],
-  "subPackages": [],
+  "subPackages": [
+    {
+      "root": "subpkg/",
+      "pages": [
+        "edit_info/edit_info",
+        "view_record/view_record",
+        "sign_record/sign_record"
+      ]
+    }
+  ],
   "window": {
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "灵动优聘",

@@ -22,29 +22,6 @@ Vue.prototype.isLogin = function() {
 		return true
 	}
 }
-Vue.prototype.getUsrInfo = function() {
-	return new Promise(resolve => {
-		this.$request("/worker/profile").then(res => {
-			if (res.code == 0) {
-				uni.setStorageSync("userInfo", res.data)
-				resolve(res.data)
-			}
-		})
-	})
-}
-Vue.prototype.queryPubStatus = function() {
-	return new Promise(resolve => {
-		let token = uni.getStorageSync("token")
-		if (token) {
-			console.log("sdfdsgdfg")
-			this.$request("/worker/wechat/official-account/is-subscribe").then(res => {
-				if (res.code == 0) {
-					resolve(res.data.subscribed)
-				}
-			})
-		}
-	})
-}
 App.mpType = 'app'
 const app = new Vue({
 	store,

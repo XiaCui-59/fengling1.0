@@ -64,6 +64,34 @@
 				"navigationBarTitleText": ""
 			}
 		}
+
+	],
+	"subPackages": [
+		// 分包配置
+		{
+			"root": "subpkg/",
+			"pages": [
+				// 分包内页面
+				{
+					"path": "edit_info/edit_info",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+				{
+					"path": "view_record/view_record",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+				{
+					"path": "sign_record/sign_record",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				}
+			]
+		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

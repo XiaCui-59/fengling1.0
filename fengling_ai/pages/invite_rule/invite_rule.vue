@@ -7,9 +7,11 @@
 			<!-- 自定义导航 -->
 			<u-navbar title="邀请奖励规则" @rightClick="rightClick" :autoBack="true" bgColor="rgba(247, 248, 250, 0.3)"
 				titleStyle="color:#010101;font-size: 31rpx;">
-				<view class="u-nav-slot" slot="left">
-					<!-- <image :src="imgUrl+'/worker/back_white_circle.png'" mode="widthFix" style="width: 58rpx;"></image> -->
-					<u-icon name="arrow-left" color="#010101" size="19"></u-icon>
+				<view class="u-nav-slot" slot="left"
+					style="width:57rpx;height:57rpx;text-align: center;line-height: 57rpx;border:1px solid #C5C6CB;border-radius: 50%;">
+
+					<u-icon name="arrow-left" size="19" color="#4E4E52"
+						custom-style="display: inline-block;line-height: 57rpx;margin:0 auto;left:-2rpx;"></u-icon>
 				</view>
 			</u-navbar>
 			<view class="cont">

@@ -7,9 +7,11 @@
 			<!-- 自定义导航 -->
 			<u-navbar title="关于我们" @rightClick="rightClick" :autoBack="true" bgColor="#F7F8FA"
 				titleStyle="color:#010101;font-size: 31rpx;">
-				<view class="u-nav-slot" slot="left">
-					<!-- <image :src="imgUrl+'/worker/ic_back_blank.png'" mode="widthFix" style="width: 58rpx;"></image> -->
-					<u-icon name="arrow-left" size="19"></u-icon>
+				<view class="u-nav-slot" slot="left"
+					style="width:57rpx;height:57rpx;text-align: center;line-height: 57rpx;border:1px solid #C5C6CB;border-radius: 50%;">
+
+					<u-icon name="arrow-left" size="19" color="#4E4E52"
+						custom-style="display: inline-block;line-height: 57rpx;margin:0 auto;left:-2rpx;"></u-icon>
 				</view>
 			</u-navbar>
 			<view class="cont" :style="{marginTop:marginTop+tabMargin+'px',height:contHeight+'px'}">

@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/main"],{
 
 /***/ 0:
-/*!************************************************!*\
-  !*** E:/项目文件/lanfeng11.20/fengling_ai/main.js ***!
-  \************************************************/
+/*!***********************************************!*\
+  !*** E:/项目文件/fengling1.0/fengling_ai/main.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44,31 +44,6 @@ _vue.default.prototype.isLogin = function () {
     return true;
   }
 };
-_vue.default.prototype.getUsrInfo = function () {
-  var _this = this;
-  return new Promise(function (resolve) {
-    _this.$request("/worker/profile").then(function (res) {
-      if (res.code == 0) {
-        uni.setStorageSync("userInfo", res.data);
-        resolve(res.data);
-      }
-    });
-  });
-};
-_vue.default.prototype.queryPubStatus = function () {
-  var _this2 = this;
-  return new Promise(function (resolve) {
-    var token = uni.getStorageSync("token");
-    if (token) {
-      console.log("sdfdsgdfg");
-      _this2.$request("/worker/wechat/official-account/is-subscribe").then(function (res) {
-        if (res.code == 0) {
-          resolve(res.data.subscribed);
-        }
-      });
-    }
-  });
-};
 _App.default.mpType = 'app';
 var app = new _vue.default(_objectSpread({
   store: _store.default
@@ -79,9 +54,9 @@ createApp(app).$mount();
 /***/ }),
 
 /***/ 27:
-/*!************************************************!*\
-  !*** E:/项目文件/lanfeng11.20/fengling_ai/App.vue ***!
-  \************************************************/
+/*!***********************************************!*\
+  !*** E:/项目文件/fengling1.0/fengling_ai/App.vue ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -119,9 +94,9 @@ component.options.__file = "App.vue"
 /***/ }),
 
 /***/ 28:
-/*!*************************************************************************!*\
-  !*** E:/项目文件/lanfeng11.20/fengling_ai/App.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************/
+/*!************************************************************************!*\
+  !*** E:/项目文件/fengling1.0/fengling_ai/App.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -135,9 +110,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 29:
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--13-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/项目文件/lanfeng11.20/fengling_ai/App.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--13-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/项目文件/fengling1.0/fengling_ai/App.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -277,16 +252,7 @@ var _default = {
               _this.globalData.loginHeadHeight = Math.floor(systemInfo.screenHeight * (292 / 844));
               _this.globalData.loginAreaTop = Math.floor(systemInfo.screenHeight * (218 / 844));
               _this.globalData.bannerHeight = Math.floor(systemInfo.screenHeight * (100 / 844));
-              if (!_this.isLogin()) {
-                _context.next = 37;
-                break;
-              }
-              _context.next = 35;
-              return _this.queryPubStatus();
-            case 35:
-              _this.globalData.showPubTabbar = _context.sent;
-              console.log(_this.globalData.showPubTabbar, "!!!!");
-            case 37:
+            case 32:
             case "end":
               return _context.stop();
           }
@@ -311,9 +277,9 @@ exports.default = _default;
 /***/ }),
 
 /***/ 34:
-/*!**********************************************************************************!*\
-  !*** E:/项目文件/lanfeng11.20/fengling_ai/App.vue?vue&type=style&index=0&lang=scss& ***!
-  \**********************************************************************************/
+/*!*********************************************************************************!*\
+  !*** E:/项目文件/fengling1.0/fengling_ai/App.vue?vue&type=style&index=0&lang=scss& ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -327,9 +293,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 35:
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/项目文件/lanfeng11.20/fengling_ai/App.vue?vue&type=style&index=0&lang=scss& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/项目文件/fengling1.0/fengling_ai/App.vue?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

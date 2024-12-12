@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/index/index"],{
 
 /***/ 164:
-/*!*********************************************************************************!*\
-  !*** E:/项目文件/lanfeng11.20/fengling_ai/main.js?{"page":"pages%2Findex%2Findex"} ***!
-  \*********************************************************************************/
+/*!********************************************************************************!*\
+  !*** E:/项目文件/fengling1.0/fengling_ai/main.js?{"page":"pages%2Findex%2Findex"} ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22,9 +22,9 @@ createPage(_index.default);
 /***/ }),
 
 /***/ 165:
-/*!**************************************************************!*\
-  !*** E:/项目文件/lanfeng11.20/fengling_ai/pages/index/index.vue ***!
-  \**************************************************************/
+/*!*************************************************************!*\
+  !*** E:/项目文件/fengling1.0/fengling_ai/pages/index/index.vue ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -63,9 +63,9 @@ component.options.__file = "pages/index/index.vue"
 /***/ }),
 
 /***/ 166:
-/*!*********************************************************************************************!*\
-  !*** E:/项目文件/lanfeng11.20/fengling_ai/pages/index/index.vue?vue&type=template&id=57280228& ***!
-  \*********************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** E:/项目文件/fengling1.0/fengling_ai/pages/index/index.vue?vue&type=template&id=57280228& ***!
+  \********************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -85,9 +85,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 167:
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/项目文件/lanfeng11.20/fengling_ai/pages/index/index.vue?vue&type=template&id=57280228& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/项目文件/fengling1.0/fengling_ai/pages/index/index.vue?vue&type=template&id=57280228& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -147,9 +147,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 168:
-/*!***************************************************************************************!*\
-  !*** E:/项目文件/lanfeng11.20/fengling_ai/pages/index/index.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************/
+/*!**************************************************************************************!*\
+  !*** E:/项目文件/fengling1.0/fengling_ai/pages/index/index.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -163,9 +163,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 169:
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--13-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/项目文件/lanfeng11.20/fengling_ai/pages/index/index.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--13-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/项目文件/fengling1.0/fengling_ai/pages/index/index.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -226,27 +226,38 @@ var _default = {
       newUser: false,
       ifSingle: app.globalData.scene == 1154 ? true : false,
       menuButtonInfo: app.globalData.menuButtonInfo,
+      marginTop: app.globalData.marginTop,
       maskStartPoint: {},
       maskEndPoint: {},
       showMenu: false,
       manager: app.globalData.manager,
       menuList: [{
+        text: "已报名工作",
+        url: "/subpkg/sign_record/sign_record",
+        icon: "",
+        value: "1"
+      }, {
+        text: "工作浏览记录",
+        url: "/subpkg/view_record/view_record",
+        icon: "",
+        value: "13条"
+      }, {
+        text: "积分管理",
+        url: "/subpkg/score/score",
+        icon: "",
+        value: "充值"
+      }, {
         text: "钱包余额",
         url: "/pages/balance/balance",
         icon: "rmb-circle-fill",
         value: "0"
       }, {
-        text: "会员权益",
-        url: "/pages/vip/vip",
-        icon: "gift-fill",
-        value: "成为会员"
-      }, {
         text: "邀请有礼",
         url: "/pages/invite/invite",
         icon: "share-fill",
-        value: ""
+        value: "立即返现"
       }, {
-        text: "关于灵动优聘",
+        text: "关于我们",
         url: "/pages/about/about",
         icon: "info-circle-fill",
         value: ""
@@ -389,29 +400,23 @@ var _default = {
               scanId = params.scene ? decodeURIComponent(params.scene).split("=")[1] : "";
               _this2.shareId = params.share_id ? params.share_id : scanId ? scanId : "";
               _this2.params = params;
-              _context2.next = 14;
-              return _this2.getPosition();
-            case 14:
-              location = _context2.sent;
+
+              // location = await this.getPosition()
               _this2.setLocation(location);
               token = uni.getStorageSync("token") ? uni.getStorageSync("token") : "";
               _this2.header = {
                 'content-type': 'application/json',
                 "app-id": _url_setting.default.urls.appid,
                 "open-id": uni.getStorageSync("openid") ? uni.getStorageSync("openid") : "",
-                "ad-project-id": _this.params.project ? _this.params.project : "",
-                "click-id": _this.params.gdt_vid ? _this.params.gdt_vid : "",
-                "ad-platform": _this.params.ad_platform ? _this.params.ad_platform : "",
-                "ad-sub-platform": _this.params.platform ? _this.params.platform : "",
                 "address": encodeURIComponent(JSON.stringify(_this.location)),
                 "Authorization": "bearer " + token
               };
-              _context2.next = 20;
+              _context2.next = 17;
               return _this2.getOpenid();
-            case 20:
+            case 17:
               _this2.openid = _context2.sent;
               _this2.getSetting();
-            case 22:
+            case 19:
             case "end":
               return _context2.stop();
           }
@@ -618,6 +623,7 @@ var _default = {
           url: url,
           method: "GET",
           success: function success(res) {
+            console.log(res);
             resolve(res.data.result);
           },
           fail: function fail(err) {
@@ -647,7 +653,7 @@ var _default = {
                   _this.header["open-id"] = resp.data.open_id;
                   _this.header["Authorization"] = "bearer " + resp.data.token;
                   _this.setToken(resp.data.token);
-                  _this.creatConnect(_this.header);
+                  // _this.creatConnect(_this.header)
                   resolve(resp.data.open_id);
                 }
               });
@@ -1562,7 +1568,7 @@ var _default = {
                     // uni.hideLoading()
                     uni.setStorageSync("userInfo", JSON.stringify(response.data));
                     _this10.userInfo = response.data;
-                    _this10.menuList[0].value = response.data.balance.total_amount;
+                    _this10.menuList[3].value = response.data.balance.total_amount;
                   }
                 });
                 _this10.historyId = 0;
@@ -1587,9 +1593,9 @@ exports.default = _default;
 /***/ }),
 
 /***/ 171:
-/*!************************************************************************************************!*\
-  !*** E:/项目文件/lanfeng11.20/fengling_ai/pages/index/index.vue?vue&type=style&index=0&lang=scss& ***!
-  \************************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** E:/项目文件/fengling1.0/fengling_ai/pages/index/index.vue?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1603,9 +1609,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 172:
-/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/项目文件/lanfeng11.20/fengling_ai/pages/index/index.vue?vue&type=style&index=0&lang=scss& ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--8-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--8-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-2!./node_modules/postcss-loader/src??ref--8-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/sass-loader/dist/cjs.js??ref--8-oneOf-1-4!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--8-oneOf-1-5!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/项目文件/fengling1.0/fengling_ai/pages/index/index.vue?vue&type=style&index=0&lang=scss& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

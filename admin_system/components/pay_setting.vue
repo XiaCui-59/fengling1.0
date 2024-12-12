@@ -3,8 +3,8 @@
 		<view class="box">
 			<view class="title">支付设置</view>
 			<view class="box_line">
-				<view class="line flex flex-start">
-					<view class="tit">ios支付设置</view>
+				<view class="line">
+					<view class="tit">ios支付开关</view>
 					<view class="text">
 						<radio-group @change="radioChange" class="flex flex-start">
 							<label class="uni-list-cell uni-list-cell-pd flex flex-start"
@@ -15,6 +15,85 @@
 								<view>{{item.text}}</view>
 							</label>
 						</radio-group>
+					</view>
+				</view>
+				<view class="line">
+					<view class="tit">邀请好友首次充值返现</view>
+					<view class="text flex flex-start">
+						<input type="text" v-model="firstAward" placeholder="请输入首次充值返现金额" />
+						<view class="btn">保存</view>
+					</view>
+				</view>
+				<view class="line">
+					<view class="tit">报名工作扣除积分</view>
+					<view class="text flex flex-start">
+						<input type="text" v-model="signRequireScore" placeholder="请输入报名需扣除的积分值" />
+						<view class="btn">保存</view>
+					</view>
+				</view>
+				<view class="line">
+					<view class="tit">积分套餐</view>
+					<view class="text">
+						<view class="flex flex_end" style="margin-bottom: 15px;">
+							<view class="btn" @click="showAdd">新增套餐</view>
+						</view>
+						<uni-table stripe emptyText="暂无更多数据" style="max-height:400px;">
+							<uni-tr>
+								<uni-th align="center">序号</uni-th>
+								<uni-th align="center">套餐名称</uni-th>
+								<uni-th align="center">套餐价格</uni-th>
+								<uni-th align="center">优惠价格</uni-th>
+								<uni-th align="center">兑换积分</uni-th>
+								<uni-th align="center">状态</uni-th>
+								<uni-th align="center">操作</uni-th>
+							</uni-tr>
+							<uni-tr v-for="(item,index) in series" :key="index">
+								<uni-td></uni-td>
+								<uni-td></uni-td>
+								<uni-td></uni-td>
+								<uni-td></uni-td>
+								<uni-td></uni-td>
+								<uni-td></uni-td>
+								<uni-td></uni-td>
+							</uni-tr>
+						</uni-table>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="mask" v-show="showMask">
+			<view class="inner">
+				<view class="title">新增积分套餐</view>
+				<view class="close" @click="close">
+					<image src="/static/close_white.png" mode="widthFix"></image>
+				</view>
+				<view class="box" style="padding-top:0;">
+					<view class="line flex flex-start">
+						<view class="subtit">套餐名称</view>
+						<view class="input_wrap">
+							<input type="text" v-model="seriesName" placeholder="请输入2~15字的套餐名称" />
+						</view>
+					</view>
+					<view class="line flex flex-start">
+						<view class="subtit">套餐原价</view>
+						<view class="input_wrap">
+							<input type="text" v-model="seriesOldPrice" placeholder="请输入套餐原价" />
+						</view>
+					</view>
+					<view class="line flex flex-start">
+						<view class="subtit">优惠价格</view>
+						<view class="input_wrap">
+							<input type="text" v-model="seriesNewPrice" placeholder="请输入套餐优惠价格" />
+						</view>
+					</view>
+					<view class="line flex flex-start">
+						<view class="subtit">兑换积分</view>
+						<view class="input_wrap">
+							<input type="text" v-model="seriesScore" placeholder="请输入套餐对应积分数" />
+						</view>
+					</view>
+					<view class="flex flex_end">
+						<view class="btn">确认新增</view>
 					</view>
 				</view>
 			</view>
@@ -37,7 +116,15 @@
 						text: "关"
 					}
 				],
-				curIosIndex: 1
+				curIosIndex: 1,
+				firstAward: "",
+				signRequireScore: "",
+				series: [],
+				showMask: false,
+				seriesName: "",
+				seriesOldPrice: "",
+				seriesNewPrice: "",
+				seriesScore: ""
 			};
 		},
 		created() {
@@ -83,6 +170,12 @@
 						})
 					}
 				})
+			},
+			showAdd() {
+				this.showMask = true
+			},
+			close() {
+				this.showMask = false
 			}
 		}
 	}
@@ -90,8 +183,49 @@
 
 <style lang="scss" scoped>
 	.line {
+		margin-bottom: 30px;
+
+		.subtit {
+			margin-right: 10px;
+			white-space: nowrap;
+		}
+
+		&:first-child {
+			margin-top: 30px;
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+
 		.tit {
-			margin-right: 30px;
+			margin-bottom: 10px;
+			font-weight: 600;
+			color: #444;
+			position: relative;
+			padding-left: 15px;
+
+			&:before {
+				content: "";
+				width: 7px;
+				height: 7px;
+				background: #226FF9;
+				position: absolute;
+				top: 50%;
+				left: 0;
+				transform: translateY(-50%);
+			}
+		}
+
+		.text {
+			input {
+				height: 40px;
+				line-height: 40px;
+				border: 1px solid #d3d3d3;
+				border-radius: 4px;
+				padding: 0 10px;
+				margin-right: 15px;
+			}
 		}
 	}
 </style>

@@ -124,10 +124,6 @@
 			this.globalData.loginHeadHeight = Math.floor(systemInfo.screenHeight * (292 / 844))
 			this.globalData.loginAreaTop = Math.floor(systemInfo.screenHeight * (218 / 844))
 			this.globalData.bannerHeight = Math.floor(systemInfo.screenHeight * (100 / 844))
-			if (this.isLogin()) {
-				this.globalData.showPubTabbar = await this.queryPubStatus()
-				console.log(this.globalData.showPubTabbar, "!!!!")
-			}
 		},
 		onShow: function() {
 			console.log('App Show')
