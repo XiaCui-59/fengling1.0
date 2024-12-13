@@ -26,7 +26,7 @@
 				:canPlay="canPlay" @sendMsg="sendBtnMsg" @openCanPlay="openCanPlay" @setGreetStatus="setGreetStatus"
 				@tocall="toCall">
 			</welcome>
-			<chat ref="chatRef" v-if="currentTabIndex == 1" :top="statusBarHeight+44" :bottom="botSafe"
+			<chat ref="chatRef" v-show="currentTabIndex == 1" :top="statusBarHeight+44" :bottom="botSafe"
 				:historyList="historyList" :qaList="qaList" :scrollHeight="chatScrollHeight" :answering="answering"
 				:greetingObj="greetingObj" :answerContinue="answerContinue" :scrollStr="scrollStr" @sendMsg="sendBtnMsg"
 				@moreHis="getMoreHistory" @tocall="toCall">
@@ -130,17 +130,16 @@
 				<image :src="imgUrl+'/worker/new/inputing_wave2.gif'" mode="heightFix"></image>
 			</view>
 			<!-- 快速按钮 -->
-			<view class="btns_wrap flex flex-start" v-if="!inputHeight && currentTabIndex==1">
+			<!-- <view class="btns_wrap flex flex-start" v-if="!inputHeight && currentTabIndex==1">
 				<view class="btn_item flex" v-if="!userInfo.is_vip" @click="navigate('/pages/vip/vip')">
 					<image :src="imgUrl+'/worker/new/ic_become_vip.png'" mode="widthFix"></image>
 					<view class="">成为会员</view>
 				</view>
-				<!-- <view class="btn_item" @click="sendBtnMsg('最新工作')">最新工作</view> -->
 				<view class="btn_item flex " @click="navigate('/pages/invite/invite')">
 					<image :src="imgUrl+'/worker/new/ic_gift.png'" mode="widthFix"></image>
 					<view class="">邀请有礼</view>
 				</view>
-			</view>
+			</view> -->
 			<!-- 电话按钮 -->
 			<view v-show="currentTabIndex == 1 && !inputHeight" class="phone_icon"
 				:style="{bottom:inputHeight?inputHeight+60+'px':'128rpx'}" @click="toCall">
@@ -286,7 +285,7 @@
 				hasChannel: false,
 				scrollStr: "",
 				jobId: "",
-				sureStatus: false, //记录用户是否报名成功
+				noMayAsk: false, //记录用户是否报名成功
 				greetingReady: false,
 				action: "" //记录当前状态
 			}
@@ -334,7 +333,7 @@
 			this.btnInfo = await commonMethods.getElementInfo(".input_btn_wrap")
 			if (this.btnInfo) {
 				this.botSafe = app.globalData.systemHeight - this.btnInfo.top
-				this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 84
+				this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44
 			}
 			console.log("params", params)
 			// 扫码进入
@@ -342,14 +341,14 @@
 			this.shareId = params.share_id ? params.share_id : (scanId ? scanId : "")
 			this.params = params
 
-			// location = await this.getPosition()
+			location = await this.getPosition()
 			this.setLocation(location)
 			let token = uni.getStorageSync("token") ? uni.getStorageSync("token") : ""
 			this.header = {
 				'content-type': 'application/json',
 				"app-id": urlSetting.urls.appid,
 				"open-id": uni.getStorageSync("openid") ? uni.getStorageSync("openid") : "",
-				"address": encodeURIComponent(JSON.stringify(_this.location)),
+				"address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
 				"Authorization": "bearer " + token,
 			}
 			this.openid = await this.getOpenid()
@@ -529,7 +528,7 @@
 			listenKeyBoard(res) {
 				if (res.height == 0) {
 					this.inputHeight = 0
-					this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 84
+					this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44
 				} else {
 					this.chatScrollHeight = app.globalData.systemHeight - this.statusBarHeight - 44 - res
 						.height -
@@ -556,7 +555,7 @@
 							resolve(res.data.result)
 						},
 						fail(err) {
-							reject(err)
+							reject("error")
 						}
 					})
 				})
@@ -584,7 +583,7 @@
 										_this.header["Authorization"] = "bearer " + resp.data
 											.token
 										_this.setToken(resp.data.token)
-										// _this.creatConnect(_this.header)
+										_this.creatConnect(_this.header)
 										resolve(resp.data.open_id)
 									}
 								})
@@ -622,7 +621,7 @@
 							_this.resetData()
 							_this.closeAnswerContinue()
 							// 如果用户是报名成功则推送面试卡片
-							// if (_this.sureStatus) {
+							// if (_this.noMayAsk) {
 							// 	if (_this.inChannel) {
 							// 		_this.setChannelInterviewCard()
 							// 	} else {
@@ -1023,7 +1022,7 @@
 						success(res) {
 							_this.jobId = ""
 							_this.action = ""
-							_this.sureStatus = false
+							_this.noMayAsk = false
 							_this.closeInterviewCard()
 							_this.closeChannelInterviewCard()
 							_this.$set(_this, "question", "")
@@ -1144,22 +1143,15 @@
 						}
 
 					} else {
-						if (respData.type == "audio_call_start_interview") {
-							// 用户报名了,推送卡片
+						if (respData.type == "QCODE") {
+							// 推送客服微信
 							let card = {
-								card_type: "audio_call_start_interview",
-								job_name: respData.job_name,
-								job_id: respData.job_id,
-								showCard: false
+								type: "QCODE"
 							}
 							_this.curRespone.card = JSON.parse(JSON.stringify(card))
-							_this.sureStatus = true
-							_this.setJobName(respData.job_name)
-							_this.setJobId(respData.job_id)
+							_this.noMayAsk = true
 						} else {
-							_this.sureStatus = false
-							_this.resetJobId()
-							_this.resetJobName()
+							_this.noMayAsk = false
 						}
 						if (respData.message != "[DONE]") {
 							_this.responCount++
@@ -1169,7 +1161,7 @@
 							}
 						} else {
 							_this.setRespEnd()
-							if (!_this.sureStatus) {
+							if (!_this.noMayAsk) {
 								_this.getMayAsk()
 							}
 						}

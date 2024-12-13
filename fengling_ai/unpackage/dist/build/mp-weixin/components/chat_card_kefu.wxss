@@ -1,0 +1,1 @@
+image{will-change:transform;width:auto;height:auto;flex-shrink:0}.card_kefu{background:#f1f8ff;border-radius:4rpx 44rpx 44rpx 44rpx;margin-top:30rpx;text-align:center;padding:26rpx 30rpx;box-sizing:border-box}.card_kefu image{width:260rpx}.card_kefu .text{font-weight:400;font-size:31rpx;color:#223756;line-height:46rpx}

@@ -171,17 +171,21 @@ image {
   margin-top: 34rpx;
 }
 .iwant_wrap .iwant_list .iwant_item {
-  width: 49%;
+  height: 146rpx;
   padding: 19rpx 9rpx 9rpx 19rpx;
   box-sizing: border-box;
   border-radius: 10rpx;
-  border: 2rpx solid #FFFFFF;
   margin-top: 10rpx;
 }
 .iwant_wrap .iwant_list .iwant_item:nth-child(1) {
-  background: linear-gradient(164deg, #DBFDFF 0%, #FFFFFF 45%, #FFFFFF 100%);
+  width: 33%;
+  margin-right: 3%;
+  background: url("https://static.test.swiftwd.com/worker/new/index_invite_bg.png") no-repeat;
+  background-size: 100% 100%;
 }
 .iwant_wrap .iwant_list .iwant_item:nth-child(2) {
+  border: 2rpx solid #FFFFFF;
+  width: 64%;
   background: linear-gradient(164deg, #E7F9EC 0%, #FFFFFF 45%, #FFFFFF 100%);
 }
 .iwant_wrap .iwant_list .iwant_item:last-child {

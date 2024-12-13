@@ -89,6 +89,18 @@
 					"style": {
 						"navigationBarTitleText": ""
 					}
+				},
+				{
+					"path": "score/score",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+				{
+					"path": "score_rule/score_rule",
+					"style": {
+						"navigationBarTitleText": ""
+					}
 				}
 			]
 		}

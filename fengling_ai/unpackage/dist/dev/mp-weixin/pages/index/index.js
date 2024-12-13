@@ -101,19 +101,19 @@ var components
 try {
   components = {
     uNavbar: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-navbar/u-navbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-navbar/u-navbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-navbar/u-navbar.vue */ 261))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-navbar/u-navbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-navbar/u-navbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-navbar/u-navbar.vue */ 293))
     },
     uPopup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 269))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 301))
     },
     uIcon: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 277))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 309))
     },
     uCellGroup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-cell-group/u-cell-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-cell-group/u-cell-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-cell-group/u-cell-group.vue */ 286))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-cell-group/u-cell-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-cell-group/u-cell-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-cell-group/u-cell-group.vue */ 318))
     },
     uCell: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-cell/u-cell */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-cell/u-cell")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-cell/u-cell.vue */ 294))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-cell/u-cell */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-cell/u-cell")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-cell/u-cell.vue */ 326))
     },
   }
 } catch (e) {
@@ -187,27 +187,27 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var flMask = function flMask() {
   __webpack_require__.e(/*! require.ensure | components/flmask */ "components/flmask").then((function () {
-    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 302));
+    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 334));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var login = function login() {
   Promise.all(/*! require.ensure | components/login */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/login")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/login.vue */ 309));
+    return resolve(__webpack_require__(/*! @/components/login.vue */ 341));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var welcome = function welcome() {
   Promise.all(/*! require.ensure | components/welcome */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/welcome")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 316));
+    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 348));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var chat = function chat() {
   __webpack_require__.e(/*! require.ensure | components/chat */ "components/chat").then((function () {
-    return resolve(__webpack_require__(/*! @/components/chat.vue */ 323));
+    return resolve(__webpack_require__(/*! @/components/chat.vue */ 355));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var channel = function channel() {
   __webpack_require__.e(/*! require.ensure | components/channel */ "components/channel").then((function () {
-    return resolve(__webpack_require__(/*! @/components/channel.vue */ 330));
+    return resolve(__webpack_require__(/*! @/components/channel.vue */ 362));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var app = getApp();
@@ -323,7 +323,7 @@ var _default = {
       hasChannel: false,
       scrollStr: "",
       jobId: "",
-      sureStatus: false,
+      noMayAsk: false,
       //记录用户是否报名成功
       greetingReady: false,
       action: "" //记录当前状态
@@ -393,30 +393,32 @@ var _default = {
               _this2.btnInfo = _context2.sent;
               if (_this2.btnInfo) {
                 _this2.botSafe = app.globalData.systemHeight - _this2.btnInfo.top;
-                _this2.chatScrollHeight = _this2.btnInfo.top - _this2.statusBarHeight - 84;
+                _this2.chatScrollHeight = _this2.btnInfo.top - _this2.statusBarHeight - 44;
               }
               console.log("params", params);
               // 扫码进入
               scanId = params.scene ? decodeURIComponent(params.scene).split("=")[1] : "";
               _this2.shareId = params.share_id ? params.share_id : scanId ? scanId : "";
               _this2.params = params;
-
-              // location = await this.getPosition()
+              _context2.next = 14;
+              return _this2.getPosition();
+            case 14:
+              location = _context2.sent;
               _this2.setLocation(location);
               token = uni.getStorageSync("token") ? uni.getStorageSync("token") : "";
               _this2.header = {
                 'content-type': 'application/json',
                 "app-id": _url_setting.default.urls.appid,
                 "open-id": uni.getStorageSync("openid") ? uni.getStorageSync("openid") : "",
-                "address": encodeURIComponent(JSON.stringify(_this.location)),
+                "address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
                 "Authorization": "bearer " + token
               };
-              _context2.next = 17;
+              _context2.next = 20;
               return _this2.getOpenid();
-            case 17:
+            case 20:
               _this2.openid = _context2.sent;
               _this2.getSetting();
-            case 19:
+            case 22:
             case "end":
               return _context2.stop();
           }
@@ -602,7 +604,7 @@ var _default = {
     listenKeyBoard: function listenKeyBoard(res) {
       if (res.height == 0) {
         this.inputHeight = 0;
-        this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 84;
+        this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44;
       } else {
         this.chatScrollHeight = app.globalData.systemHeight - this.statusBarHeight - 44 - res.height - this.btnInfo.height - 10;
       }
@@ -627,7 +629,7 @@ var _default = {
             resolve(res.data.result);
           },
           fail: function fail(err) {
-            reject(err);
+            reject("error");
           }
         });
       });
@@ -653,7 +655,7 @@ var _default = {
                   _this.header["open-id"] = resp.data.open_id;
                   _this.header["Authorization"] = "bearer " + resp.data.token;
                   _this.setToken(resp.data.token);
-                  // _this.creatConnect(_this.header)
+                  _this.creatConnect(_this.header);
                   resolve(resp.data.open_id);
                 }
               });
@@ -690,7 +692,7 @@ var _default = {
             _this.resetData();
             _this.closeAnswerContinue();
             // 如果用户是报名成功则推送面试卡片
-            // if (_this.sureStatus) {
+            // if (_this.noMayAsk) {
             // 	if (_this.inChannel) {
             // 		_this.setChannelInterviewCard()
             // 	} else {
@@ -1101,7 +1103,7 @@ var _default = {
           success: function success(res) {
             _this.jobId = "";
             _this.action = "";
-            _this.sureStatus = false;
+            _this.noMayAsk = false;
             _this.closeInterviewCard();
             _this.closeChannelInterviewCard();
             _this.$set(_this, "question", "");
@@ -1240,22 +1242,15 @@ var _default = {
             _this.closeAnswerContinue();
           }
         } else {
-          if (respData.type == "audio_call_start_interview") {
-            // 用户报名了,推送卡片
+          if (respData.type == "QCODE") {
+            // 推送客服微信
             var card = {
-              card_type: "audio_call_start_interview",
-              job_name: respData.job_name,
-              job_id: respData.job_id,
-              showCard: false
+              type: "QCODE"
             };
             _this.curRespone.card = JSON.parse(JSON.stringify(card));
-            _this.sureStatus = true;
-            _this.setJobName(respData.job_name);
-            _this.setJobId(respData.job_id);
+            _this.noMayAsk = true;
           } else {
-            _this.sureStatus = false;
-            _this.resetJobId();
-            _this.resetJobName();
+            _this.noMayAsk = false;
           }
           if (respData.message != "[DONE]") {
             _this.responCount++;
@@ -1265,7 +1260,7 @@ var _default = {
             }
           } else {
             _this.setRespEnd();
-            if (!_this.sureStatus) {
+            if (!_this.noMayAsk) {
               _this.getMayAsk();
             }
           }

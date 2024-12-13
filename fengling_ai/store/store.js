@@ -136,6 +136,8 @@ const store = new Vuex.Store({
 			if (obj && obj.ad_info) {
 				state.location = obj
 				state.city = obj.ad_info.city
+			} else {
+				state.city = "成都市"
 			}
 		},
 		resetCity(state) {

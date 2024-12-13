@@ -63,7 +63,7 @@
 				<image :src="imgUrl+'/worker/new/inputing_wave2.gif'" mode="heightFix"></image>
 			</view>
 			<!-- 快速按钮 -->
-			<view class="btns_wrap flex flex-start"
+			<!-- <view class="btns_wrap flex flex-start"
 				v-if="(!inputHeight && !newUser) || (newUser && channelQaList.length>0 &&!inputHeight)">
 				<view class="btn_item flex" v-if="!userInfo.is_vip" @click="navigate('/pages/vip/vip')">
 					<image :src="imgUrl+'/worker/new/ic_become_vip.png'" mode="widthFix"></image>
@@ -73,7 +73,7 @@
 					<image :src="imgUrl+'/worker/new/ic_gift.png'" mode="widthFix"></image>
 					<view class="">邀请有礼</view>
 				</view>
-			</view>
+			</view> -->
 
 		</view>
 		<myModal ref="myModal">
@@ -174,7 +174,7 @@
 			this.btnInfo = await commonMethods.getElementInfo(".input_btn_wrap")
 			if (this.btnInfo) {
 				this.botSafe = app.globalData.systemHeight - this.btnInfo.top
-				this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 84
+				this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44
 			}
 			console.log("params", params)
 			// 扫码进入
@@ -237,7 +237,7 @@
 			listenKeyBoard(res) {
 				if (res.height == 0) {
 					this.inputHeight = 0
-					this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 84
+					this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44
 				} else {
 					this.chatScrollHeight = app.globalData.systemHeight - this.statusBarHeight - 44 - res
 						.height -

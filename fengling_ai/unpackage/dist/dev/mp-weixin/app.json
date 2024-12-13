@@ -18,7 +18,9 @@
       "pages": [
         "edit_info/edit_info",
         "view_record/view_record",
-        "sign_record/sign_record"
+        "sign_record/sign_record",
+        "score/score",
+        "score_rule/score_rule"
       ]
     }
   ],

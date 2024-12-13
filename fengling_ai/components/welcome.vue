@@ -46,6 +46,14 @@
 					@click="toCall('')"></image>
 			</view>
 			<view class="iwant_list flex flex_btween">
+				<view class="iwant_item" @click="toInvite">
+					<view class="iwant_tips">
+						<view class="tit" style="text-align: center;">邀请有礼</view>
+						<view class="tips_list">
+							<view class="tips" style="text-align: center;">邀请好友，充值返现</view>
+						</view>
+					</view>
+				</view>
 				<view class="iwant_item flex flex_btween" @click="toChat('findjob')">
 					<view class="iwant_tips">
 						<view class="tit">我要找工作</view>
@@ -56,18 +64,6 @@
 					</view>
 					<view class="icon">
 						<image :src="imgUrl+'/worker/new/iwant02.png'" mode="widthFix"></image>
-					</view>
-				</view>
-				<view class="iwant_item flex flex_btween" @click="toChat('interview')">
-					<view class="iwant_tips">
-						<view class="tit">我要去面试</view>
-						<view class="tips_list">
-							<view class="tips">线上面试</view>
-							<view class="tips">无需奔波</view>
-						</view>
-					</view>
-					<view class="icon">
-						<image :src="imgUrl+'/worker/new/iwant01.png'" mode="widthFix"></image>
 					</view>
 				</view>
 			</view>
@@ -387,6 +383,11 @@
 			}
 		},
 		methods: {
+			toInvite() {
+				uni.navigateTo({
+					url: "/pages/invite/invite"
+				})
+			},
 			toChat(type) {
 				let action = type == "surejob" ? "text_want_application" : (type == "findjob" ? "text_look_for_job" :
 					"text_interview")
@@ -783,20 +784,24 @@
 			margin-top: 34rpx;
 
 			.iwant_item {
-				width: 49%;
+				height: 146rpx;
 				// margin-right: 2%;
 				padding: 19rpx 9rpx 9rpx 19rpx;
 				box-sizing: border-box;
 				border-radius: 10rpx;
-				border: 2rpx solid #FFFFFF;
 				margin-top: 10rpx;
 				// align-items: flex-start;
 
 				&:nth-child(1) {
-					background: linear-gradient(164deg, #DBFDFF 0%, #FFFFFF 45%, #FFFFFF 100%);
+					width: 33%;
+					margin-right: 3%;
+					background: url($back-ground-url+"/worker/new/index_invite_bg.png") no-repeat;
+					background-size: 100% 100%;
 				}
 
 				&:nth-child(2) {
+					border: 2rpx solid #FFFFFF;
+					width: 64%;
 					background: linear-gradient(164deg, #E7F9EC 0%, #FFFFFF 45%, #FFFFFF 100%);
 				}
 
