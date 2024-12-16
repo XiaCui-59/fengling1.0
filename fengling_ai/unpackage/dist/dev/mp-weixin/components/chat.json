@@ -1,7 +1,7 @@
 {
+  "component": true,
   "usingComponents": {
     "markdown-render": "/uni_modules/markdown-render/components/markdown-render/markdown-render",
     "card-kefu": "/components/chat_card_kefu"
-  },
-  "component": true
+  }
 }

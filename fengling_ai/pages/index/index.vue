@@ -35,11 +35,13 @@
 			<channel :top="statusBarHeight+44" :bottom="botSafe" v-show="currentTabIndex == 2"
 				@handleChannelStatus="handleChannelStatus"></channel>
 		</view>
+		<asideUserCenter @closeMenu="closeMenu" @openMenu="openMenu" :userInfo="userInfo" :menuList="menuList"
+			:showMenu="showMenu">
+		</asideUserCenter>
 		<!-- 侧边栏 -->
-		<u-popup :show="showMenu" mode="left" @close="closeMenu" @open="openMenu" bgColor="#ffffff">
+		<!-- <u-popup :show="showMenu" mode="left" @close="closeMenu" @open="openMenu" bgColor="#ffffff">
 			<view class="inner" @touchstart="maskStart" @touchend="maskEnd" @touchmove="handleMaskMove">
 				<view class="user_base_out">
-					<!-- 自定义导航 -->
 					<u-navbar title="个人中心" bgColor="transparent" @rightClick="rightClick" :autoBack="true"
 						titleStyle="color:#010101;font-size: 31rpx;width:83vw;" :height="menuButtonInfo.height+8"
 						style="width: 83vw;">
@@ -86,11 +88,10 @@
 						:value="index==3?'¥ '+item.value:item.value" :clickable="false" :url="item.url" isLink
 						@click="handleClick"></u-cell>
 				</u-cell-group>
-				<!-- 退出登录 -->
 				<view class="logout" @click="logout">退出登录</view>
 			</view>
 
-		</u-popup>
+		</u-popup> -->
 		<view class="input_btn_wrap"
 			:style="{bottom:inputHeight?inputHeight+10+'px':'65rpx',background:inputing?(cancelRecord?'#fe697f':'#216ff9'):'#fff'}"
 			:class="inputHeight?'upper':''" v-show="currentTabIndex !== 2">
@@ -112,7 +113,8 @@
 					<view class="input_box" v-show="!showVoice">
 						<input type="text" confirm-type="发送" :value="question"
 							:placeholder="canSend?'更多工作就问我':'正在努力思考，请稍后'" @focus="inputBindFocus" @confirm="doSend"
-							:disabled="!canSend" @input="onInput" :adjust-position="false" />
+							:disabled="!canSend" @input="onInput" :adjust-position="false"
+							style="padding-left: 20rpx;" />
 					</view>
 				</view>
 
@@ -141,10 +143,10 @@
 				</view>
 			</view> -->
 			<!-- 电话按钮 -->
-			<view v-show="currentTabIndex == 1 && !inputHeight" class="phone_icon"
+			<!-- <view v-show="currentTabIndex == 1 && !inputHeight" class="phone_icon"
 				:style="{bottom:inputHeight?inputHeight+60+'px':'128rpx'}" @click="toCall">
 				<image :src="imgUrl+'/worker/new/ic_telephone.png'" mode="widthFix"></image>
-			</view>
+			</view> -->
 		</view>
 		<login :showLogin="showLogin" @closeLogin="closeLogin" @getInfo="getInfo" :shareId="shareId">
 		</login>
@@ -156,6 +158,7 @@
 
 <script>
 	import flMask from "@/components/flmask.vue"
+	import asideUserCenter from "@/components/aside_user_center.vue"
 	import login from "@/components/login.vue"
 	import welcome from "@/components/welcome.vue"
 	import chat from "@/components/chat.vue"
@@ -187,23 +190,24 @@
 				maskEndPoint: {},
 				showMenu: false,
 				manager: app.globalData.manager,
-				menuList: [{
-						text: "已报名工作",
-						url: "/subpkg/sign_record/sign_record",
-						icon: "",
-						value: "1"
-					},
-					{
-						text: "工作浏览记录",
-						url: "/subpkg/view_record/view_record",
-						icon: "",
-						value: "13条"
-					}, {
-						text: "积分管理",
-						url: "/subpkg/score/score",
-						icon: "",
-						value: "充值"
-					},
+				menuList: [
+					// {
+					// 	text: "已报名工作",
+					// 	url: "/subpkg/sign_record/sign_record",
+					// 	icon: "",
+					// 	value: "1"
+					// },
+					// {
+					// 	text: "工作浏览记录",
+					// 	url: "/subpkg/view_record/view_record",
+					// 	icon: "",
+					// 	value: "13条"
+					// }, {
+					// 	text: "积分管理",
+					// 	url: "/subpkg/score/score",
+					// 	icon: "",
+					// 	value: "充值"
+					// },
 					{
 						text: "钱包余额",
 						url: "/pages/balance/balance",
@@ -244,7 +248,7 @@
 				userInfo: {
 					is_vip: false
 				},
-				showVoice: true,
+				showVoice: false,
 				inputing: false,
 				voicePermisson: false,
 				showLogin: false,
@@ -353,6 +357,12 @@
 			}
 			this.openid = await this.getOpenid()
 			this.getSetting()
+			if (this.isLogin()) {
+				this.getInfo()
+				// this.closeInterviewCard()
+				// this.closeChannelInterviewCard()
+			}
+
 		},
 		onUnload() {
 			console.log("执行了onUnload")
@@ -364,16 +374,12 @@
 			this.closeAnswering()
 			// 录音初始化
 			this.initRecord()
-			if (!this.answerContinue && !this.answering) {
-				this.qaList = []
-				this.resetData()
-			}
+			// if (!this.answerContinue && !this.answering) {
+			// 	this.qaList = []
+			// 	this.resetData()
+			// }
 			uni.onKeyboardHeightChange(this.listenKeyBoard)
-			if (this.isLogin()) {
-				this.getInfo()
-				// this.closeInterviewCard()
-				// this.closeChannelInterviewCard()
-			}
+
 			if (this.currentTabIndex == 1) {
 				this.$nextTick(() => {
 					_this.$refs.chatRef.toScroll()
@@ -396,13 +402,14 @@
 			welcome,
 			chat,
 			channel,
-			flMask
+			flMask,
+			asideUserCenter
 		},
 		watch: {
 			greetingReady(newValue) {
 				if (newValue) {
 					uni.hideLoading()
-					this.closeAnswerContinue()
+					// this.closeAnswerContinue()
 				}
 			},
 			currentTabIndex(newValue, oldValue) {
@@ -1032,7 +1039,6 @@
 									_this.openAnswering()
 									param.printStr = ""
 									_this.$set(_this.qaList, _this.qaList.length, param)
-									_this.currentQalength = _this.qaList.length
 									_this.num++
 									_this.hold = "h" + _this.num
 									_this.closeCansend()
@@ -1157,11 +1163,12 @@
 							_this.responCount++
 							_this.responseStr += respData.message
 							if (_this.responCount == 1) {
+								_this.currentQalength = _this.qaList.length
 								_this.printResponse()
 							}
 						} else {
 							_this.setRespEnd()
-							if (!_this.noMayAsk) {
+							if (respData.need_mayask) {
 								_this.getMayAsk()
 							}
 						}
@@ -1348,17 +1355,7 @@
 				// this.canSend = false;
 				this.manager.stop();
 			},
-			handleClick(e) {
-				if (e.name == "联系客服") {
-					wx.openCustomerServiceChat({
-						extInfo: {
-							url: "https://work.weixin.qq.com/kfid/kfc01b1c6e379607409"
-						},
-						corpId: 'wwe3ced2e65390ad79',
-						success(res) {}
-					})
-				}
-			},
+
 			changeTab(index) {
 				if (this.isLogin()) {
 					this.currentTabIndex = index
@@ -1467,7 +1464,7 @@
 						// uni.hideLoading()
 						uni.setStorageSync("userInfo", JSON.stringify(response.data))
 						this.userInfo = response.data
-						this.menuList[3].value = response.data.balance.total_amount
+						this.menuList[0].value = response.data.balance.total_amount
 					}
 				})
 				this.historyId = 0
@@ -1510,57 +1507,64 @@
 			color: #755022 !important;
 		}
 
-		.u-cell:nth-child(1) .u-cell__body--large {
-			background: linear-gradient(131deg, #E5EEFE 0%, #4E8EFF 100%);
-			font-weight: 600;
-			position: relative;
-			z-index: 9;
-		}
+		// .u-cell:nth-child(1) .u-cell__body--large {
+		// 	background: linear-gradient(131deg, #E5EEFE 0%, #4E8EFF 100%);
+		// 	font-weight: 600;
+		// 	position: relative;
+		// 	z-index: 9;
+		// }
 
-		.u-cell:nth-child(1) .u-cell__body--large::before {
-			content: "";
-			width: 100px;
-			height: 100%;
-			background: url($back-ground-url+"/worker/new/ic_sign_menu.png") no-repeat;
-			background-size: auto 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			z-index: -1;
-		}
+		// .u-cell:nth-child(1) .u-cell__body--large::before {
+		// 	content: "";
+		// 	width: 100px;
+		// 	height: 100%;
+		// 	background: url($back-ground-url+"/worker/new/ic_sign_menu.png") no-repeat;
+		// 	background-size: auto 100%;
+		// 	position: absolute;
+		// 	top: 0;
+		// 	left: 0;
+		// 	z-index: -1;
+		// }
 
-		.u-cell:nth-child(1) .u-cell__value--large {
-			color: #fff !important;
-			display: inline-block;
-			position: relative;
-			margin-right: 46rpx;
-			font-family: Arial;
-		}
+		// .u-cell:nth-child(1) .u-cell__value--large {
+		// 	color: #fff !important;
+		// 	display: inline-block;
+		// 	position: relative;
+		// 	margin-right: 46rpx;
+		// 	font-family: Arial;
+		// }
 
-		.u-cell:nth-child(1) .u-cell__value--large::after {
-			content: "份";
-			position: absolute;
-			top: 0;
-			right: -34rpx;
-			font-size: 27rpx;
-			font-weight: 400;
-		}
+		// .u-cell:nth-child(1) .u-cell__value--large::after {
+		// 	content: "份";
+		// 	position: absolute;
+		// 	top: 0;
+		// 	right: -34rpx;
+		// 	font-size: 27rpx;
+		// 	font-weight: 400;
+		// }
 
-		.u-cell:nth-child(1) .u-cell__right-icon-wrap {
-			display: none;
-		}
+		// .u-cell:nth-child(1) .u-cell__right-icon-wrap {
+		// 	display: none;
+		// }
 
-		.u-cell:nth-child(2) .u-cell__value--large,
-		.u-cell:nth-child(5) .u-cell__value--large {
+		// .u-cell:nth-child(2) .u-cell__value--large,
+		// .u-cell:nth-child(5) .u-cell__value--large {
+		// 	font-weight: 400 !important;
+		// 	font-size: 27rpx !important;
+		// 	color: #755022 !important;
+		// 	height: 58rpx;
+		// 	line-height: 58rpx;
+		// }
+
+		// .u-cell:nth-child(3) .u-cell__value--large {
+		// 	font-size: 31rpx !important;
+		// }
+		.u-cell:nth-child(2) .u-cell__value--large {
 			font-weight: 400 !important;
 			font-size: 27rpx !important;
 			color: #755022 !important;
 			height: 58rpx;
 			line-height: 58rpx;
-		}
-
-		.u-cell:nth-child(3) .u-cell__value--large {
-			font-size: 31rpx !important;
 		}
 	}
 
@@ -1838,13 +1842,16 @@
 
 		.func_icon {
 			position: absolute;
-			top: 20rpx;
-			right: 15rpx;
+			padding: 0 15rpx 0 30rpx;
+			height: 100rpx;
+			top: 0rpx;
+			right: 0rpx;
 			z-index: 100;
 
 			image {
 				width: 60rpx;
 				height: 60rpx;
+				margin-top: 20rpx;
 			}
 		}
 	}

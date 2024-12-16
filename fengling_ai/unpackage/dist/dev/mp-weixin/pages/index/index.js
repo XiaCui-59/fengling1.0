@@ -101,19 +101,7 @@ var components
 try {
   components = {
     uNavbar: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-navbar/u-navbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-navbar/u-navbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-navbar/u-navbar.vue */ 293))
-    },
-    uPopup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 301))
-    },
-    uIcon: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 309))
-    },
-    uCellGroup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-cell-group/u-cell-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-cell-group/u-cell-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-cell-group/u-cell-group.vue */ 318))
-    },
-    uCell: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-cell/u-cell */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-cell/u-cell")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-cell/u-cell.vue */ 326))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-navbar/u-navbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-navbar/u-navbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-navbar/u-navbar.vue */ 301))
     },
   }
 } catch (e) {
@@ -187,27 +175,32 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var flMask = function flMask() {
   __webpack_require__.e(/*! require.ensure | components/flmask */ "components/flmask").then((function () {
-    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 334));
+    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 342));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
+var asideUserCenter = function asideUserCenter() {
+  __webpack_require__.e(/*! require.ensure | components/aside_user_center */ "components/aside_user_center").then((function () {
+    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 554));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var login = function login() {
   Promise.all(/*! require.ensure | components/login */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/login")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/login.vue */ 341));
+    return resolve(__webpack_require__(/*! @/components/login.vue */ 349));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var welcome = function welcome() {
   Promise.all(/*! require.ensure | components/welcome */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/welcome")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 348));
+    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 356));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var chat = function chat() {
   __webpack_require__.e(/*! require.ensure | components/chat */ "components/chat").then((function () {
-    return resolve(__webpack_require__(/*! @/components/chat.vue */ 355));
+    return resolve(__webpack_require__(/*! @/components/chat.vue */ 363));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var channel = function channel() {
   __webpack_require__.e(/*! require.ensure | components/channel */ "components/channel").then((function () {
-    return resolve(__webpack_require__(/*! @/components/channel.vue */ 362));
+    return resolve(__webpack_require__(/*! @/components/channel.vue */ 370));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var app = getApp();
@@ -231,22 +224,25 @@ var _default = {
       maskEndPoint: {},
       showMenu: false,
       manager: app.globalData.manager,
-      menuList: [{
-        text: "已报名工作",
-        url: "/subpkg/sign_record/sign_record",
-        icon: "",
-        value: "1"
-      }, {
-        text: "工作浏览记录",
-        url: "/subpkg/view_record/view_record",
-        icon: "",
-        value: "13条"
-      }, {
-        text: "积分管理",
-        url: "/subpkg/score/score",
-        icon: "",
-        value: "充值"
-      }, {
+      menuList: [
+      // {
+      // 	text: "已报名工作",
+      // 	url: "/subpkg/sign_record/sign_record",
+      // 	icon: "",
+      // 	value: "1"
+      // },
+      // {
+      // 	text: "工作浏览记录",
+      // 	url: "/subpkg/view_record/view_record",
+      // 	icon: "",
+      // 	value: "13条"
+      // }, {
+      // 	text: "积分管理",
+      // 	url: "/subpkg/score/score",
+      // 	icon: "",
+      // 	value: "充值"
+      // },
+      {
         text: "钱包余额",
         url: "/pages/balance/balance",
         icon: "rmb-circle-fill",
@@ -281,7 +277,7 @@ var _default = {
       userInfo: {
         is_vip: false
       },
-      showVoice: true,
+      showVoice: false,
       inputing: false,
       voicePermisson: false,
       showLogin: false,
@@ -418,7 +414,12 @@ var _default = {
             case 20:
               _this2.openid = _context2.sent;
               _this2.getSetting();
-            case 22:
+              if (_this2.isLogin()) {
+                _this2.getInfo();
+                // this.closeInterviewCard()
+                // this.closeChannelInterviewCard()
+              }
+            case 23:
             case "end":
               return _context2.stop();
           }
@@ -443,23 +444,17 @@ var _default = {
               _this3.closeAnswering();
               // 录音初始化
               _this3.initRecord();
-              if (!_this3.answerContinue && !_this3.answering) {
-                _this3.qaList = [];
-                _this3.resetData();
-              }
+              // if (!this.answerContinue && !this.answering) {
+              // 	this.qaList = []
+              // 	this.resetData()
+              // }
               uni.onKeyboardHeightChange(_this3.listenKeyBoard);
-              if (_this3.isLogin()) {
-                _this3.getInfo();
-                // this.closeInterviewCard()
-                // this.closeChannelInterviewCard()
-              }
-
               if (_this3.currentTabIndex == 1) {
                 _this3.$nextTick(function () {
                   _this.$refs.chatRef.toScroll();
                 });
               }
-            case 7:
+            case 5:
             case "end":
               return _context3.stop();
           }
@@ -483,13 +478,14 @@ var _default = {
     welcome: welcome,
     chat: chat,
     channel: channel,
-    flMask: flMask
+    flMask: flMask,
+    asideUserCenter: asideUserCenter
   },
   watch: {
     greetingReady: function greetingReady(newValue) {
       if (newValue) {
         uni.hideLoading();
-        this.closeAnswerContinue();
+        // this.closeAnswerContinue()
       }
     },
     currentTabIndex: function currentTabIndex(newValue, oldValue) {
@@ -1113,7 +1109,6 @@ var _default = {
                 _this.openAnswering();
                 param.printStr = "";
                 _this.$set(_this.qaList, _this.qaList.length, param);
-                _this.currentQalength = _this.qaList.length;
                 _this.num++;
                 _this.hold = "h" + _this.num;
                 _this.closeCansend();
@@ -1256,11 +1251,12 @@ var _default = {
             _this.responCount++;
             _this.responseStr += respData.message;
             if (_this.responCount == 1) {
+              _this.currentQalength = _this.qaList.length;
               _this.printResponse();
             }
           } else {
             _this.setRespEnd();
-            if (!_this.noMayAsk) {
+            if (respData.need_mayask) {
               _this.getMayAsk();
             }
           }
@@ -1443,17 +1439,6 @@ var _default = {
       // this.canSend = false;
       this.manager.stop();
     },
-    handleClick: function handleClick(e) {
-      if (e.name == "联系客服") {
-        wx.openCustomerServiceChat({
-          extInfo: {
-            url: "https://work.weixin.qq.com/kfid/kfc01b1c6e379607409"
-          },
-          corpId: 'wwe3ced2e65390ad79',
-          success: function success(res) {}
-        });
-      }
-    },
     changeTab: function changeTab(index) {
       if (this.isLogin()) {
         this.currentTabIndex = index;
@@ -1563,7 +1548,7 @@ var _default = {
                     // uni.hideLoading()
                     uni.setStorageSync("userInfo", JSON.stringify(response.data));
                     _this10.userInfo = response.data;
-                    _this10.menuList[3].value = response.data.balance.total_amount;
+                    _this10.menuList[0].value = response.data.balance.total_amount;
                   }
                 });
                 _this10.historyId = 0;

@@ -14,7 +14,12 @@
 					<view class="tit">姓名</view>
 					<view class="input_wrap flex flex_btween">
 						<input type="text" v-model="info.name" placeholder="请输入姓名" class="focus" />
-						<image :src="imgUrl+'/worker/new/ic_close_circle_grey.png'" mode="widthFix"></image>
+						<view class="image_box" @click="clear('name')">
+							<image :src="imgUrl+'/worker/new/ic_close_circle_grey.png'" mode="widthFix"
+								v-show="info.name">
+							</image>
+						</view>
+
 					</view>
 				</view>
 				<view class="line flex flex_btween">
@@ -29,14 +34,23 @@
 					<view class="tit">年龄</view>
 					<view class="input_wrap flex flex_btween">
 						<input type="number" v-model="info.age" placeholder="请输入年龄" class="focus" />
-						<image :src="imgUrl+'/worker/new/ic_close_circle_grey.png'" mode="widthFix"></image>
+						<view class="image_box" @click="clear('age')">
+							<image :src="imgUrl+'/worker/new/ic_close_circle_grey.png'" mode="widthFix"
+								v-show="info.age">
+							</image>
+						</view>
+
 					</view>
 				</view>
 				<view class="line">
 					<view class="tit">民族</view>
 					<view class="input_wrap flex flex_btween">
 						<input type="text" v-model="info.nation" placeholder="请输入民族" class="focus" />
-						<image :src="imgUrl+'/worker/new/ic_close_circle_grey.png'" mode="widthFix"></image>
+						<view class="image_box" @click="clear('nation')">
+							<image :src="imgUrl+'/worker/new/ic_close_circle_grey.png'" mode="widthFix"
+								v-show="info.nation"></image>
+						</view>
+
 					</view>
 				</view>
 				<view class="line">
@@ -137,6 +151,9 @@
 						this.info.mobile = response.data.mobile
 					}
 				})
+			},
+			clear(key) {
+				this.$set(this.info, key, "")
 			}
 		}
 	}
@@ -183,15 +200,23 @@
 				.line {
 					margin-top: 38rpx;
 
+					&:last-child {
+						.input_wrap {
+							padding: 0 20rpx;
+						}
+					}
+
 					.input_wrap {
 						width: 100%;
 						height: 85rpx;
 						background: #F9F9F9;
 						border-radius: 8rpx;
-						padding: 0 20rpx;
+						padding: 0 0 0 20rpx;
 						box-sizing: border-box;
 						border-bottom: none;
 						position: relative;
+
+
 
 						.mark {
 							position: absolute;
@@ -231,10 +256,19 @@
 							border: 2rpx solid #F7BC05;
 						}
 
-						image {
-							width: 40rpx;
+						.image_box {
+							height: 85rpx;
 							flex-shrink: 0;
+							font-size: 0;
+							padding: 0 20rpx;
+
+							image {
+								width: 40rpx;
+								margin-top: 22rpx;
+							}
 						}
+
+
 					}
 				}
 			}

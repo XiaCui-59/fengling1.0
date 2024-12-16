@@ -97,7 +97,15 @@
 									</view>
 								</view>
 								<!-- 添加客服微信 -->
-								<cardKefu v-if="item.card && item.card.type == 'QCODE' && !answerContinue"></cardKefu>
+								<view v-if="index == (qaList.length - 1)">
+									<!-- 最新一条 -->
+									<cardKefu v-if="item.card && item.card.type == 'QCODE' && !answerContinue">
+									</cardKefu>
+								</view>
+								<view v-if="index != (qaList.length - 1)">
+									<!-- 不是最后一条一直显示 -->
+									<cardKefu v-if="item.card && item.card.type == 'QCODE'"></cardKefu>
+								</view>
 
 							</view>
 						</view>

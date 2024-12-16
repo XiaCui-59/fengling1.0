@@ -7,7 +7,7 @@
 					<view class="salary flex flex-start">
 						<text>{{currentPlay.worker_salary_max}}</text>
 						<text
-							class="period">元{{period.filter(el=>{return el.value == currentPlay.worker_salary_type})[0].text?period.filter(el=>{return el.value == currentPlay.worker_salary_type})[0].text:""}}
+							class="period">元{{period.filter(el=>{return el.value == currentPlay.worker_salary_type})[0]?period.filter(el=>{return el.value == currentPlay.worker_salary_type})[0].text:""}}
 						</text>
 					</view>
 				</view>
@@ -42,8 +42,8 @@
 		<view class="iwant_wrap" :style="{bottom:bottom+10+'px'}">
 			<view class="img flex flex_btween">
 				<image :src="imgUrl+'/worker/new/iwant_slogan.png'" mode="widthFix"></image>
-				<image :src="imgUrl+'/worker/new/ic_telephone.png'" mode="widthFix" style="width: 77rpx;"
-					@click="toCall('')"></image>
+				<!-- <image :src="imgUrl+'/worker/new/ic_telephone.png'" mode="widthFix" style="width: 77rpx;"
+					@click="toCall('')"></image> -->
 			</view>
 			<view class="iwant_list flex flex_btween">
 				<view class="iwant_item" @click="toInvite">
@@ -79,7 +79,7 @@
 						<view class="salary flex flex-start">
 							<text>{{currentPlay.worker_salary_max}}</text>
 							<text
-								class="period">元{{period.filter(el=>{return el.value == currentPlay.worker_salary_type})[0].text}}
+								class="period">元{{period.filter(el=>{return el.value == currentPlay.worker_salary_type})[0]?period.filter(el=>{return el.value == currentPlay.worker_salary_type})[0].text:""}}
 							</text>
 						</view>
 					</view>
@@ -143,53 +143,22 @@
 			</view>
 			<view class="iwant_wrap" :style="{bottom:bottom+10+'px'}">
 				<view class="iwant_list flex flex_btween">
-					<view class="iwant_item flex flex_btween" :style="{opacity:currentStep == 3?1:0}">
+					<view class="iwant_item" :style="{opacity:currentStep == 3?1:0}">
 						<view class="iwant_tips">
-							<view class="tit">我要找工作</view>
+							<view class="tit" style="text-align: center;">邀请有礼</view>
 							<view class="tips_list">
-								<view class="tips">优质高效</view>
-								<view class="tips">我最懂你</view>
+								<view class="tips" style="text-align: center;">邀请好友，充值返现</view>
 							</view>
-						</view>
-						<view class="icon">
-							<image :src="imgUrl+'/worker/new/iwant02.png'" mode="widthFix"></image>
 						</view>
 						<view class="step_tips">
 							<view class="step_top">
-								<view class="step_tit">点击“我要找工作”，快速入职合适工作</view>
-								<view class="step_text flex flex_btween">
-									<view class="text">优质工作，我最懂你</view>
+								<view class="step_tit">点击“邀请有礼”，转发给好友</view>
+								<view class="step_text flex flex_btween" style="align-items: flex-end;">
+									<view class="text">
+										<view class="">好友首次充值后</view>
+										<view class="">立即返现</view>
+									</view>
 									<view class="step_btn">下一步(3/6)</view>
-								</view>
-							</view>
-							<view class="step_line">
-								<image :src="imgUrl+'/worker/new/step_line.png'" mode="widthFix"></image>
-							</view>
-							<view class="ai_avatar">
-								<image :src="imgUrl+'/worker/new/step_ai_logo.png'" mode="widthFix"></image>
-							</view>
-						</view>
-						<view class="step_hand" style="bottom:-80rpx;right:-60rpx;">
-							<image :src="imgUrl+'/worker/new/step_hand.png'" mode="widthFix"></image>
-						</view>
-					</view>
-					<view class="iwant_item flex flex_btween" :style="{opacity:currentStep == 4?1:0}">
-						<view class="iwant_tips">
-							<view class="tit">我要去面试</view>
-							<view class="tips_list">
-								<view class="tips">线上面试</view>
-								<view class="tips">无需奔波</view>
-							</view>
-						</view>
-						<view class="icon">
-							<image :src="imgUrl+'/worker/new/iwant01.png'" mode="widthFix"></image>
-						</view>
-						<view class="step_tips" :style="{left:'auto',right:0}">
-							<view class="step_top">
-								<view class="step_tit">点击“我要去面试”，心仪工作马上面试</view>
-								<view class="step_text flex flex_btween">
-									<view class="text">线上面试，无需奔波</view>
-									<view class="step_btn">下一步(4/6)</view>
 								</view>
 							</view>
 							<view class="step_line" style="text-align: right;padding-right: 100rpx;">
@@ -203,6 +172,37 @@
 							<image :src="imgUrl+'/worker/new/step_hand.png'" mode="widthFix"></image>
 						</view>
 					</view>
+					<view class="iwant_item flex flex_btween" :style="{opacity:currentStep == 4?1:0}">
+						<view class="iwant_tips">
+							<view class="tit">我要找工作</view>
+							<view class="tips_list">
+								<view class="tips">优质高效</view>
+								<view class="tips">我最懂你</view>
+							</view>
+						</view>
+						<view class="icon">
+							<image :src="imgUrl+'/worker/new/iwant02.png'" mode="widthFix"></image>
+						</view>
+						<view class="step_tips" :style="{left:'auto',right:0}">
+							<view class="step_top">
+								<view class="step_tit">点击“我要找工作”，快速入职合适工作</view>
+								<view class="step_text flex flex_btween">
+									<view class="text">优质工作，我最懂你</view>
+									<view class="step_btn">下一步(4/6)</view>
+								</view>
+							</view>
+							<view class="step_line">
+								<image :src="imgUrl+'/worker/new/step_line.png'" mode="widthFix"></image>
+							</view>
+							<view class="ai_avatar">
+								<image :src="imgUrl+'/worker/new/step_ai_logo.png'" mode="widthFix"></image>
+							</view>
+						</view>
+						<view class="step_hand" style="bottom:-80rpx;right:-60rpx;">
+							<image :src="imgUrl+'/worker/new/step_hand.png'" mode="widthFix"></image>
+						</view>
+					</view>
+
 				</view>
 			</view>
 			<view class="input_btn_wrap" style="bottom:65rpx;"

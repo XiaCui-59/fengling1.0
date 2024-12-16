@@ -11,7 +11,7 @@
 		name: "chat_card_kefu",
 		data() {
 			return {
-				imgUrl: app.globalData.baseImageUrl + "/worker/kefu_code.jpg"
+				imgUrl: app.globalData.baseImageUrl + "/worker/kefu_code.jpg?time=" + (new Date()).getTime()
 			};
 		},
 		methods: {
