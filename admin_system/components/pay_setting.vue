@@ -48,13 +48,30 @@
 								<uni-th align="center">操作</uni-th>
 							</uni-tr>
 							<uni-tr v-for="(item,index) in series" :key="index">
-								<uni-td></uni-td>
-								<uni-td></uni-td>
-								<uni-td></uni-td>
-								<uni-td></uni-td>
-								<uni-td></uni-td>
-								<uni-td></uni-td>
-								<uni-td></uni-td>
+								<uni-td>{{item.package_name}}</uni-td>
+								<uni-td>{{item.package_name}}</uni-td>
+								<uni-td>{{item.package_price}}</uni-td>
+								<uni-td>{{item.discounted_price}}</uni-td>
+								<uni-td>{{item.exchange_credit}}</uni-td>
+								<uni-td>{{status.filter(el=>{return el.value == item.status})[0].text}}</uni-td>
+								<uni-td>
+									<view class="ope flex flex_around">
+										<view class="ope_item" @click="handleChannel(item)"
+											:class="item.status == 'already_online'?'frozen':'unfrozen'"
+											v-if="item.status != 'already_deleted'">
+											<image
+												:src="item.status == 'already_online'?'/static/ic_btn_frozen.png':'/static/ic_btn_unfrozen.png'"
+												mode="heightFix"></image>
+											{{item.status=="already_online"?"下线":"上线"}}
+										</view>
+										<!-- <view class="ope_item refuse" v-if="item.channel_status == 'pending_online'"
+											@click="deleteChannel(item)">
+											<image src="/static/ic_btn_refuse.png" mode="heightFix"></image>
+											删除
+										</view> -->
+
+									</view>
+								</uni-td>
 							</uni-tr>
 						</uni-table>
 					</view>
@@ -93,7 +110,7 @@
 						</view>
 					</view>
 					<view class="flex flex_end">
-						<view class="btn">确认新增</view>
+						<view class="btn" @click="sureSeries">确认新增</view>
 					</view>
 				</view>
 			</view>
@@ -116,6 +133,15 @@
 						text: "关"
 					}
 				],
+				status: [{
+						value: "already_online",
+						text: "已上线"
+					},
+					{
+						value: "wait_line",
+						text: "待上线"
+					}
+				],
 				curIosIndex: 1,
 				firstAward: "",
 				signRequireScore: "",
@@ -129,6 +155,7 @@
 		},
 		created() {
 			this.getStatus()
+			this.getSeries()
 		},
 		onReady() {
 
@@ -176,6 +203,39 @@
 			},
 			close() {
 				this.showMask = false
+			},
+			sureSeries() {
+				if (!seriesName || !seriesOldPrice || !seriesNewPrice || !seriesScore) {
+					uni.showToast({
+						title: "未填写完整",
+						icon: "error",
+						duration: 2000
+					})
+					return
+				}
+				let data = {
+					"package_name": this.seriesName,
+					"package_price": Number(this.seriesOldPrice),
+					"discounted_price": Number(this.seriesNewPrice),
+					"exchange_credit": Number(this.seriesScore)
+				}
+				this.$request("/admin/credit/subscription", data, "POST").then(res => {
+					if (res.code == 0) {
+						uni.showToast({
+							title: "新增套餐成功",
+							duration: 2000
+						})
+						this.getSeries()
+						this.close()
+					}
+				})
+			},
+			getSeries() {
+				this.$request("/admin/credit/subscription").then(res => {
+					if (res.code == 0) {
+						this.series = res.data.list
+					}
+				})
 			}
 		}
 	}

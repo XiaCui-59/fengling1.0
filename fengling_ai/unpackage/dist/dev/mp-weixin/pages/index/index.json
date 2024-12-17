@@ -8,6 +8,7 @@
     "chat": "/components/chat",
     "channel": "/components/channel",
     "fl-mask": "/components/flmask",
-    "aside-user-center": "/components/aside_user_center"
+    "aside-user-center": "/components/aside_user_center",
+    "project-popup": "/components/load_project_popup"
   }
 }

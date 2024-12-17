@@ -161,7 +161,7 @@
 									<view class="step_btn">下一步(3/6)</view>
 								</view>
 							</view>
-							<view class="step_line" style="text-align: right;padding-right: 100rpx;">
+							<view class="step_line" style="text-align: left;padding-left: 100rpx;">
 								<image :src="imgUrl+'/worker/new/step_line.png'" mode="widthFix"></image>
 							</view>
 							<view class="ai_avatar">
@@ -191,7 +191,7 @@
 									<view class="step_btn">下一步(4/6)</view>
 								</view>
 							</view>
-							<view class="step_line">
+							<view class="step_line" style="text-align: right;padding-right: 100rpx;">
 								<image :src="imgUrl+'/worker/new/step_line.png'" mode="widthFix"></image>
 							</view>
 							<view class="ai_avatar">
@@ -786,7 +786,7 @@
 			.iwant_item {
 				height: 146rpx;
 				// margin-right: 2%;
-				padding: 19rpx 9rpx 9rpx 19rpx;
+				padding: 20rpx 9rpx 20rpx 19rpx;
 				box-sizing: border-box;
 				border-radius: 10rpx;
 				margin-top: 10rpx;
@@ -794,12 +794,14 @@
 
 				&:nth-child(1) {
 					width: 33%;
+					flex-shrink: 0;
 					margin-right: 3%;
 					background: url($back-ground-url+"/worker/new/index_invite_bg.png") no-repeat;
 					background-size: 100% 100%;
 				}
 
 				&:nth-child(2) {
+					padding: 20rpx 30rpx 20rpx 30rpx;
 					border: 2rpx solid #FFFFFF;
 					width: 64%;
 					background: linear-gradient(164deg, #E7F9EC 0%, #FFFFFF 45%, #FFFFFF 100%);

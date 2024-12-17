@@ -173,40 +173,46 @@ var _url_setting = _interopRequireDefault(__webpack_require__(/*! @/url_setting 
 var _vuex = __webpack_require__(/*! vuex */ 41);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+var projectPopup = function projectPopup() {
+  __webpack_require__.e(/*! require.ensure | components/load_project_popup */ "components/load_project_popup").then((function () {
+    return resolve(__webpack_require__(/*! @/components/load_project_popup.vue */ 570));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var flMask = function flMask() {
   __webpack_require__.e(/*! require.ensure | components/flmask */ "components/flmask").then((function () {
-    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 342));
+    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 309));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var asideUserCenter = function asideUserCenter() {
   __webpack_require__.e(/*! require.ensure | components/aside_user_center */ "components/aside_user_center").then((function () {
-    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 554));
+    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 316));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var login = function login() {
   Promise.all(/*! require.ensure | components/login */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/login")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/login.vue */ 349));
+    return resolve(__webpack_require__(/*! @/components/login.vue */ 323));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var welcome = function welcome() {
   Promise.all(/*! require.ensure | components/welcome */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/welcome")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 356));
+    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 330));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var chat = function chat() {
   __webpack_require__.e(/*! require.ensure | components/chat */ "components/chat").then((function () {
-    return resolve(__webpack_require__(/*! @/components/chat.vue */ 363));
+    return resolve(__webpack_require__(/*! @/components/chat.vue */ 337));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var channel = function channel() {
   __webpack_require__.e(/*! require.ensure | components/channel */ "components/channel").then((function () {
-    return resolve(__webpack_require__(/*! @/components/channel.vue */ 370));
+    return resolve(__webpack_require__(/*! @/components/channel.vue */ 344));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var app = getApp();
 var _default = {
   data: function data() {
     return {
+      showProPop: true,
       showFlMask: false,
       canPlay: true,
       greetingObj: {
@@ -479,7 +485,8 @@ var _default = {
     chat: chat,
     channel: channel,
     flMask: flMask,
-    asideUserCenter: asideUserCenter
+    asideUserCenter: asideUserCenter,
+    projectPopup: projectPopup
   },
   watch: {
     greetingReady: function greetingReady(newValue) {
@@ -524,6 +531,9 @@ var _default = {
     // },
     openCanPlay: function openCanPlay() {
       this.canPlay = true;
+    },
+    closeProPop: function closeProPop() {
+      this.showProPop = false;
     },
     toCall: function toCall(obj) {
       if (!this.aiReady) {
@@ -1351,6 +1361,7 @@ var _default = {
       });
     },
     startRecord: function startRecord(e) {
+      var _this = this;
       if (!this.isLogin()) {
         this.showLogin = true;
         return;
@@ -1371,40 +1382,23 @@ var _default = {
         });
         return;
       }
-      var _this = this;
       this.currentTabIndex = 1;
       // 先判断是否是可发送状态
       if (!this.canSend) {
         return;
       }
-      if (this.showVoice) {
-        // 判断是否有麦克风授权
-        if (_this.voicePermisson) {
-          _this.touchStartTime = e.timeStamp;
-          _this.$refs.chatRef.stopCurAudio();
-          uni.vibrateShort({
-            success: function success() {}
-          });
-          _this.startPoint = e.touches[0]; //记录长按时开始点信息，后面用于计算上划取消时手指滑动的距离。
-          // this.showInputing = true
-          _this.cancelRecord = false;
-          _this.manager.start({
-            duration: 60000,
-            lang: "zh_CN"
-          });
-        } else {
-          uni.authorize({
-            scope: 'scope.record',
-            success: function success(res) {
-              _this.voicePermisson = true;
-            },
-            fail: function fail(err) {
-              // 弹出麦克风授权
-              _this.voicePermisson = false;
-            }
-          });
-        }
-      }
+      _this.touchStartTime = e.timeStamp;
+      _this.$refs.chatRef.stopCurAudio();
+      uni.vibrateShort({
+        success: function success() {}
+      });
+      _this.startPoint = e.touches[0]; //记录长按时开始点信息，后面用于计算上划取消时手指滑动的距离。
+      // this.showInputing = true
+      _this.cancelRecord = false;
+      _this.manager.start({
+        duration: 60000,
+        lang: "zh_CN"
+      });
     },
     getSetting: function getSetting() {
       var _this = this;
@@ -1458,6 +1452,7 @@ var _default = {
           success: function success(res) {
             if (res.authSetting['scope.record']) {
               _this.voicePermisson = true;
+              _this.showVoice = true;
             }
           },
           fail: function fail(openErr) {
@@ -1469,6 +1464,7 @@ var _default = {
           scope: 'scope.record',
           success: function success(res) {
             _this.voicePermisson = true;
+            _this.showVoice = true;
           },
           fail: function fail(err) {
             // 弹出麦克风授权
@@ -1485,7 +1481,20 @@ var _default = {
         this.showLogin = true;
         return;
       }
-      this.showVoice = !this.showVoice;
+      this.currentTabIndex = 1;
+      if (!this.showVoice) {
+        // 当前是文字输入，要切换到语音输入
+        // 首先获取设置，看是否有语音授权
+        if (!this.voicePermisson) {
+          this.openSetting();
+        } else {
+          this.showVoice = true;
+        }
+      } else {
+        this.showVoice = false;
+      }
+
+      // this.showVoice = !this.showVoice
     },
     maskStart: function maskStart(e) {
       this.maskStartPoint = e.touches[0];

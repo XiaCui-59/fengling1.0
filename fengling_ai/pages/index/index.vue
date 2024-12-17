@@ -38,60 +38,6 @@
 		<asideUserCenter @closeMenu="closeMenu" @openMenu="openMenu" :userInfo="userInfo" :menuList="menuList"
 			:showMenu="showMenu">
 		</asideUserCenter>
-		<!-- 侧边栏 -->
-		<!-- <u-popup :show="showMenu" mode="left" @close="closeMenu" @open="openMenu" bgColor="#ffffff">
-			<view class="inner" @touchstart="maskStart" @touchend="maskEnd" @touchmove="handleMaskMove">
-				<view class="user_base_out">
-					<u-navbar title="个人中心" bgColor="transparent" @rightClick="rightClick" :autoBack="true"
-						titleStyle="color:#010101;font-size: 31rpx;width:83vw;" :height="menuButtonInfo.height+8"
-						style="width: 83vw;">
-						<view class="u-nav-slot" slot="left" @click="closeMenu"
-							style="width:57rpx;height:57rpx;text-align: center;line-height: 57rpx;border:1px solid #fff;border-radius: 50%;">
-
-							<u-icon name="arrow-left" size="19" color="#fff"
-								custom-style="display: inline-block;line-height: 57rpx;margin:0 auto;left:-2rpx;"></u-icon>
-						</view>
-					</u-navbar>
-					<view class="user_base" :style="{marginTop:marginTop+15+'px'}"
-						@click="navigate('/subpkg/edit_info/edit_info')">
-						<view class="user_box" :style="{paddingBottom:userInfo.is_vip?'40rpx':'auto'}">
-							<view class="user flex flex-start">
-								<image :src="userInfo.avatar.url?userInfo.avatar.url:imgUrl+'/worker/avatar.png'"
-									mode="widthFix"></image>
-								<view class="user_base_info">
-									<view class="line flex flex_btween">
-										<view class=" flex flex-start">
-											<view class="gender" v-if="userInfo.gender">
-												{{userInfo.gender == "male"?"男":"女"}}
-											</view>
-											<view class="name">{{userInfo.name}}</view>
-										</view>
-										<view class="edit flex">编辑资料<u-icon name="arrow-right" color="#fff" size="13"
-												custom-style="line-height:auto;margin-top:1rpx;"></u-icon>
-										</view>
-									</view>
-									<view class="line flex flex-start">
-										<view class="text">{{userInfo.age}}岁</view>
-										<view class="text">{{userInfo.nation}}</view>
-									</view>
-								</view>
-							</view>
-						</view>
-						<view class="labels" style="height:42rpx;margin-top:30rpx;">
-						</view>
-					</view>
-				</view>
-				<u-cell-group :border="false">
-					<u-cell v-for="(item,index) in menuList" :class="item.icon"
-						:custom-style="{backgroundColor: 'transparent'}" :key="index" size="large" :title="item.text"
-						:name="item.text" :border="false" :titleStyle="{color:'#4C4C53'}"
-						:value="index==3?'¥ '+item.value:item.value" :clickable="false" :url="item.url" isLink
-						@click="handleClick"></u-cell>
-				</u-cell-group>
-				<view class="logout" @click="logout">退出登录</view>
-			</view>
-
-		</u-popup> -->
 		<view class="input_btn_wrap"
 			:style="{bottom:inputHeight?inputHeight+10+'px':'65rpx',background:inputing?(cancelRecord?'#fe697f':'#216ff9'):'#fff'}"
 			:class="inputHeight?'upper':''" v-show="currentTabIndex !== 2">
@@ -107,8 +53,8 @@
 						@touchend.stop="stopRecord" @touchmove.stop="handleTouchMove" @touchcancel.stop="cancelVoice">
 						{{canSend?"按住 说话":"正在努力思考，请稍后"}}
 					</view>
-					<view class="voice_btn_wrap" v-show="showVoice && !voicePermisson" @click.stop="openSetting">按住
-						说话</view>
+					<!-- <view class="voice_btn_wrap" v-show="showVoice && !voicePermisson" @click.stop="openSetting">按住
+						说话</view> -->
 					<!-- 键盘输入区 -->
 					<view class="input_box" v-show="!showVoice">
 						<input type="text" confirm-type="发送" :value="question"
@@ -131,17 +77,6 @@
 			<view class="voice_inputing" v-show="inputing">
 				<image :src="imgUrl+'/worker/new/inputing_wave2.gif'" mode="heightFix"></image>
 			</view>
-			<!-- 快速按钮 -->
-			<!-- <view class="btns_wrap flex flex-start" v-if="!inputHeight && currentTabIndex==1">
-				<view class="btn_item flex" v-if="!userInfo.is_vip" @click="navigate('/pages/vip/vip')">
-					<image :src="imgUrl+'/worker/new/ic_become_vip.png'" mode="widthFix"></image>
-					<view class="">成为会员</view>
-				</view>
-				<view class="btn_item flex " @click="navigate('/pages/invite/invite')">
-					<image :src="imgUrl+'/worker/new/ic_gift.png'" mode="widthFix"></image>
-					<view class="">邀请有礼</view>
-				</view>
-			</view> -->
 			<!-- 电话按钮 -->
 			<!-- <view v-show="currentTabIndex == 1 && !inputHeight" class="phone_icon"
 				:style="{bottom:inputHeight?inputHeight+60+'px':'128rpx'}" @click="toCall">
@@ -153,10 +88,12 @@
 		<myModal ref="myModal">
 		</myModal>
 		<flMask v-if="showFlMask" @closeFengling="closeFengling" @sendMsg="sendBtnMsg"></flMask>
+		<!-- <projectPopup v-if="showProPop" @closeProPop="closeProPop"></projectPopup> -->
 	</view>
 </template>
 
 <script>
+	import projectPopup from "@/components/load_project_popup.vue"
 	import flMask from "@/components/flmask.vue"
 	import asideUserCenter from "@/components/aside_user_center.vue"
 	import login from "@/components/login.vue"
@@ -173,6 +110,7 @@
 	export default {
 		data() {
 			return {
+				showProPop: true,
 				showFlMask: false,
 				canPlay: true,
 				greetingObj: {
@@ -403,7 +341,8 @@
 			chat,
 			channel,
 			flMask,
-			asideUserCenter
+			asideUserCenter,
+			projectPopup
 		},
 		watch: {
 			greetingReady(newValue) {
@@ -457,6 +396,9 @@
 			// },
 			openCanPlay() {
 				this.canPlay = true
+			},
+			closeProPop() {
+				this.showProPop = false
 			},
 			toCall(obj) {
 				if (!this.aiReady) {
@@ -1264,6 +1206,7 @@
 				})
 			},
 			startRecord(e) {
+				let _this = this
 				if (!this.isLogin()) {
 					this.showLogin = true
 					return
@@ -1284,43 +1227,24 @@
 					})
 					return
 				}
-				let _this = this
+
 				this.currentTabIndex = 1
 				// 先判断是否是可发送状态
 				if (!this.canSend) {
 					return
 				}
-				if (this.showVoice) {
-					// 判断是否有麦克风授权
-					if (_this.voicePermisson) {
-						_this.touchStartTime = e.timeStamp
-						_this.$refs.chatRef.stopCurAudio()
-						uni.vibrateShort({
-							success: function() {}
-						});
-						_this.startPoint = e.touches[0]; //记录长按时开始点信息，后面用于计算上划取消时手指滑动的距离。
-						// this.showInputing = true
-						_this.cancelRecord = false
-						_this.manager.start({
-							duration: 60000,
-							lang: "zh_CN"
-						});
-					} else {
-						uni.authorize({
-							scope: 'scope.record',
-							success(res) {
-								_this.voicePermisson = true
-							},
-							fail(err) {
-								// 弹出麦克风授权
-								_this.voicePermisson = false
-
-							}
-						})
-					}
-
-				}
-
+				_this.touchStartTime = e.timeStamp
+				_this.$refs.chatRef.stopCurAudio()
+				uni.vibrateShort({
+					success: function() {}
+				});
+				_this.startPoint = e.touches[0]; //记录长按时开始点信息，后面用于计算上划取消时手指滑动的距离。
+				// this.showInputing = true
+				_this.cancelRecord = false
+				_this.manager.start({
+					duration: 60000,
+					lang: "zh_CN"
+				});
 			},
 			getSetting() {
 				let _this = this
@@ -1376,6 +1300,7 @@
 						success(res) {
 							if (res.authSetting['scope.record']) {
 								_this.voicePermisson = true
+								_this.showVoice = true
 							}
 						},
 						fail(openErr) {
@@ -1387,6 +1312,7 @@
 						scope: 'scope.record',
 						success(res) {
 							_this.voicePermisson = true
+							_this.showVoice = true
 						},
 						fail(err) {
 							// 弹出麦克风授权
@@ -1405,7 +1331,20 @@
 					this.showLogin = true
 					return
 				}
-				this.showVoice = !this.showVoice
+				this.currentTabIndex = 1
+				if (!this.showVoice) {
+					// 当前是文字输入，要切换到语音输入
+					// 首先获取设置，看是否有语音授权
+					if (!this.voicePermisson) {
+						this.openSetting()
+					} else {
+						this.showVoice = true
+					}
+				} else {
+					this.showVoice = false
+				}
+
+				// this.showVoice = !this.showVoice
 			},
 			maskStart(e) {
 				this.maskStartPoint = e.touches[0]

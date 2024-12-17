@@ -28,9 +28,10 @@
 											</view>
 											<view class="name">{{userInfo.name}}</view>
 										</view>
-										<!-- <view class="edit flex">编辑资料<u-icon name="arrow-right" color="#fff" size="13"
+										<view class="edit flex" @click="navigate('/subpkg/edit_info/edit_info')">
+											编辑资料<u-icon name="arrow-right" color="#fff" size="13"
 												custom-style="line-height:auto;margin-top:1rpx;"></u-icon>
-										</view> -->
+										</view>
 									</view>
 									<view class="line flex flex-start">
 										<view class="text">{{userInfo.age}}岁</view>

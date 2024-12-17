@@ -3,9 +3,11 @@
 		<!-- 自定义导航 -->
 		<u-navbar title="编辑资料" @rightClick="rightClick" :autoBack="true" bgColor="#fff"
 			titleStyle="color:#010101;font-size: 31rpx;">
-			<view class="u-nav-slot" slot="left">
-				<!-- <image :src="imgUrl+'/worker/ic_back_blank.png'" mode="widthFix" style="width: 58rpx;"></image> -->
-				<u-icon name="arrow-left" size="19"></u-icon>
+			<view class="u-nav-slot" slot="left"
+				style="width:57rpx;height:57rpx;text-align: center;line-height: 57rpx;border:1px solid #C5C6CB;border-radius: 50%;">
+
+				<u-icon name="arrow-left" size="19" color="#4E4E52"
+					custom-style="display: inline-block;line-height: 57rpx;margin:0 auto;left:-2rpx;"></u-icon>
 			</view>
 		</u-navbar>
 		<view class="cont" :style="{marginTop:marginTop+tabMargin+'px',height:contHeight+'px'}">
@@ -56,7 +58,7 @@
 				<view class="line">
 					<view class="tit">手机号码</view>
 					<view class="input_wrap flex flex_btween">
-						<input type="text" v-model="info.mobile" placeholder="请输入手机号" disabled v-if="info.mobile" />
+						<input type="text" v-model="info.mobile" placeholder="请输入手机号" disabled="" v-if="info.mobile" />
 						<view class="mark" v-if="info.mobile">无法修改</view>
 						<button style="border:none;font-size: 27rpx;text-align: left;color:#666;" v-if="!info.mobile"
 							open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">请输入手机号</button>

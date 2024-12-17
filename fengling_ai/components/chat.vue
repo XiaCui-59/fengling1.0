@@ -43,6 +43,7 @@
 							</view>
 						</view>
 					</view>
+					<!-- <cardRecharge></cardRecharge> -->
 
 					<view class="fenge flex flex_around" id="fenge_line" v-show="historyList.length>0">
 						<view class="fgline"></view>
@@ -99,12 +100,14 @@
 								<!-- 添加客服微信 -->
 								<view v-if="index == (qaList.length - 1)">
 									<!-- 最新一条 -->
-									<cardKefu v-if="item.card && item.card.type == 'QCODE' && !answerContinue">
+									<cardKefu v-if="item.card && item.card.type == 'QCODE' && !answerContinue"
+										:showHand="showHand" @closeHand="closeHand">
 									</cardKefu>
 								</view>
 								<view v-if="index != (qaList.length - 1)">
 									<!-- 不是最后一条一直显示 -->
-									<cardKefu v-if="item.card && item.card.type == 'QCODE'"></cardKefu>
+									<cardKefu v-if="item.card && item.card.type == 'QCODE'">
+									</cardKefu>
 								</view>
 
 							</view>
@@ -142,6 +145,7 @@
 		mapMutations
 	} from "vuex"
 	import cardKefu from "@/components/chat_card_kefu.vue"
+	import cardRecharge from "@/components/chat_card_recharge.vue"
 	const app = getApp();
 	export default {
 		name: "welcome",
@@ -167,7 +171,8 @@
 				currentContHeight: 0,
 				freshing: false,
 				trigger: false,
-				cardDoubleClick: false //防止卡片连续点击
+				cardDoubleClick: false, //防止卡片连续点击,
+				showHand: true
 			};
 		},
 		computed: {
@@ -176,7 +181,8 @@
 			])
 		},
 		components: {
-			cardKefu
+			cardKefu,
+			cardRecharge
 		},
 		async created() {
 
@@ -195,6 +201,7 @@
 			qaList: {
 				handler: function(newVal, oldVal) {
 					let _this = this
+					this.showHand = true
 					this.getElementHeight()
 					// 当最后一条消息是用户时，关闭面试卡片
 					if (newVal[newVal.length - 1].origin == 'customer') {
@@ -255,6 +262,9 @@
 						_this.currentContHeight = data.height;
 					}
 				}).exec();
+			},
+			closeHand() {
+				this.showHand = false
 			},
 			refreshRestore() {
 				this.freshing = false

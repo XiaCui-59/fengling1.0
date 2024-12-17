@@ -30,6 +30,28 @@ image {
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+@-webkit-keyframes scaleChange {
+0% {
+    scale: 1;
+}
+50% {
+    scale: 0.7;
+}
+100% {
+    scale: 1;
+}
+}
+@keyframes scaleChange {
+0% {
+    scale: 1;
+}
+50% {
+    scale: 0.7;
+}
+100% {
+    scale: 1;
+}
+}
 .card_kefu {
   background: #F1F8FF;
   border-radius: 4rpx 44rpx 44rpx 44rpx;
@@ -37,8 +59,10 @@ image {
   text-align: center;
   padding: 26rpx 30rpx;
   box-sizing: border-box;
+  position: relative;
+  z-index: 2;
 }
-.card_kefu image {
+.card_kefu > image {
   width: 260rpx;
 }
 .card_kefu .text {
@@ -46,5 +70,17 @@ image {
   font-size: 31rpx;
   color: #223756;
   line-height: 46rpx;
+}
+.card_kefu .step_hand {
+  position: absolute;
+  font-size: 0;
+  top: 40%;
+  left: 50%;
+  -webkit-animation: scaleChange 3s linear forwards infinite;
+          animation: scaleChange 3s linear forwards infinite;
+  z-index: 1;
+}
+.card_kefu .step_hand image {
+  width: 200rpx;
 }
 
