@@ -175,37 +175,37 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var projectPopup = function projectPopup() {
   __webpack_require__.e(/*! require.ensure | components/load_project_popup */ "components/load_project_popup").then((function () {
-    return resolve(__webpack_require__(/*! @/components/load_project_popup.vue */ 570));
+    return resolve(__webpack_require__(/*! @/components/load_project_popup.vue */ 309));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var flMask = function flMask() {
   __webpack_require__.e(/*! require.ensure | components/flmask */ "components/flmask").then((function () {
-    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 309));
+    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 316));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var asideUserCenter = function asideUserCenter() {
   __webpack_require__.e(/*! require.ensure | components/aside_user_center */ "components/aside_user_center").then((function () {
-    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 316));
+    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 323));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var login = function login() {
   Promise.all(/*! require.ensure | components/login */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/login")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/login.vue */ 323));
+    return resolve(__webpack_require__(/*! @/components/login.vue */ 330));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var welcome = function welcome() {
   Promise.all(/*! require.ensure | components/welcome */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/welcome")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 330));
+    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 337));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var chat = function chat() {
   __webpack_require__.e(/*! require.ensure | components/chat */ "components/chat").then((function () {
-    return resolve(__webpack_require__(/*! @/components/chat.vue */ 337));
+    return resolve(__webpack_require__(/*! @/components/chat.vue */ 344));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var channel = function channel() {
   __webpack_require__.e(/*! require.ensure | components/channel */ "components/channel").then((function () {
-    return resolve(__webpack_require__(/*! @/components/channel.vue */ 344));
+    return resolve(__webpack_require__(/*! @/components/channel.vue */ 351));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var app = getApp();
@@ -290,7 +290,6 @@ var _default = {
       shareId: "",
       params: null,
       openid: "",
-      startPoint: null,
       cancelRecord: false,
       touchStartTime: "",
       touchEndTime: "",
@@ -893,8 +892,9 @@ var _default = {
                 _this6.showLogin = true;
                 return _context4.abrupt("return");
               case 3:
+                _this6.currentTabIndex = 1;
                 if (_this6.aiReady) {
-                  _context4.next = 6;
+                  _context4.next = 7;
                   break;
                 }
                 uni.showToast({
@@ -903,7 +903,7 @@ var _default = {
                   duration: 2000
                 });
                 return _context4.abrupt("return");
-              case 6:
+              case 7:
                 if (!_this6.answerContinue) {
                   _context4.next = 10;
                   break;
@@ -913,7 +913,6 @@ var _default = {
                   icon: "error",
                   duration: 2000
                 });
-                _this6.currentTabIndex = 1;
                 return _context4.abrupt("return");
               case 10:
                 _this6.jobId = obj.job_id;
@@ -931,9 +930,8 @@ var _default = {
                 } else {
                   _this6.question = obj.msg;
                 }
-                _this6.currentTabIndex = 1;
                 _this6.sendQuestion();
-              case 15:
+              case 14:
               case "end":
                 return _context4.stop();
             }
@@ -1392,8 +1390,6 @@ var _default = {
       uni.vibrateShort({
         success: function success() {}
       });
-      _this.startPoint = e.touches[0]; //记录长按时开始点信息，后面用于计算上划取消时手指滑动的距离。
-      // this.showInputing = true
       _this.cancelRecord = false;
       _this.manager.start({
         duration: 60000,

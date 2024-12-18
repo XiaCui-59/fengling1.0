@@ -1,0 +1,83 @@
+{
+  "id": "markdown-render",
+  "displayName": "markdown-render",
+  "version": "1.0.0",
+  "description": "markdown文档解析，流式输出",
+  "keywords": [
+    "markdown,代码块高亮,gpt"
+],
+  "repository": "",
+  "engines": {
+    "HBuilderX": "^3.7.8"
+  },
+  "dcloudext": {
+    "type": "component-vue",
+    "sale": {
+      "regular": {
+        "price": "0.00"
+      },
+      "sourcecode": {
+        "price": "0.00"
+      }
+    },
+    "contact": {
+      "qq": ""
+    },
+    "declaration": {
+      "ads": "无",
+      "data": "插件不采集任何数据",
+      "permissions": "无"
+    },
+    "npmurl": ""
+  },
+  "uni_modules": {
+    "dependencies": [],
+    "encrypt": [],
+    "platforms": {
+      "cloud": {
+        "tcb": "y",
+        "aliyun": "y",
+        "alipay": "y"
+      },
+      "client": {
+        "Vue": {
+          "vue2": "y",
+          "vue3": "n"
+        },
+        "App": {
+          "app-vue": "y",
+          "app-nvue": "n",
+          "app-uvue": "n"
+        },
+        "H5-mobile": {
+          "Safari": "y",
+          "Android Browser": "y",
+          "微信浏览器(Android)": "y",
+          "QQ浏览器(Android)": "y"
+        },
+        "H5-pc": {
+          "Chrome": "y",
+          "IE": "n",
+          "Edge": "y",
+          "Firefox": "y",
+          "Safari": "y"
+        },
+        "小程序": {
+          "微信": "y",
+          "阿里": "n",
+          "百度": "n",
+          "字节跳动": "n",
+          "QQ": "n",
+          "钉钉": "n",
+          "快手": "n",
+          "飞书": "n",
+          "京东": "n"
+        },
+        "快应用": {
+          "华为": "n",
+          "联盟": "n"
+        }
+      }
+    }
+  }
+}

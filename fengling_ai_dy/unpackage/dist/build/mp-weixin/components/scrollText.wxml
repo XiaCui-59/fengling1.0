@@ -1,0 +1,1 @@
+<view class="container" style="{{'width:'+(width)+';'}}"><scroll-view style="height:100px;padding-bottom:5px;" scroll-y="{{true}}" scroll-into-view="{{scrollView}}"><view class="result_text">{{result}}</view><view style="width:100%;height:10px;" id="bot"></view></scroll-view></view>

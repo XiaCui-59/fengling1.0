@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "u-navbar": "/uni_modules/uview-ui/components/u-navbar/u-navbar",
+    "u-icon": "/uni_modules/uview-ui/components/u-icon/u-icon",
+    "u-grid": "/uni_modules/uview-ui/components/u-grid/u-grid",
+    "u-grid-item": "/uni_modules/uview-ui/components/u-grid-item/u-grid-item",
+    "l-painter": "/uni_modules/lime-painter/components/l-painter/l-painter",
+    "my-modal": "/components/myModal",
+    "login": "/components/login"
+  }
+}

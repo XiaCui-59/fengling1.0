@@ -41,8 +41,7 @@
 		<view class="input_btn_wrap"
 			:style="{bottom:inputHeight?inputHeight+10+'px':'65rpx',background:inputing?(cancelRecord?'#fe697f':'#216ff9'):'#fff'}"
 			:class="inputHeight?'upper':''" v-show="currentTabIndex !== 2">
-			<!-- 不在语音输入状态 -->
-			<view v-show="!inputing">
+			<view>
 				<!-- 风铃icon -->
 				<view class="fl_icon" @click.stop="clickFengling">
 					<image :src="imgUrl+'/worker/new/ic_fengling.png'"></image>
@@ -51,11 +50,11 @@
 					<!-- 语音按钮区 -->
 					<view class="voice_btn_wrap" v-show="showVoice && voicePermisson" @touchstart.stop="startRecord"
 						@touchend.stop="stopRecord" @touchmove.stop="handleTouchMove" @touchcancel.stop="cancelVoice">
-						{{canSend?"按住 说话":"正在努力思考，请稍后"}}
+						<view v-show="!inputing">{{canSend?"按住 说话":"正在努力思考，请稍后"}}</view>
+						<view class="voice_inputing" v-show="inputing">
+							<image :src="imgUrl+'/worker/new/inputing_wave2.gif'" mode="heightFix"></image>
+						</view>
 					</view>
-					<!-- <view class="voice_btn_wrap" v-show="showVoice && !voicePermisson" @click.stop="openSetting">按住
-						说话</view> -->
-					<!-- 键盘输入区 -->
 					<view class="input_box" v-show="!showVoice">
 						<input type="text" confirm-type="发送" :value="question"
 							:placeholder="canSend?'更多工作就问我':'正在努力思考，请稍后'" @focus="inputBindFocus" @confirm="doSend"
@@ -70,13 +69,14 @@
 					</image>
 				</view>
 				<view class="func_icon" @click.stop="changeChatMethod" v-show="!showSend">
-					<image :src="showVoice?imgUrl+'/worker/ic_keyboard_blue.png':imgUrl+'/worker/ic_voice_blue.png'">
+					<image :src="showVoice?imgUrl+'/worker/ic_keyboard_blue.png':imgUrl+'/worker/ic_voice_blue.png'"
+						style="border-radius: 50%;background:#fff;">
 					</image>
 				</view>
 			</view>
-			<view class="voice_inputing" v-show="inputing">
+			<!-- <view class="voice_inputing" v-show="inputing">
 				<image :src="imgUrl+'/worker/new/inputing_wave2.gif'" mode="heightFix"></image>
-			</view>
+			</view> -->
 			<!-- 电话按钮 -->
 			<!-- <view v-show="currentTabIndex == 1 && !inputHeight" class="phone_icon"
 				:style="{bottom:inputHeight?inputHeight+60+'px':'128rpx'}" @click="toCall">
@@ -193,7 +193,6 @@
 				shareId: "",
 				params: null,
 				openid: "",
-				startPoint: null,
 				cancelRecord: false,
 				touchStartTime: "",
 				touchEndTime: "",
@@ -763,6 +762,7 @@
 					this.showLogin = true
 					return
 				}
+				this.currentTabIndex = 1
 				if (!this.aiReady) {
 					uni.showToast({
 						title: "连接中，请稍后",
@@ -778,7 +778,6 @@
 						icon: "error",
 						duration: 2000
 					})
-					this.currentTabIndex = 1
 					return
 				}
 				this.jobId = obj.job_id
@@ -796,8 +795,6 @@
 				} else {
 					this.question = obj.msg
 				}
-
-				this.currentTabIndex = 1
 				this.sendQuestion()
 			},
 			handleBtnMsg(msg) {
@@ -1238,8 +1235,6 @@
 				uni.vibrateShort({
 					success: function() {}
 				});
-				_this.startPoint = e.touches[0]; //记录长按时开始点信息，后面用于计算上划取消时手指滑动的距离。
-				// this.showInputing = true
 				_this.cancelRecord = false
 				_this.manager.start({
 					duration: 60000,

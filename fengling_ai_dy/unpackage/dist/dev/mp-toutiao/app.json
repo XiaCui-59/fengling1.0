@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/error_sever/error_sever",
+    "pages/phone_call/phone_call",
+    "pages/call/call",
+    "pages/invite/invite",
+    "pages/channel_chat/channel_chat",
+    "pages/vip/vip",
+    "pages/balance/balance",
+    "pages/invite_rule/invite_rule",
+    "pages/tx_record/tx_record",
+    "pages/about/about"
+  ],
+  "subPackages": [
+    {
+      "root": "subpkg",
+      "pages": [
+        "edit_info/edit_info",
+        "view_record/view_record",
+        "sign_record/sign_record",
+        "score/score",
+        "score_rule/score_rule"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "灵动优聘",
+    "navigationBarBackgroundColor": "#20b1f3",
+    "backgroundColor": "#f6f6f6"
+  },
+  "component2": true,
+  "usingComponents": {
+    "my-modal": "/components/myModal"
+  }
+}

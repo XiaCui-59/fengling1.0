@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "",
+  "disableScroll": true,
+  "usingComponents": {
+    "my-modal": "/components/myModal",
+    "login": "/components/login",
+    "welcome": "/components/welcome",
+    "chat": "/components/chat",
+    "channel": "/components/channel",
+    "fl-mask": "/components/flmask",
+    "aside-user-center": "/components/aside_user_center",
+    "project-popup": "/components/load_project_popup"
+  }
+}

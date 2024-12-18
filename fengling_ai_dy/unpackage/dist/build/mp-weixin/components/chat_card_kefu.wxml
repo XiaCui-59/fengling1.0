@@ -1,0 +1,1 @@
+<view class="card_kefu"><image src="{{imgUrl}}" mode="widthFix" show-menu-by-longpress="{{true}}" data-event-opts="{{[['tap',[['prev',['$event']]]]]}}" bindtap="__e"></image><view class="text">长按图片识别二维码，添加专属客服</view><view hidden="{{!(showHand)}}" class="step_hand"><image src="{{imageUrl+'/worker/new/step_hand.png'}}" mode="widthFix"></image></view></view>

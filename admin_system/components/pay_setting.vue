@@ -37,7 +37,7 @@
 						<view class="flex flex_end" style="margin-bottom: 15px;">
 							<view class="btn" @click="showAdd">新增套餐</view>
 						</view>
-						<uni-table stripe emptyText="暂无更多数据" style="max-height:400px;">
+						<uni-table border stripe emptyText="暂无更多数据" style="max-height:400px;">
 							<uni-tr>
 								<uni-th align="center">序号</uni-th>
 								<uni-th align="center">套餐名称</uni-th>
@@ -48,15 +48,16 @@
 								<uni-th align="center">操作</uni-th>
 							</uni-tr>
 							<uni-tr v-for="(item,index) in series" :key="index">
-								<uni-td>{{item.package_name}}</uni-td>
-								<uni-td>{{item.package_name}}</uni-td>
-								<uni-td>{{item.package_price}}</uni-td>
-								<uni-td>{{item.discounted_price}}</uni-td>
-								<uni-td>{{item.exchange_credit}}</uni-td>
-								<uni-td>{{status.filter(el=>{return el.value == item.status})[0].text}}</uni-td>
-								<uni-td>
+								<uni-td align="center">{{index+1+currentCount*(currentPage - 1)}}</uni-td>
+								<uni-td align="center">{{item.package_name}}</uni-td>
+								<uni-td align="center">{{item.package_price}}</uni-td>
+								<uni-td align="center">{{item.discounted_price}}</uni-td>
+								<uni-td align="center">{{item.exchange_credit}}</uni-td>
+								<uni-td
+									align="center">{{status.filter(el=>{return el.value == item.status})[0].text}}</uni-td>
+								<uni-td align="center">
 									<view class="ope flex flex_around">
-										<view class="ope_item" @click="handleChannel(item)"
+										<view class="ope_item" @click="handleStatus(item)"
 											:class="item.status == 'already_online'?'frozen':'unfrozen'"
 											v-if="item.status != 'already_deleted'">
 											<image
@@ -124,6 +125,9 @@
 		name: "contract_list",
 		data() {
 			return {
+				currentCount: 15,
+				currentPage: 1,
+				pagination: {},
 				iosSwitch: [{
 						value: "open",
 						text: "开"
@@ -138,7 +142,7 @@
 						text: "已上线"
 					},
 					{
-						value: "wait_line",
+						value: "wait_online",
 						text: "待上线"
 					}
 				],
@@ -205,7 +209,7 @@
 				this.showMask = false
 			},
 			sureSeries() {
-				if (!seriesName || !seriesOldPrice || !seriesNewPrice || !seriesScore) {
+				if (!this.seriesName || !this.seriesOldPrice || !this.seriesNewPrice || !this.seriesScore) {
 					uni.showToast({
 						title: "未填写完整",
 						icon: "error",
@@ -234,9 +238,59 @@
 				this.$request("/admin/credit/subscription").then(res => {
 					if (res.code == 0) {
 						this.series = res.data.list
+						this.pagination = res.data.pagination
 					}
 				})
-			}
+			},
+			handleStatus(item) {
+				let _this = this
+				let url = ""
+				if (item.status == "wait_online") {
+					// 上线操作
+					url = "/admin/credit/subscription/online/" + item.id
+					uni.showModal({
+						title: "是否确认上线套餐：" + item.package_name + "？",
+						confirmText: "确认上线",
+						confirmColor: "#0092ff",
+						success(resp) {
+							if (resp.confirm) {
+								_this.$request(url, {}, "POST").then(res => {
+									if (res.code == 0) {
+										uni.showToast({
+											title: "上线成功",
+											icon: "none",
+											duration: 3000
+										})
+										_this.getSeries()
+									}
+								})
+							}
+						}
+					})
+				} else {
+					// 下线操作
+					url = "/admin/credit/subscription/offline/" + item.id
+					uni.showModal({
+						title: "是否确认下线套餐：" + item.package_name + "？",
+						confirmText: "确认下线",
+						confirmColor: "#f00",
+						success(resp) {
+							if (resp.confirm) {
+								_this.$request(url, {}, "POST").then(res => {
+									if (res.code == 0) {
+										uni.showToast({
+											title: "下线成功",
+											icon: "none",
+											duration: 3000
+										})
+										_this.getSeries()
+									}
+								})
+							}
+						}
+					})
+				}
+			},
 		}
 	}
 </script>
