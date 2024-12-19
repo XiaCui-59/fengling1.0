@@ -160,6 +160,8 @@
 		created() {
 			this.getStatus()
 			this.getSeries()
+			this.getPayback()
+			this.getCredit()
 		},
 		onReady() {
 
@@ -168,6 +170,46 @@
 
 		},
 		methods: {
+			getPayback() {
+				this.$request("/invite/payback_amount").then(res => {
+					if (res.code == 0) {
+						this.firstAward = res.data.pay_back_amount
+					}
+				})
+			},
+			savePayback() {
+				let data = {
+					pay_back_amount: Number(this.firstAward)
+				}
+				this.$request("/invite/payback_amount", data, "POST").then(res => {
+					if (res.code == 0) {
+						uni.showToast({
+							title: "返现设置成功",
+							duration: 2000
+						})
+					}
+				})
+			},
+			getCredit() {
+				this.$request("/admin/credit/project").then(res => {
+					if (res.code == 0) {
+						this.signRequireScore = res.data.job_worth_credit
+					}
+				})
+			},
+			saveCredit() {
+				let data = {
+					job_worth_credit: Number(this.signRequireScore)
+				}
+				this.$request("/admin/credit/project", data, "POST").then(res => {
+					if (res.code == 0) {
+						uni.showToast({
+							title: "保存成功",
+							duration: 2000
+						})
+					}
+				})
+			},
 			getStatus() {
 				this.$request("/admin/ios/status").then(res => {
 					if (res.code == 0) {

@@ -251,6 +251,21 @@
 							}
 						]
 					},
+					{
+						pid: 0,
+						id: 16,
+						pageName: "comwx_setting",
+						icon: "/static/ic_setting.png",
+						selectIcon: "/static/ic_setting.png",
+						text: "企业微信配置",
+						showSub: false,
+						subList: [{
+							pid: 16,
+							id: 21,
+							pageName: "group_chat",
+							text: "企微群聊列表"
+						}]
+					},
 				]
 			};
 		},

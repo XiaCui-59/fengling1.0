@@ -230,25 +230,22 @@ var _default = {
       maskEndPoint: {},
       showMenu: false,
       manager: app.globalData.manager,
-      menuList: [
-      // {
-      // 	text: "已报名工作",
-      // 	url: "/subpkg/sign_record/sign_record",
-      // 	icon: "",
-      // 	value: "1"
-      // },
-      // {
-      // 	text: "工作浏览记录",
-      // 	url: "/subpkg/view_record/view_record",
-      // 	icon: "",
-      // 	value: "13条"
-      // }, {
-      // 	text: "积分管理",
-      // 	url: "/subpkg/score/score",
-      // 	icon: "",
-      // 	value: "充值"
-      // },
-      {
+      menuList: [{
+        text: "已报名工作",
+        url: "/subpkg/sign_record/sign_record",
+        icon: "",
+        value: "1"
+      }, {
+        text: "工作浏览记录",
+        url: "/subpkg/view_record/view_record",
+        icon: "",
+        value: "13条"
+      }, {
+        text: "积分管理",
+        url: "/subpkg/score/score",
+        icon: "",
+        value: "充值"
+      }, {
         text: "钱包余额",
         url: "/pages/balance/balance",
         icon: "rmb-circle-fill",
@@ -414,17 +411,14 @@ var _default = {
                 "address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
                 "Authorization": "bearer " + token
               };
-              _context2.next = 20;
-              return _this2.getOpenid();
-            case 20:
-              _this2.openid = _context2.sent;
+              // this.openid = await this.getOpenid()
               _this2.getSetting();
               if (_this2.isLogin()) {
                 _this2.getInfo();
                 // this.closeInterviewCard()
                 // this.closeChannelInterviewCard()
               }
-            case 23:
+            case 20:
             case "end":
               return _context2.stop();
           }
@@ -521,7 +515,7 @@ var _default = {
       }
     }
   },
-  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapMutations)(["openAnswering", "closeAnswering", "setConnected", "unConnected", "setConnecting", "unConnecting", "openCansend", "closeCansend", "notChannel", "isChannel", "addChannelQaList", "openAnswerContinue", "closeAnswerContinue", "updateChannelQaList", "setChannelId", "setLocation", "setToken", "clearChannelQaList", "notInCall", "setCallContent", "setRespEnd", "notRespEnd", "setInterviewCard", "setIncallEnroll", "setIncallJobId", "resetIncallEnroll", "closeInterviewCard", "setAiReady", "resetAiReady", "resetCity", "setChannelInterviewCard", "closeChannelInterviewCard", "setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst"])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapMutations)(["openAnswering", "closeAnswering", "setConnected", "unConnected", "setConnecting", "unConnecting", "openCansend", "closeCansend", "notChannel", "isChannel", "addChannelQaList", "openAnswerContinue", "closeAnswerContinue", "updateChannelQaList", "setChannelId", "setLocation", "setToken", "clearChannelQaList", "notInCall", "setCallContent", "setRespEnd", "notRespEnd", "setInterviewCard", "setIncallEnroll", "setIncallJobId", "resetIncallEnroll", "closeInterviewCard", "setAiReady", "resetAiReady", "resetCity", "setChannelInterviewCard", "closeChannelInterviewCard", "setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst", "setQunCode"])), {}, {
     onInput: function onInput(e) {
       this.question = e.target.value;
     },
@@ -1261,6 +1255,9 @@ var _default = {
             if (_this.responCount == 1) {
               _this.currentQalength = _this.qaList.length;
               _this.printResponse();
+              if (respData.type == "QCODE") {
+                _this.getQrcode(respData.job_id);
+              }
             }
           } else {
             _this.setRespEnd();
@@ -1283,6 +1280,18 @@ var _default = {
         }, 2000);
         if (_this9.answering || _this9.answerContinue) {
           _this9.handleConnectErr();
+        }
+      });
+    },
+    getQrcode: function getQrcode(id) {
+      var _this10 = this;
+      if (!id) {
+        return;
+      }
+      var url = "/worker/project/" + id + "/wework/external/group/qrcode";
+      this.$request(url).then(function (res) {
+        if (res.code == 0) {
+          _this10.setQunCode(res.data.qrcode_url);
         }
       });
     },
@@ -1542,26 +1551,26 @@ var _default = {
       this.showLogin = false;
     },
     getInfo: function getInfo() {
-      var _this10 = this;
+      var _this11 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6() {
         return _regenerator.default.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _this10.$request("/worker/profile").then(function (response) {
+                _this11.$request("/worker/profile").then(function (response) {
                   if (response.code == 0) {
                     // uni.hideLoading()
                     uni.setStorageSync("userInfo", JSON.stringify(response.data));
-                    _this10.userInfo = response.data;
-                    _this10.menuList[0].value = response.data.balance.total_amount;
+                    _this11.userInfo = response.data;
+                    _this11.menuList[3].value = response.data.balance.total_amount;
                   }
                 });
-                _this10.historyId = 0;
+                _this11.historyId = 0;
                 _context6.next = 4;
-                return _this10.getHistory();
+                return _this11.getHistory();
               case 4:
-                _this10.historyList = _context6.sent;
-                console.log("historyList：", _this10.historyList);
+                _this11.historyList = _context6.sent;
+                console.log("historyList：", _this11.historyList);
               case 6:
               case "end":
                 return _context6.stop();

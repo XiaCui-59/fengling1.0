@@ -299,22 +299,10 @@ var _default = {
       tabMargin: app.globalData.tabMargin,
       scrollHeight: 0,
       list: [],
-      balance: {
-        "total_amount": "0",
-        "available_amount": "0",
-        "frozen_amount": "0"
-      },
+      creditSeries: [],
+      totalScore: 0,
       currentPage: 1,
       pagination: {}
-      // tabList: [{
-      // 	name: "今日"
-      // }, {
-      // 	name: "昨日"
-      // }, {
-      // 	name: "本月"
-      // }, {
-      // 	name: "今日"
-      // }]
     };
   },
   onLoad: function onLoad() {
@@ -356,7 +344,8 @@ var _default = {
               });
             case 13:
               _this2.getList();
-            case 14:
+              _this2.getCreditSeries();
+            case 15:
             case "end":
               return _context.stop();
           }
@@ -377,12 +366,21 @@ var _default = {
     },
     getList: function getList() {
       var _this3 = this;
-      var url = "/worker/balance-changes?page=" + this.currentPage + "&page_size=15";
+      var url = "/worker/credit/info?page=" + this.currentPage + "&page_size=15";
       this.$request(url).then(function (res) {
         if (res.code == 0) {
           _this3.list = _this3.list.concat(res.data.list);
           _this3.pagination = res.data.pagination;
-          _this3.balance = res.data.balance;
+          _this3.totalScore = res.data.totalCredit;
+        }
+      });
+    },
+    getCreditSeries: function getCreditSeries() {
+      var _this4 = this;
+      var url = "/worker/credit/subscription?page=" + this.currentPage + "&page_size=15";
+      this.$request(url).then(function (res) {
+        if (res.code == 0) {
+          _this4.creditSeries = res.data.list;
         }
       });
     },
@@ -419,16 +417,93 @@ var _default = {
       });
     },
     confirm: function confirm() {
-      // this.$request("/worker/withdraw", data, "POST").then(res => {
-      // 	if (res.code == 0) {
-      // 		this.$refs.myModal.showModal({
-      // 			title: "余额提现已申请， 将在24小时内到账微信零钱。",
-      // 			showCancel: false,
-      // 			confirmText: "知道了"
-      // 		})
-      // 		this.close()
-      // 	}
-      // })
+      var _this5 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        var systemInfo, orderId, url;
+        return _regenerator.default.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                systemInfo = uni.getSystemInfoSync();
+                if (systemInfo.osName == "ios") {
+                  // 如果是ios系统，调用支付开关
+                  _this5.$request("/ios/status").then(function (res) {
+                    if (res.code == 0) {
+                      if (!res.data) {
+                        _this5.$refs.myModal.showModal({
+                          title: "由于相关规范，iOS成为会员功能暂不可用。",
+                          showCancel: false
+                        });
+                        return;
+                      }
+                    }
+                  });
+                }
+                _context2.next = 4;
+                return _this5.creatOrder();
+              case 4:
+                orderId = _context2.sent;
+                if (orderId) {
+                  url = "/worker/credit/" + orderId + "/pay";
+                  _this5.$request(url, {}, "POST").then(function (res) {
+                    if (res.code == 0) {
+                      var orderParams = res.data.wechat_mini_program;
+                      uni.requestPayment({
+                        "appId": orderParams.appId,
+                        "timeStamp": orderParams.timeStamp,
+                        //时间戳
+                        "nonceStr": orderParams.nonceStr,
+                        //随机字符串
+                        "package": orderParams.package,
+                        //prepay_id
+                        "signType": orderParams.signType,
+                        //签名算法MD5
+                        "paySign": orderParams.paySign,
+                        //签名s,
+                        success: function success() {
+                          this.$refs.myModal.showModal({
+                            title: "支付成功",
+                            showCancel: false,
+                            success: function success(res) {
+                              if (res == "confirm") {
+                                _this.getList();
+                              }
+                            }
+                          });
+                        },
+                        fail: function fail(err) {
+                          console.log(err, "err");
+                          uni.showToast({
+                            title: "支付已取消",
+                            icon: "error",
+                            duration: 2000
+                          });
+                        }
+                      });
+                    }
+                  });
+                }
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    creatOrder: function creatOrder() {
+      var _this = this;
+      return new Promise(function (resolve) {
+        var url = "/worker/credit/order";
+        var data = {
+          "credit_package_id": _this.creditSeries[0].id
+        };
+        _this.$request(url, data, "POST").then(function (res) {
+          if (res.code == 0) {
+            resolve(res.data.order_id);
+          }
+        });
+      });
     }
   }
 };

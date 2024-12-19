@@ -48,7 +48,7 @@
 					<u-cell v-for="(item,index) in menuList" :class="item.icon"
 						:custom-style="{backgroundColor: 'transparent'}" :key="index" size="large" :title="item.text"
 						:name="item.text" :border="false" :titleStyle="{color:'#4C4C53'}"
-						:value="index==0?'¥ '+item.value:item.value" :clickable="false" :url="item.url" isLink
+						:value="index==3?'¥ '+item.value:item.value" :clickable="false" :url="item.url" isLink
 						@click="handleClick"></u-cell>
 				</u-cell-group>
 				<!-- 退出登录 -->

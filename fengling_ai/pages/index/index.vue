@@ -128,24 +128,23 @@
 				maskEndPoint: {},
 				showMenu: false,
 				manager: app.globalData.manager,
-				menuList: [
-					// {
-					// 	text: "已报名工作",
-					// 	url: "/subpkg/sign_record/sign_record",
-					// 	icon: "",
-					// 	value: "1"
-					// },
-					// {
-					// 	text: "工作浏览记录",
-					// 	url: "/subpkg/view_record/view_record",
-					// 	icon: "",
-					// 	value: "13条"
-					// }, {
-					// 	text: "积分管理",
-					// 	url: "/subpkg/score/score",
-					// 	icon: "",
-					// 	value: "充值"
-					// },
+				menuList: [{
+						text: "已报名工作",
+						url: "/subpkg/sign_record/sign_record",
+						icon: "",
+						value: "1"
+					},
+					{
+						text: "工作浏览记录",
+						url: "/subpkg/view_record/view_record",
+						icon: "",
+						value: "13条"
+					}, {
+						text: "积分管理",
+						url: "/subpkg/score/score",
+						icon: "",
+						value: "充值"
+					},
 					{
 						text: "钱包余额",
 						url: "/pages/balance/balance",
@@ -292,7 +291,7 @@
 				"address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
 				"Authorization": "bearer " + token,
 			}
-			this.openid = await this.getOpenid()
+			// this.openid = await this.getOpenid()
 			this.getSetting()
 			if (this.isLogin()) {
 				this.getInfo()
@@ -385,7 +384,7 @@
 				"setToken", "clearChannelQaList", "notInCall", "setCallContent", "setRespEnd", "notRespEnd",
 				"setInterviewCard", "setIncallEnroll", "setIncallJobId", "resetIncallEnroll", "closeInterviewCard",
 				"setAiReady", "resetAiReady", "resetCity", "setChannelInterviewCard", "closeChannelInterviewCard",
-				"setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst"
+				"setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst", "setQunCode"
 			]),
 			onInput(e) {
 				this.question = e.target.value
@@ -1104,6 +1103,9 @@
 							if (_this.responCount == 1) {
 								_this.currentQalength = _this.qaList.length
 								_this.printResponse()
+								if (respData.type == "QCODE") {
+									_this.getQrcode(respData.job_id)
+								}
 							}
 						} else {
 							_this.setRespEnd()
@@ -1128,6 +1130,17 @@
 						this.handleConnectErr()
 					}
 
+				})
+			},
+			getQrcode(id) {
+				if (!id) {
+					return
+				}
+				let url = "/worker/project/" + id + "/wework/external/group/qrcode"
+				this.$request(url).then(res => {
+					if (res.code == 0) {
+						this.setQunCode(res.data.qrcode_url)
+					}
 				})
 			},
 			doSend(e, text) {
@@ -1398,7 +1411,7 @@
 						// uni.hideLoading()
 						uni.setStorageSync("userInfo", JSON.stringify(response.data))
 						this.userInfo = response.data
-						this.menuList[0].value = response.data.balance.total_amount
+						this.menuList[3].value = response.data.balance.total_amount
 					}
 				})
 				this.historyId = 0
@@ -1441,65 +1454,66 @@
 			color: #755022 !important;
 		}
 
-		// .u-cell:nth-child(1) .u-cell__body--large {
-		// 	background: linear-gradient(131deg, #E5EEFE 0%, #4E8EFF 100%);
-		// 	font-weight: 600;
-		// 	position: relative;
-		// 	z-index: 9;
-		// }
+		.u-cell:nth-child(1) .u-cell__body--large {
+			background: linear-gradient(131deg, #E5EEFE 0%, #4E8EFF 100%);
+			font-weight: 600;
+			position: relative;
+			z-index: 9;
+		}
 
-		// .u-cell:nth-child(1) .u-cell__body--large::before {
-		// 	content: "";
-		// 	width: 100px;
-		// 	height: 100%;
-		// 	background: url($back-ground-url+"/worker/new/ic_sign_menu.png") no-repeat;
-		// 	background-size: auto 100%;
-		// 	position: absolute;
-		// 	top: 0;
-		// 	left: 0;
-		// 	z-index: -1;
-		// }
+		.u-cell:nth-child(1) .u-cell__body--large::before {
+			content: "";
+			width: 100px;
+			height: 100%;
+			background: url($back-ground-url+"/worker/new/ic_sign_menu.png") no-repeat;
+			background-size: auto 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
+		}
 
-		// .u-cell:nth-child(1) .u-cell__value--large {
-		// 	color: #fff !important;
-		// 	display: inline-block;
-		// 	position: relative;
-		// 	margin-right: 46rpx;
-		// 	font-family: Arial;
-		// }
+		.u-cell:nth-child(1) .u-cell__value--large {
+			color: #fff !important;
+			display: inline-block;
+			position: relative;
+			margin-right: 46rpx;
+			font-family: Arial;
+		}
 
-		// .u-cell:nth-child(1) .u-cell__value--large::after {
-		// 	content: "份";
-		// 	position: absolute;
-		// 	top: 0;
-		// 	right: -34rpx;
-		// 	font-size: 27rpx;
-		// 	font-weight: 400;
-		// }
+		.u-cell:nth-child(1) .u-cell__value--large::after {
+			content: "份";
+			position: absolute;
+			top: 0;
+			right: -34rpx;
+			font-size: 27rpx;
+			font-weight: 400;
+		}
 
-		// .u-cell:nth-child(1) .u-cell__right-icon-wrap {
-		// 	display: none;
-		// }
+		.u-cell:nth-child(1) .u-cell__right-icon-wrap {
+			display: none;
+		}
 
-		// .u-cell:nth-child(2) .u-cell__value--large,
-		// .u-cell:nth-child(5) .u-cell__value--large {
-		// 	font-weight: 400 !important;
-		// 	font-size: 27rpx !important;
-		// 	color: #755022 !important;
-		// 	height: 58rpx;
-		// 	line-height: 58rpx;
-		// }
-
-		// .u-cell:nth-child(3) .u-cell__value--large {
-		// 	font-size: 31rpx !important;
-		// }
-		.u-cell:nth-child(2) .u-cell__value--large {
+		.u-cell:nth-child(2) .u-cell__value--large,
+		.u-cell:nth-child(5) .u-cell__value--large {
 			font-weight: 400 !important;
 			font-size: 27rpx !important;
 			color: #755022 !important;
 			height: 58rpx;
 			line-height: 58rpx;
 		}
+
+		.u-cell:nth-child(3) .u-cell__value--large {
+			font-size: 31rpx !important;
+		}
+
+		// .u-cell:nth-child(2) .u-cell__value--large {
+		// 	font-weight: 400 !important;
+		// 	font-size: 27rpx !important;
+		// 	color: #755022 !important;
+		// 	height: 58rpx;
+		// 	line-height: 58rpx;
+		// }
 	}
 
 	.tabs {

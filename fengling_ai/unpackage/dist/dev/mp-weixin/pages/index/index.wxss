@@ -52,12 +52,50 @@ image {
   font-size: 38rpx !important;
   color: #755022 !important;
 }
- .u-cell:nth-child(2) .u-cell__value--large {
+ .u-cell:nth-child(1) .u-cell__body--large {
+  background: linear-gradient(131deg, #E5EEFE 0%, #4E8EFF 100%);
+  font-weight: 600;
+  position: relative;
+  z-index: 9;
+}
+ .u-cell:nth-child(1) .u-cell__body--large::before {
+  content: "";
+  width: 100px;
+  height: 100%;
+  background: url("https://static.test.swiftwd.com/worker/new/ic_sign_menu.png") no-repeat;
+  background-size: auto 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+ .u-cell:nth-child(1) .u-cell__value--large {
+  color: #fff !important;
+  display: inline-block;
+  position: relative;
+  margin-right: 46rpx;
+  font-family: Arial;
+}
+ .u-cell:nth-child(1) .u-cell__value--large::after {
+  content: "份";
+  position: absolute;
+  top: 0;
+  right: -34rpx;
+  font-size: 27rpx;
+  font-weight: 400;
+}
+ .u-cell:nth-child(1) .u-cell__right-icon-wrap {
+  display: none;
+}
+ .u-cell:nth-child(2) .u-cell__value--large, .u-cell:nth-child(5) .u-cell__value--large {
   font-weight: 400 !important;
   font-size: 27rpx !important;
   color: #755022 !important;
   height: 58rpx;
   line-height: 58rpx;
+}
+ .u-cell:nth-child(3) .u-cell__value--large {
+  font-size: 31rpx !important;
 }
 .tabs .tab {
   padding: 0 20rpx;

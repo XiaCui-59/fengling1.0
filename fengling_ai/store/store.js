@@ -37,7 +37,8 @@ const store = new Vuex.Store({
 		aiReady: false, //记录AI的链接状态,
 		sureJobName: "",
 		sureJobId: "",
-		hangUpFirst: false //是否主动挂断电话
+		hangUpFirst: false, //是否主动挂断电话
+		qunQrcode: "" //记录推送的群二维码
 	},
 	mutations: {
 		setHangUpFirst(state) {
@@ -45,6 +46,12 @@ const store = new Vuex.Store({
 		},
 		resetHangUpFirst(state) {
 			state.hangUpFirst = false
+		},
+		setQunCode(state, url) {
+			state.qunQrcode = url
+		},
+		resetQunCode(state) {
+			state.qunQrcode = ""
 		},
 		setJobName(state, name) {
 			state.sureJobName = name

@@ -1,6 +1,6 @@
 <template>
 	<view class="card_kefu">
-		<image :src="imgUrl" mode="widthFix" :show-menu-by-longpress="true" @click="prev"></image>
+		<image :src="qunQrcode?qunQrcode:imgUrl" mode="widthFix" :show-menu-by-longpress="true" @click="prev"></image>
 		<view class="text">长按图片识别二维码，添加专属客服</view>
 		<view class="step_hand" v-show="showHand">
 			<image :src="imageUrl+'/worker/new/step_hand.png'" mode="widthFix"></image>
@@ -9,6 +9,10 @@
 </template>
 
 <script>
+	import {
+		mapState,
+		mapMutations
+	} from "vuex"
 	const app = getApp();
 	export default {
 		props: ["showHand"],
@@ -18,6 +22,9 @@
 				imageUrl: app.globalData.baseImageUrl,
 				imgUrl: app.globalData.baseImageUrl + "/worker/kefu_code.jpg?time=" + (new Date()).getTime()
 			};
+		},
+		computed: {
+			...mapState(["qunQrcode"])
 		},
 		created() {
 			let _this = this
@@ -34,7 +41,7 @@
 				uni.previewImage({
 					urls: urls
 				})
-			}
+			},
 		}
 	}
 </script>

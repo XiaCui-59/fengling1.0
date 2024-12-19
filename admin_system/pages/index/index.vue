@@ -43,6 +43,7 @@
 				<hotPosition v-if="pageName == 'hot_position'" @getPageName="getPageName"></hotPosition>
 				<recommendDetail v-if="pageName == 'recom_detail'" @getPageName="getPageName"></recommendDetail>
 				<paySetting v-if="pageName == 'pay_setting'" @getPageName="getPageName"></paySetting>
+				<groupChat v-if="pageName == 'group_chat'" @getPageName="getPageName"></groupChat>
 			</view>
 		</view>
 	</view>
@@ -88,6 +89,7 @@
 	import recommendDetail from "@/components/recom_detail.vue"
 	import hotPosition from "@/components/hot_position.vue"
 	import paySetting from "@/components/pay_setting.vue"
+	import groupChat from "@/components/group_chat.vue"
 	export default {
 		data() {
 			return {
@@ -138,7 +140,8 @@
 			recommendPosi,
 			recommendDetail,
 			hotPosition,
-			paySetting
+			paySetting,
+			groupChat
 		},
 		onLoad() {
 			// 设置本地存储tabs

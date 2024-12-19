@@ -22,7 +22,7 @@
 							<image :src="imgUrl+'/worker/new/ic_score.png'" mode="widthFix"
 								style="width:44rpx;margin-right: 16rpx;">
 							</image>
-							<text>{{balance.total_amount}}</text>
+							<text>{{totalScore}}</text>
 						</view>
 					</view>
 					<view class="middle_line flex flex_btween">
@@ -70,7 +70,7 @@
 									<image :src="imgUrl+'/worker/new/ic_score.png'" mode="widthFix"
 										style="width:44rpx;">
 									</image>
-									<input type="text" value="10" placeholder="请输入提现金额"
+									<input type="text" :value="creditSeries[0].exchange_credit"
 										style="padding-left: 16rpx;box-sizing: border-box;" disabled />
 									<text
 										style="font-weight: 400;font-size: 29rpx;color: #333333;white-space: nowrap;">积分</text>
@@ -82,7 +82,7 @@
 
 					</view>
 					<view class="tx_btn">
-						<view class="btn" @click="confirm">立即支付 9.9元</view>
+						<view class="btn" @click="confirm">立即支付 {{creditSeries[0].discounted_price}}元</view>
 						<view class="tips" @click="toRule"><text>补充说明</text></view>
 					</view>
 				</view>
@@ -107,24 +107,12 @@
 				tabMargin: app.globalData.tabMargin,
 				scrollHeight: 0,
 				list: [],
-				balance: {
-					"total_amount": "0",
-					"available_amount": "0",
-					"frozen_amount": "0"
-				},
+				creditSeries: [],
+				totalScore: 0,
 				currentPage: 1,
 				pagination: {
 
 				}
-				// tabList: [{
-				// 	name: "今日"
-				// }, {
-				// 	name: "昨日"
-				// }, {
-				// 	name: "本月"
-				// }, {
-				// 	name: "今日"
-				// }]
 			}
 		},
 		async onLoad() {
@@ -149,7 +137,7 @@
 			}
 
 			this.getList()
-
+			this.getCreditSeries()
 		},
 		methods: {
 			getElementInfo() {
@@ -162,12 +150,20 @@
 				})
 			},
 			getList() {
-				let url = "/worker/balance-changes?page=" + this.currentPage + "&page_size=15"
+				let url = "/worker/credit/info?page=" + this.currentPage + "&page_size=15"
 				this.$request(url).then(res => {
 					if (res.code == 0) {
 						this.list = this.list.concat(res.data.list)
 						this.pagination = res.data.pagination
-						this.balance = res.data.balance
+						this.totalScore = res.data.totalCredit
+					}
+				})
+			},
+			getCreditSeries() {
+				let url = "/worker/credit/subscription?page=" + this.currentPage + "&page_size=15"
+				this.$request(url).then(res => {
+					if (res.code == 0) {
+						this.creditSeries = res.data.list
 					}
 				})
 			},
@@ -204,17 +200,73 @@
 					url: "/subpkg/score_rule/score_rule"
 				})
 			},
-			confirm() {
-				// this.$request("/worker/withdraw", data, "POST").then(res => {
-				// 	if (res.code == 0) {
-				// 		this.$refs.myModal.showModal({
-				// 			title: "余额提现已申请， 将在24小时内到账微信零钱。",
-				// 			showCancel: false,
-				// 			confirmText: "知道了"
-				// 		})
-				// 		this.close()
-				// 	}
-				// })
+			async confirm() {
+				let systemInfo = uni.getSystemInfoSync()
+				if (systemInfo.osName == "ios") {
+					// 如果是ios系统，调用支付开关
+					this.$request("/ios/status").then(res => {
+						if (res.code == 0) {
+							if (!res.data) {
+								this.$refs.myModal.showModal({
+									title: "由于相关规范，iOS成为会员功能暂不可用。",
+									showCancel: false
+								})
+								return
+							}
+						}
+					})
+				}
+				let orderId = await this.creatOrder()
+				if (orderId) {
+					let url = "/worker/credit/" + orderId + "/pay"
+					this.$request(url, {}, "POST").then(res => {
+						if (res.code == 0) {
+							let orderParams = res.data.wechat_mini_program
+							uni.requestPayment({
+								"appId": orderParams.appId,
+								"timeStamp": orderParams.timeStamp, //时间戳
+								"nonceStr": orderParams.nonceStr, //随机字符串
+								"package": orderParams.package, //prepay_id
+								"signType": orderParams.signType, //签名算法MD5
+								"paySign": orderParams.paySign, //签名s,
+								success() {
+									this.$refs.myModal.showModal({
+										title: "支付成功",
+										showCancel: false,
+										success(res) {
+											if (res == "confirm") {
+												_this.getList()
+											}
+										}
+									})
+								},
+								fail(err) {
+									console.log(err, "err")
+									uni.showToast({
+										title: "支付已取消",
+										icon: "error",
+										duration: 2000
+									})
+								}
+
+							})
+						}
+					})
+				}
+			},
+			creatOrder() {
+				let _this = this
+				return new Promise(resolve => {
+					let url = "/worker/credit/order"
+					let data = {
+						"credit_package_id": _this.creditSeries[0].id
+					}
+					_this.$request(url, data, "POST").then(res => {
+						if (res.code == 0) {
+							resolve(res.data.order_id)
+						}
+					})
+				})
 			}
 		}
 	}
