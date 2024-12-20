@@ -43,8 +43,6 @@
 							</view>
 						</view>
 					</view>
-					<!-- <cardRecharge></cardRecharge> -->
-
 					<view class="fenge flex flex_around" id="fenge_line" v-show="historyList.length>0">
 						<view class="fgline"></view>
 						<view class="text">以上是历史记录</view>
@@ -109,7 +107,14 @@
 									<cardKefu v-if="item.card && item.card.type == 'QCODE'">
 									</cardKefu>
 								</view>
-
+								<!-- 推送充值卡片 -->
+								<view v-if="index == (qaList.length - 1)">
+									<!-- 最新一条 -->
+									<cardRecharge
+										v-if="item.card && item.card.type == 'score_not_enough' && !answerContinue"
+										@sendMsg="sendMsg('我已充值成功，请帮我报名。','')">
+									</cardRecharge>
+								</view>
 							</view>
 						</view>
 					</view>

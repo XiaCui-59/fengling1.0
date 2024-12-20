@@ -291,7 +291,7 @@
 				"address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
 				"Authorization": "bearer " + token,
 			}
-			// this.openid = await this.getOpenid()
+			this.openid = await this.getOpenid()
 			this.getSetting()
 			if (this.isLogin()) {
 				this.getInfo()
@@ -1093,9 +1093,14 @@
 								type: "QCODE"
 							}
 							_this.curRespone.card = JSON.parse(JSON.stringify(card))
-							_this.noMayAsk = true
-						} else {
-							_this.noMayAsk = false
+						}
+						if (respData.type == "score_not_enough") {
+							// 推送充值积分卡片
+							let card = {
+								type: "score_not_enough"
+							}
+							_this.setJobName(respData.job_name)
+							_this.curRespone.card = JSON.parse(JSON.stringify(card))
 						}
 						if (respData.message != "[DONE]") {
 							_this.responCount++

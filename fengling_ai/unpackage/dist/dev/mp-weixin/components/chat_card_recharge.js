@@ -114,50 +114,128 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 30));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 32));
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _vuex = __webpack_require__(/*! vuex */ 41);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var app = getApp();
 var _default = {
   name: "chat_card_recharge",
   data: function data() {
     return {
-      imgUrl: app.globalData.baseImageUrl
+      imgUrl: app.globalData.baseImageUrl,
+      creditSeries: [],
+      jobNeedCredit: 0,
+      currentPage: 1
     };
   },
-  created: function created() {},
-  methods: {}
+  computed: _objectSpread({}, (0, _vuex.mapState)(["sureJobName"])),
+  created: function created() {
+    this.getCreditSeries();
+    this.getCredit();
+  },
+  methods: {
+    recharge: function recharge() {
+      var _this2 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var _this, orderId, url;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this = _this2;
+                _context.next = 3;
+                return _this2.creatOrder();
+              case 3:
+                orderId = _context.sent;
+                if (orderId) {
+                  url = "/worker/credit/" + orderId + "/pay";
+                  _this2.$request(url, {}, "POST").then(function (res) {
+                    if (res.code == 0) {
+                      var orderParams = res.data.wechat_mini_program;
+                      uni.requestPayment({
+                        "appId": orderParams.appId,
+                        "timeStamp": orderParams.timeStamp,
+                        //时间戳
+                        "nonceStr": orderParams.nonceStr,
+                        //随机字符串
+                        "package": orderParams.package,
+                        //prepay_id
+                        "signType": orderParams.signType,
+                        //签名算法MD5
+                        "paySign": orderParams.paySign,
+                        //签名s,
+                        success: function success() {
+                          uni.showToast({
+                            title: "充值成功",
+                            duration: 2000
+                          });
+                          _this.$emit("sendMsg");
+                        },
+                        fail: function fail(err) {
+                          console.log(err, "err");
+                          uni.showToast({
+                            title: "支付已取消",
+                            icon: "error",
+                            duration: 2000
+                          });
+                        }
+                      });
+                    }
+                  });
+                }
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getCreditSeries: function getCreditSeries() {
+      var _this3 = this;
+      var url = "/worker/credit/subscription?page=" + this.currentPage + "&page_size=15";
+      this.$request(url).then(function (res) {
+        if (res.code == 0) {
+          _this3.creditSeries = res.data.list;
+        }
+      });
+    },
+    getCredit: function getCredit() {
+      var _this4 = this;
+      this.$request("/worker/credit/project").then(function (res) {
+        if (res.code == 0) {
+          _this4.jobNeedCredit = res.data.job_worth_credit;
+        }
+      });
+    },
+    creatOrder: function creatOrder() {
+      var _this = this;
+      return new Promise(function (resolve) {
+        var url = "/worker/credit/order";
+        var data = {
+          "credit_package_id": _this.creditSeries[0].id
+        };
+        _this.$request(url, data, "POST").then(function (res) {
+          if (res.code == 0) {
+            resolve(res.data.order_id);
+          }
+        });
+      });
+    }
+  }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

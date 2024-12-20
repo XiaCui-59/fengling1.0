@@ -411,14 +411,17 @@ var _default = {
                 "address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
                 "Authorization": "bearer " + token
               };
-              // this.openid = await this.getOpenid()
+              _context2.next = 20;
+              return _this2.getOpenid();
+            case 20:
+              _this2.openid = _context2.sent;
               _this2.getSetting();
               if (_this2.isLogin()) {
                 _this2.getInfo();
                 // this.closeInterviewCard()
                 // this.closeChannelInterviewCard()
               }
-            case 20:
+            case 23:
             case "end":
               return _context2.stop();
           }
@@ -1245,9 +1248,14 @@ var _default = {
               type: "QCODE"
             };
             _this.curRespone.card = JSON.parse(JSON.stringify(card));
-            _this.noMayAsk = true;
-          } else {
-            _this.noMayAsk = false;
+          }
+          if (respData.type == "score_not_enough") {
+            // 推送充值积分卡片
+            var _card = {
+              type: "score_not_enough"
+            };
+            _this.setJobName(respData.job_name);
+            _this.curRespone.card = JSON.parse(JSON.stringify(_card));
           }
           if (respData.message != "[DONE]") {
             _this.responCount++;

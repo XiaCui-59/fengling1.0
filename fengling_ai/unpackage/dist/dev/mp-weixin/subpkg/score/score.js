@@ -132,19 +132,27 @@ var render = function () {
     ? _vm.__map(_vm.list, function (item, index) {
         var $orig = _vm.__get_orig(item)
         var g0 = _vm.list.length
+        var m0 = g0 > 0 ? Number(item.credit) : null
+        var m1 = g0 > 0 ? Number(item.credit) : null
+        var g1 = g0 > 0 ? item.credit.indexOf("-") : null
+        var g2 = g0 > 0 && !(g1 == -1) ? item.credit.slice(1) : null
         return {
           $orig: $orig,
           g0: g0,
+          m0: m0,
+          m1: m1,
+          g1: g1,
+          g2: g2,
         }
       })
     : null
-  var g1 = !_vm.ifSingle ? _vm.list.length : null
+  var g3 = !_vm.ifSingle ? _vm.list.length : null
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
         l0: l0,
-        g1: g1,
+        g3: g3,
       },
     }
   )
@@ -285,6 +293,8 @@ var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/r
 //
 //
 //
+//
+//
 
 var app = getApp();
 var _default = {
@@ -302,7 +312,8 @@ var _default = {
       creditSeries: [],
       totalScore: 0,
       currentPage: 1,
-      pagination: {}
+      pagination: {},
+      jobNeedCredit: 0
     };
   },
   onLoad: function onLoad() {
@@ -345,7 +356,8 @@ var _default = {
             case 13:
               _this2.getList();
               _this2.getCreditSeries();
-            case 15:
+              _this2.getCredit();
+            case 16:
             case "end":
               return _context.stop();
           }
@@ -411,41 +423,56 @@ var _default = {
     close: function close() {
       this.showMask = false;
     },
+    getCredit: function getCredit() {
+      var _this5 = this;
+      this.$request("/worker/credit/project").then(function (res) {
+        if (res.code == 0) {
+          _this5.jobNeedCredit = res.data.job_worth_credit;
+        }
+      });
+    },
     toRule: function toRule() {
       uni.navigateTo({
         url: "/subpkg/score_rule/score_rule"
       });
     },
     confirm: function confirm() {
-      var _this5 = this;
+      var _this6 = this;
+      var systemInfo = uni.getSystemInfoSync();
+      if (systemInfo.osName == "ios") {
+        // 如果是ios系统，调用支付开关
+        this.$request("/ios/status").then(function (res) {
+          if (res.code == 0) {
+            if (!res.data) {
+              _this6.$refs.myModal.showModal({
+                title: "由于相关规范，iOS成为会员功能暂不可用。",
+                showCancel: false
+              });
+            } else {
+              _this6.surePay();
+            }
+          }
+        });
+      } else {
+        this.surePay();
+      }
+    },
+    surePay: function surePay() {
+      var _this7 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
-        var systemInfo, orderId, url;
+        var _this, orderId, url;
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                systemInfo = uni.getSystemInfoSync();
-                if (systemInfo.osName == "ios") {
-                  // 如果是ios系统，调用支付开关
-                  _this5.$request("/ios/status").then(function (res) {
-                    if (res.code == 0) {
-                      if (!res.data) {
-                        _this5.$refs.myModal.showModal({
-                          title: "由于相关规范，iOS成为会员功能暂不可用。",
-                          showCancel: false
-                        });
-                        return;
-                      }
-                    }
-                  });
-                }
-                _context2.next = 4;
-                return _this5.creatOrder();
-              case 4:
+                _this = _this7;
+                _context2.next = 3;
+                return _this7.creatOrder();
+              case 3:
                 orderId = _context2.sent;
                 if (orderId) {
                   url = "/worker/credit/" + orderId + "/pay";
-                  _this5.$request(url, {}, "POST").then(function (res) {
+                  _this7.$request(url, {}, "POST").then(function (res) {
                     if (res.code == 0) {
                       var orderParams = res.data.wechat_mini_program;
                       uni.requestPayment({
@@ -461,12 +488,13 @@ var _default = {
                         "paySign": orderParams.paySign,
                         //签名s,
                         success: function success() {
-                          this.$refs.myModal.showModal({
+                          _this.$refs.myModal.showModal({
                             title: "支付成功",
                             showCancel: false,
-                            success: function success(res) {
-                              if (res == "confirm") {
+                            success: function success(resp) {
+                              if (resp == "confirm") {
                                 _this.getList();
+                                _this.close();
                               }
                             }
                           });
@@ -478,12 +506,13 @@ var _default = {
                             icon: "error",
                             duration: 2000
                           });
+                          _this.close();
                         }
                       });
                     }
                   });
                 }
-              case 6:
+              case 5:
               case "end":
                 return _context2.stop();
             }

@@ -1,9 +1,10 @@
 <template>
 	<view class="search_box flex flex_start">
 		<view class="line flex flex_start" v-show="showCode">
-			<view class="tit">账单编号</view>
+			<view class="tit">{{codeStr?codeStr:"账单编号"}}</view>
 			<view class="cont flex flex_start">
-				<input type="text" v-model="code" placeholder="请输入账单编号" placeholder-style="font-size:14px;" />
+				<input type="text" v-model="code" :placeholder="'请输入'+codeStr?codeStr:'账单编号'"
+					placeholder-style="font-size:14px;" />
 			</view>
 		</view>
 		<view class="line flex flex_start" v-show="showUser">
@@ -179,6 +180,13 @@
 				<input type="text" v-model="idCard" placeholder="请输入身份证号" placeholder-style="font-size:14px;" />
 			</view>
 		</view> -->
+		<view class="line flex flex_start" v-show="showCreditBillType">
+			<view class="tit">账单类型</view>
+			<view class="cont flex flex_start">
+				<uni-data-select v-model="creditBillType" :localdata="creditBillTypeRange"
+					@change="creditBillTypeChange"></uni-data-select>
+			</view>
+		</view>
 		<view class="line flex flex_start" v-show="showRange">
 			<view class="tit">{{timeStr}}时间</view>
 			<view class="cont flex flex_start" style="width:auto;">
@@ -208,6 +216,7 @@
 					@change="statusChange"></uni-data-select>
 			</view>
 		</view>
+
 		<view class="line flex flex_start" v-show="showTxStatus">
 			<view class="tit">提现状态</view>
 			<view class="cont flex flex_start">
@@ -271,7 +280,7 @@
 			"showVeriStatus",
 			"showLoginStatus", "userStr", "employeeStr", "showTxStatus", "showRange2", "timeStr2", "showInvite",
 			"showChannelCompany",
-			"showChannel", "showChannelStatus", "seleStatus"
+			"showChannel", "showChannelStatus", "seleStatus", "codeStr", "showCreditBillType"
 		],
 		data() {
 			return {
@@ -331,7 +340,20 @@
 				planName: "",
 				kefuName: "",
 				liveName: "",
-				anchorName: ""
+				anchorName: "",
+				creditBillTypeRange: [{
+						value: "",
+						text: "全部"
+					}, {
+						value: "recharge_credit",
+						text: "充值积分"
+					},
+					{
+						value: "sign_cost",
+						text: "报名扣除"
+					}
+				],
+				creditBillType: ""
 			}
 		},
 		watch: {
@@ -366,6 +388,7 @@
 			// this.$emit("getSeleData", this.anchorRange, this.liveRange)
 		},
 		methods: {
+			creditBillTypeChange() {},
 			channelStatusChange() {
 
 			},
@@ -482,7 +505,8 @@
 					inviteValue: this.inviteValue,
 					channelCompany: this.channelCompany,
 					channelName: this.channelName,
-					channelStatusValue: this.channelStatusValue
+					channelStatusValue: this.channelStatusValue,
+					creditBillType: this.creditBillType
 				}
 				let reg = /[0-9]/
 				if (reg.test(this.companyName)) {
@@ -586,6 +610,7 @@
 				this.channelCompany = ""
 				this.channelName = ""
 				this.channelStatusValue = ""
+				this.creditBillType = ""
 				this.range = ["", ""]
 				this.range2 = ["", ""]
 				this.$refs.timeStrPicker.clear()

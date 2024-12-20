@@ -46,10 +46,12 @@
 								<view class="remark">{{item.description}}</view>
 								<view class="time">{{item.create_time}}</view>
 							</view>
-							<view class="right num">
+							<view class="right num flex flex_end">
 								<text
-									:class="item.direction== 'income'?'green':'red'">{{item.direction== 'income'?"+":"-"}}</text>
-								{{item.change_amount}}
+									:class="Number(item.credit)>0?'green':'red'">{{Number(item.credit)<0?"-":"+"}}</text>
+								{{item.credit.indexOf("-") == -1?item.credit:item.credit.slice(1)}}
+								<text
+									style="font-size: 23rpx;font-weight: 500;color: #5B5B5B;display: inline-block;margin-left: 16rpx;">积分</text>
 							</view>
 						</view>
 						<view class="empty" v-if="list.length==0">
@@ -75,7 +77,7 @@
 									<text
 										style="font-weight: 400;font-size: 29rpx;color: #333333;white-space: nowrap;">积分</text>
 								</view>
-								<view class=" tips">积分用于报名精选工作，报名1次扣除2.5个积分</view>
+								<view class=" tips">积分用于报名精选工作，报名1次扣除{{jobNeedCredit}}个积分</view>
 							</view>
 							<image :src="imgUrl+'/worker/new/score_icon.png'" mode="widthFix"></image>
 						</view>
@@ -112,7 +114,8 @@
 				currentPage: 1,
 				pagination: {
 
-				}
+				},
+				jobNeedCredit: 0
 			}
 		},
 		async onLoad() {
@@ -138,6 +141,7 @@
 
 			this.getList()
 			this.getCreditSeries()
+			this.getCredit()
 		},
 		methods: {
 			getElementInfo() {
@@ -195,12 +199,19 @@
 			close() {
 				this.showMask = false
 			},
+			getCredit() {
+				this.$request("/worker/credit/project").then(res => {
+					if (res.code == 0) {
+						this.jobNeedCredit = res.data.job_worth_credit
+					}
+				})
+			},
 			toRule() {
 				uni.navigateTo({
 					url: "/subpkg/score_rule/score_rule"
 				})
 			},
-			async confirm() {
+			confirm() {
 				let systemInfo = uni.getSystemInfoSync()
 				if (systemInfo.osName == "ios") {
 					// 如果是ios系统，调用支付开关
@@ -211,11 +222,18 @@
 									title: "由于相关规范，iOS成为会员功能暂不可用。",
 									showCancel: false
 								})
-								return
+							} else {
+								this.surePay()
 							}
 						}
 					})
+				} else {
+					this.surePay()
 				}
+
+			},
+			async surePay() {
+				let _this = this
 				let orderId = await this.creatOrder()
 				if (orderId) {
 					let url = "/worker/credit/" + orderId + "/pay"
@@ -230,12 +248,13 @@
 								"signType": orderParams.signType, //签名算法MD5
 								"paySign": orderParams.paySign, //签名s,
 								success() {
-									this.$refs.myModal.showModal({
+									_this.$refs.myModal.showModal({
 										title: "支付成功",
 										showCancel: false,
-										success(res) {
-											if (res == "confirm") {
+										success(resp) {
+											if (resp == "confirm") {
 												_this.getList()
+												_this.close()
 											}
 										}
 									})
@@ -247,6 +266,7 @@
 										icon: "error",
 										duration: 2000
 									})
+									_this.close()
 								}
 
 							})
@@ -499,17 +519,22 @@
 	.record {
 		.item {
 			margin-top: 20rpx;
-			background: #fff;
+			background: #F7F8FA;
 			border-radius: 16rpx;
 			padding: 38rpx 26rpx;
 			box-sizing: border-box;
 
 			.left {
+				width: calc(100% - 160rpx);
+
 				.remark {
 					font-weight: 600;
 					font-size: 29rpx;
 					color: #333333;
 					margin-bottom: 8rpx;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
 				}
 
 				.time {
@@ -520,6 +545,9 @@
 			}
 
 			.right {
+				width: 150rpx;
+				flex-shrink: 0;
+
 				&.num {
 					font-family: Arial;
 					font-weight: 900;

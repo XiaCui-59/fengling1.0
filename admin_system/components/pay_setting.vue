@@ -21,14 +21,14 @@
 					<view class="tit">邀请好友首次充值返现</view>
 					<view class="text flex flex-start">
 						<input type="text" v-model="firstAward" placeholder="请输入首次充值返现金额" />
-						<view class="btn">保存</view>
+						<view class="btn" @click="savePayback">保存</view>
 					</view>
 				</view>
 				<view class="line">
 					<view class="tit">报名工作扣除积分</view>
 					<view class="text flex flex-start">
 						<input type="text" v-model="signRequireScore" placeholder="请输入报名需扣除的积分值" />
-						<view class="btn">保存</view>
+						<view class="btn" @click="saveCredit">保存</view>
 					</view>
 				</view>
 				<view class="line">
@@ -171,7 +171,7 @@
 		},
 		methods: {
 			getPayback() {
-				this.$request("/invite/payback_amount").then(res => {
+				this.$request("/admin/invite/payback_amount").then(res => {
 					if (res.code == 0) {
 						this.firstAward = res.data.pay_back_amount
 					}
@@ -181,7 +181,7 @@
 				let data = {
 					pay_back_amount: Number(this.firstAward)
 				}
-				this.$request("/invite/payback_amount", data, "POST").then(res => {
+				this.$request("/admin/invite/payback_amount", data, "POST").then(res => {
 					if (res.code == 0) {
 						uni.showToast({
 							title: "返现设置成功",

@@ -135,6 +135,7 @@ var render = function () {
             : null
           var g8 = _vm.qaList.length
           var g9 = _vm.qaList.length
+          var g10 = _vm.qaList.length
           return {
             $orig: $orig,
             g4: g4,
@@ -143,6 +144,7 @@ var render = function () {
             g7: g7,
             g8: g8,
             g9: g9,
+            g10: g10,
           }
         })
       : null

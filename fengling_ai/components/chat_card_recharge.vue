@@ -1,9 +1,9 @@
 <template>
-	<view class="card_recharge">
+	<view class="card_recharge" @click="recharge">
 		<view class="top flex flex_btween">
 			<view class="top_left">
 				<view class="tit">温馨提醒,当前积分不足</view>
-				<view class="text">精选工作岗位只需2.5积分，即可报名</view>
+				<view class="text">精选工作岗位只需{{jobNeedCredit}}积分，即可报名</view>
 			</view>
 			<image :src="imgUrl+'/worker/new/card_ic_jinbi.png'" mode="widthFix"></image>
 		</view>
@@ -11,12 +11,15 @@
 			<view class="bot">
 				<view class="flex flex_start">
 					<view class="left flex">
-						<image :src="imgUrl+'/worker/new/card_ic_zan.png'" mode="widthFix"></image>
+						<image :src="imgUrl+'/worker/new/card_ic_zan.png'" mode="widthFix"
+							style="margin-left:0;margin-right: 8rpx;"></image>
 						<view class="text">精选工作</view>
 					</view>
-					<view class="name">郫县食品包装厂招聘制袋工备份</view>
+					<view class="name">{{sureJobName}}</view>
 				</view>
-				<view class="sure_btn">立即支付 9.9元（10积分）</view>
+				<view class="sure_btn">立即支付
+					{{creditSeries[0].discounted_price}}元（{{creditSeries[0].exchange_credit}}积分）
+				</view>
 			</view>
 		</view>
 
@@ -24,16 +27,95 @@
 </template>
 
 <script>
+	import {
+		mapState,
+		mapMutations
+	} from "vuex"
 	const app = getApp();
 	export default {
 		name: "chat_card_recharge",
 		data() {
 			return {
 				imgUrl: app.globalData.baseImageUrl,
+				creditSeries: [],
+				jobNeedCredit: 0,
+				currentPage: 1
 			};
 		},
-		created() {},
-		methods: {}
+		computed: {
+			...mapState(["sureJobName"])
+		},
+		created() {
+			this.getCreditSeries()
+			this.getCredit()
+		},
+		methods: {
+			async recharge() {
+				let _this = this
+				let orderId = await this.creatOrder()
+				if (orderId) {
+					let url = "/worker/credit/" + orderId + "/pay"
+					this.$request(url, {}, "POST").then(res => {
+						if (res.code == 0) {
+							let orderParams = res.data.wechat_mini_program
+							uni.requestPayment({
+								"appId": orderParams.appId,
+								"timeStamp": orderParams.timeStamp, //时间戳
+								"nonceStr": orderParams.nonceStr, //随机字符串
+								"package": orderParams.package, //prepay_id
+								"signType": orderParams.signType, //签名算法MD5
+								"paySign": orderParams.paySign, //签名s,
+								success() {
+									uni.showToast({
+										title: "充值成功",
+										duration: 2000
+									})
+									_this.$emit("sendMsg")
+								},
+								fail(err) {
+									console.log(err, "err")
+									uni.showToast({
+										title: "支付已取消",
+										icon: "error",
+										duration: 2000
+									})
+								}
+
+							})
+						}
+					})
+				}
+			},
+			getCreditSeries() {
+				let url = "/worker/credit/subscription?page=" + this.currentPage + "&page_size=15"
+				this.$request(url).then(res => {
+					if (res.code == 0) {
+						this.creditSeries = res.data.list
+					}
+				})
+			},
+			getCredit() {
+				this.$request("/worker/credit/project").then(res => {
+					if (res.code == 0) {
+						this.jobNeedCredit = res.data.job_worth_credit
+					}
+				})
+			},
+			creatOrder() {
+				let _this = this
+				return new Promise(resolve => {
+					let url = "/worker/credit/order"
+					let data = {
+						"credit_package_id": _this.creditSeries[0].id
+					}
+					_this.$request(url, data, "POST").then(res => {
+						if (res.code == 0) {
+							resolve(res.data.order_id)
+						}
+					})
+				})
+			}
+		}
 	}
 </script>
 

@@ -249,14 +249,14 @@
 						value: "month",
 						text: "元/月"
 					},
-					// {
-					// 	value: "day",
-					// 	text: "元/天"
-					// },
-					// {
-					// 	value: "hour",
-					// 	text: "元/时"
-					// }
+					{
+						value: "day",
+						text: "元/天"
+					},
+					{
+						value: "hour",
+						text: "元/时"
+					}
 				],
 				currentInfo: {
 					"broker_mobile": "",
@@ -330,7 +330,7 @@
 				}
 			}
 			this.getInfo()
-			this.getChannelList()
+			// this.getChannelList()
 			// this.getTagList()
 		},
 		methods: {

@@ -11,13 +11,12 @@
     "minified": false,
     "newFeature": true,
     "bigPackageSizeSupport": true,
-    "enhance": true,
-    "packNpmRelationList": [],
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    }
+    },
+    "enhance": true
   },
   "compileType": "miniprogram",
   "libVersion": "3.7.1",

@@ -218,21 +218,31 @@ image {
 }
 .record .item {
   margin-top: 20rpx;
-  background: #fff;
+  background: #F7F8FA;
   border-radius: 16rpx;
   padding: 38rpx 26rpx;
   box-sizing: border-box;
+}
+.record .item .left {
+  width: calc(100% - 160rpx);
 }
 .record .item .left .remark {
   font-weight: 600;
   font-size: 29rpx;
   color: #333333;
   margin-bottom: 8rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .record .item .left .time {
   font-weight: 400;
   font-size: 23rpx;
   color: #5B5B5B;
+}
+.record .item .right {
+  width: 150rpx;
+  flex-shrink: 0;
 }
 .record .item .right.num {
   font-family: Arial;

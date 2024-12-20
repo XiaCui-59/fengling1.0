@@ -163,7 +163,22 @@
 				</view>
 			</view>
 			<view class="box_item box_right" v-if="currentMainTab == 0">
-				<view class="title">职位详情</view>
+				<view class="title flex">
+					<view class="text">职位详情</view>
+					<view class="line flex" style="margin-left: 50px;font-size: 15px;color:#106afa;">
+						<view class="tit">支付报名：</view>
+						<radio-group @change="payMarkChange" class="input_wrap flex flex-start noborder">
+							<label class="uni-list-cell uni-list-cell-pd flex flex-start" style="margin-right:80rpx;"
+								v-for="(item, index) in payMark" :key="item.value">
+								<view>
+									<radio :value="item.value" :checked="index === currentMark" color="#106afa"
+										style="transform:scale(0.8)" />
+								</view>
+								<view style="font-size:27rpx;">{{item.text}}</view>
+							</label>
+						</radio-group>
+					</view>
+				</view>
 				<!-- 职位基本信息 -->
 				<view class="base flex flex_btween" style="align-items: start;flex-wrap: wrap;"
 					:class="showMoreInfo?'showall':''">
@@ -607,6 +622,16 @@
 		name: "contract_list",
 		data() {
 			return {
+				payMark: [{
+						value: true,
+						text: "是"
+					},
+					{
+						value: false,
+						text: "否"
+					}
+				],
+				currentMark: 1,
 				currentMainTab: 0,
 				showResult: false,
 				timeStr: "报名",
@@ -780,6 +805,9 @@
 			this.getInfo()
 		},
 		methods: {
+			payMarkChange() {
+
+			},
 			getStatics() {
 				this.$request("/admin/project/signing-requests-status/stats?project_id=" + this.id).then(res => {
 					if (res.code == 0) {

@@ -143,6 +143,18 @@
 								pageName: "tx_record",
 								text: "提现记录(工人)"
 							},
+							{
+								pid: 9,
+								id: 11,
+								pageName: "recharge_credit_record",
+								text: "积分充值记录(工人)"
+							},
+							{
+								pid: 9,
+								id: 11,
+								pageName: "cost_credit_record",
+								text: "积分账单(工人)"
+							}
 						]
 					},
 					{

@@ -44,6 +44,9 @@
 				<recommendDetail v-if="pageName == 'recom_detail'" @getPageName="getPageName"></recommendDetail>
 				<paySetting v-if="pageName == 'pay_setting'" @getPageName="getPageName"></paySetting>
 				<groupChat v-if="pageName == 'group_chat'" @getPageName="getPageName"></groupChat>
+				<rechargeCreditRecord v-if="pageName == 'recharge_credit_record'" @getPageName="getPageName">
+				</rechargeCreditRecord>
+				<costCreditRecord v-if="pageName == 'cost_credit_record'" @getPageName="getPageName"></costCreditRecord>
 			</view>
 		</view>
 	</view>
@@ -90,6 +93,8 @@
 	import hotPosition from "@/components/hot_position.vue"
 	import paySetting from "@/components/pay_setting.vue"
 	import groupChat from "@/components/group_chat.vue"
+	import rechargeCreditRecord from "@/components/recharge_credit_record.vue"
+	import costCreditRecord from "@/components/cost_credit_record.vue"
 	export default {
 		data() {
 			return {
@@ -141,7 +146,9 @@
 			recommendDetail,
 			hotPosition,
 			paySetting,
-			groupChat
+			groupChat,
+			rechargeCreditRecord,
+			costCreditRecord
 		},
 		onLoad() {
 			// 设置本地存储tabs
