@@ -11,11 +11,10 @@
 			</view>
 		</u-navbar>
 		<view class="cont" :style="{marginTop:marginTop+tabMargin+'px',minHeight:contHeight+'px'}">
-			<view class="item" v-for="(item,index) in list" :key="item.id" @click="toDetail(item.id)"
-				v-if="list.length != 0">
+			<view class="item" v-for="(item,index) in list" :key="index" @click="toChat(item)" v-if="list.length != 0">
 				<view class="title flex flex_btween" :class="item.status=='running'?'':'grey'">
-					<view class="text">{{item.name}}</view>
-					<view class="time">{{item.time}}</view>
+					<view class="text">{{item.project_name}}</view>
+					<view class="time">{{item.create_time.slice(0,10)}}</view>
 				</view>
 				<view class="middle flex flex_btween">
 					<view class="mid_in_item">
@@ -65,23 +64,21 @@
 						text: "/时"
 					}
 				],
-				list: [{
-						name: "希尔顿",
-						status: "running",
-						worker_salary_max: "6000",
-						worker_salary_min: "4000",
-						worker_salary_type: "month",
-						time: "2024-12-12"
-					},
-					{
-						name: "富士康",
-						status: "end",
-						worker_salary_max: "7000",
-						worker_salary_min: "5000",
-						worker_salary_type: "month",
-						time: "2024-12-01"
-					}
-				]
+				list: [],
+				currentPage: 1,
+				pagination: {}
+			}
+		},
+		onReachBottom() {
+			if (this.currentPage < this.pagination.pageCount) {
+				this.currentPage++
+				this.getList()
+			} else {
+				uni.showToast({
+					title: "已加载全部",
+					icon: "none",
+					duration: 2000
+				})
 			}
 		},
 		onLoad() {
@@ -91,8 +88,43 @@
 			})
 			uni.hideShareMenu()
 			this.contHeight = app.globalData.systemHeight - this.marginTop - this.tabMargin
+			this.getList()
 		},
-		methods: {}
+		methods: {
+			getList() {
+				let url = "/worker/browse_record?page=" + this.currentPage
+				this.$request(url).then(res => {
+					if (res.code == 0) {
+						this.list = this.list.concat(res.data.list)
+						this.pagination = res.data.pagination
+					}
+				})
+			},
+			toChat(item) {
+				console.log(item)
+				// 获取页面栈
+				let pages = getCurrentPages();
+				// 上一个页面实例
+				let prevPage = pages[pages.length - 2];
+				// 调用上一个页面的方法
+				uni.navigateBack()
+				if (prevPage && prevPage.$vm && typeof prevPage.$vm.changeTab === 'function') {
+					prevPage.$vm.changeTab(1);
+					prevPage.$vm.closeMenu()
+				}
+				setTimeout(function() {
+					if (prevPage && prevPage.$vm && typeof prevPage.$vm.sendBtnMsg === 'function') {
+						let obj = {
+							type: "job",
+							msg: item.project_name + "(ID:" + item.project_id + ")"
+						}
+						prevPage.$vm.sendBtnMsg(obj);
+					}
+				}, 1000)
+
+
+			}
+		}
 	}
 </script>
 

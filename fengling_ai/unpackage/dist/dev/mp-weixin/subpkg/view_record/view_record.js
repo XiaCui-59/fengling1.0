@@ -131,7 +131,8 @@ var render = function () {
   var g0 = _vm.list.length
   var l0 = _vm.__map(_vm.list, function (item, index) {
     var $orig = _vm.__get_orig(item)
-    var g1 =
+    var g1 = g0 != 0 ? item.create_time.slice(0, 10) : null
+    var g2 =
       g0 != 0
         ? _vm.periodList.filter(function (el) {
             return el.value == item.worker_salary_type
@@ -140,16 +141,17 @@ var render = function () {
     return {
       $orig: $orig,
       g1: g1,
+      g2: g2,
     }
   })
-  var g2 = _vm.list.length
+  var g3 = _vm.list.length
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
         g0: g0,
         l0: l0,
-        g2: g2,
+        g3: g3,
       },
     }
   )
@@ -236,7 +238,6 @@ exports.default = void 0;
 //
 //
 //
-//
 
 var app = getApp();
 var _default = {
@@ -256,22 +257,22 @@ var _default = {
         value: "hour",
         text: "/时"
       }],
-      list: [{
-        name: "希尔顿",
-        status: "running",
-        worker_salary_max: "6000",
-        worker_salary_min: "4000",
-        worker_salary_type: "month",
-        time: "2024-12-12"
-      }, {
-        name: "富士康",
-        status: "end",
-        worker_salary_max: "7000",
-        worker_salary_min: "5000",
-        worker_salary_type: "month",
-        time: "2024-12-01"
-      }]
+      list: [],
+      currentPage: 1,
+      pagination: {}
     };
+  },
+  onReachBottom: function onReachBottom() {
+    if (this.currentPage < this.pagination.pageCount) {
+      this.currentPage++;
+      this.getList();
+    } else {
+      uni.showToast({
+        title: "已加载全部",
+        icon: "none",
+        duration: 2000
+      });
+    }
   },
   onLoad: function onLoad() {
     uni.setNavigationBarColor({
@@ -280,8 +281,42 @@ var _default = {
     });
     uni.hideShareMenu();
     this.contHeight = app.globalData.systemHeight - this.marginTop - this.tabMargin;
+    this.getList();
   },
-  methods: {}
+  methods: {
+    getList: function getList() {
+      var _this = this;
+      var url = "/worker/browse_record?page=" + this.currentPage;
+      this.$request(url).then(function (res) {
+        if (res.code == 0) {
+          _this.list = _this.list.concat(res.data.list);
+          _this.pagination = res.data.pagination;
+        }
+      });
+    },
+    toChat: function toChat(item) {
+      console.log(item);
+      // 获取页面栈
+      var pages = getCurrentPages();
+      // 上一个页面实例
+      var prevPage = pages[pages.length - 2];
+      // 调用上一个页面的方法
+      uni.navigateBack();
+      if (prevPage && prevPage.$vm && typeof prevPage.$vm.changeTab === 'function') {
+        prevPage.$vm.changeTab(1);
+        prevPage.$vm.closeMenu();
+      }
+      setTimeout(function () {
+        if (prevPage && prevPage.$vm && typeof prevPage.$vm.sendBtnMsg === 'function') {
+          var obj = {
+            type: "job",
+            msg: item.project_name + "(ID:" + item.project_id + ")"
+          };
+          prevPage.$vm.sendBtnMsg(obj);
+        }
+      }, 1000);
+    }
+  }
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))

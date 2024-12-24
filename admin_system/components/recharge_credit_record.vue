@@ -69,7 +69,7 @@
 				this.getList()
 			},
 			getList() {
-				let url = "/admin/worker-vip-orders?page=" + this.currentPage +
+				let url = "/admin/credit/charge_record?page=" + this.currentPage +
 					"&keyword=" + this.searEmployee + "&page_size=" + this.currentCount + "&pay_time_start=" + this
 					.searStart + "&pay_time_end=" + this.searEnd
 				this.$request(url).then(res => {

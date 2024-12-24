@@ -12,8 +12,10 @@
 						<view class="text">精选工作</view>
 					</view>
 					<view class="in_box">
-						<view class="text">郫县食品包装厂招聘制袋工</view>
-						<view class="text">8000-9000元/月</view>
+						<view class="text">{{project.name}}</view>
+						<view class="text">
+							{{project.worker_salary_min}}-{{project.worker_salary_max}}元{{periodList.filter(el=>{return el.value == project.worker_salary_type})[0].text}}
+						</view>
 						<view class="sure_btn" @click="toChat">了解详情</view>
 					</view>
 				</view>
@@ -30,10 +32,27 @@
 	const app = getApp();
 	export default {
 		name: "load_project_popup",
-		// props: ["showProPop"],
+		props: ["project"],
 		data() {
 			return {
 				imgUrl: app.globalData.baseImageUrl,
+				periodList: [{
+						value: "hour",
+						text: "/时"
+					},
+					{
+						value: "day",
+						text: "/天"
+					},
+					{
+						value: "week",
+						text: "/周"
+					},
+					{
+						value: "month",
+						text: "/月"
+					},
+				],
 			};
 		},
 		methods: {
@@ -41,10 +60,11 @@
 				this.$emit("closeProPop")
 			},
 			toChat() {
-				uni.showToast({
-					title: "感兴趣",
-					duration: 2000
-				})
+				let obj = {
+					type: "job",
+					msg: this.project.name + "(ID:" + this.project.id + ")"
+				}
+				this.$emit("sendMsg", obj)
 			}
 		}
 	}

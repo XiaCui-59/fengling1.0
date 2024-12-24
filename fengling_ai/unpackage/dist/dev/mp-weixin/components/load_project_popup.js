@@ -81,6 +81,17 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.periodList.filter(function (el) {
+    return el.value == _vm.project.worker_salary_type
+  })
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -114,7 +125,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -148,14 +159,29 @@ exports.default = void 0;
 //
 //
 //
+//
+//
 
 var app = getApp();
 var _default = {
   name: "load_project_popup",
-  // props: ["showProPop"],
+  props: ["project"],
   data: function data() {
     return {
-      imgUrl: app.globalData.baseImageUrl
+      imgUrl: app.globalData.baseImageUrl,
+      periodList: [{
+        value: "hour",
+        text: "/时"
+      }, {
+        value: "day",
+        text: "/天"
+      }, {
+        value: "week",
+        text: "/周"
+      }, {
+        value: "month",
+        text: "/月"
+      }]
     };
   },
   methods: {
@@ -163,15 +189,15 @@ var _default = {
       this.$emit("closeProPop");
     },
     toChat: function toChat() {
-      uni.showToast({
-        title: "感兴趣",
-        duration: 2000
-      });
+      var obj = {
+        type: "job",
+        msg: this.project.name + "(ID:" + this.project.id + ")"
+      };
+      this.$emit("sendMsg", obj);
     }
   }
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

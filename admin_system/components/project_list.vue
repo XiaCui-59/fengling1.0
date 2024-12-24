@@ -146,7 +146,7 @@
 
 			</view>
 			<view class="inner" style="width:50%;" v-if="showPlatform">
-				<view class="title">选择来源<text
+				<view class="title">广告来源<text
 						style="color:#ffff00;position: relative;top:0;font-size: 16px;">（{{currentProject.name}}）</text>
 				</view>
 				<view class="close" @click="close">
@@ -163,7 +163,12 @@
 						</view>
 					</view>
 					<view class="line flex flex_end">
-						<view class="btn" @click="creatHaibao">确认</view>
+						<view class="btn" @click="creatLink"
+							style="background:#fff;border:1px solid #226FF9;color:#226FF9;"
+							v-if="currentPlatform.value != 'system'">生成链接</view>
+						<view class="btn" style="margin-left: 15px;" @click="creatHaibao">
+							{{currentPlatform.value == "system"?"确定":"绘制海报"}}
+						</view>
 					</view>
 				</view>
 			</view>
@@ -296,16 +301,21 @@
 						text: "系统",
 						icon: "/static/system_data.png"
 					},
-					// {
-					// 	value: "wechat_mini_program",
-					// 	text: "微信",
-					// 	icon: "/static/wechat.png"
-					// },
-					// {
-					// 	value: "douyin",
-					// 	text: "抖音",
-					// 	icon: "/static/douyin.png"
-					// },
+					{
+						value: "tencent",
+						text: "腾讯广告",
+						icon: "/static/wechat.png"
+					},
+					{
+						value: "douyin",
+						text: "抖音广告",
+						icon: "/static/douyin.png"
+					},
+					{
+						value: "wkanx",
+						text: "WIFI万能钥匙",
+						icon: "/static/wkanx.png"
+					}
 					// {
 					// 	value: "kuaishou",
 					// 	text: "快手",
@@ -746,6 +756,19 @@
 				this.showSetting = false
 				this.showEmployeeSearch = false
 			},
+			creatLink() {
+				let data = {
+					platform: this.currentPlatform.value,
+					job_id: this.currentProject.id
+				}
+				this.$request("/admin/shareJobLink", data, "POST").then(res => {
+					if (res.code == 0) {
+						uni.setClipboardData({
+							data: res.data
+						})
+					}
+				})
+			},
 			async creatHaibao() {
 				this.showMask = false
 				this.showPlatform = false
@@ -1145,6 +1168,10 @@
 							}
 
 							&:nth-child(4) {
+								color: #08c3d1;
+							}
+
+							&:nth-child(5) {
 								color: #ff4406;
 							}
 						}

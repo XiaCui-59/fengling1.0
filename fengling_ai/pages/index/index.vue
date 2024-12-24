@@ -88,7 +88,8 @@
 		<myModal ref="myModal">
 		</myModal>
 		<flMask v-if="showFlMask" @closeFengling="closeFengling" @sendMsg="sendBtnMsg"></flMask>
-		<!-- <projectPopup v-if="showProPop" @closeProPop="closeProPop"></projectPopup> -->
+		<projectPopup v-if="showProPop" @closeProPop="closeProPop" :project="currentProjectDetail"
+			@sendMsg="sendBtnMsg"></projectPopup>
 	</view>
 </template>
 
@@ -110,7 +111,7 @@
 	export default {
 		data() {
 			return {
-				showProPop: true,
+				showProPop: false,
 				showFlMask: false,
 				canPlay: true,
 				greetingObj: {
@@ -227,7 +228,14 @@
 				jobId: "",
 				noMayAsk: false, //记录用户是否报名成功
 				greetingReady: false,
-				action: "" //记录当前状态
+				action: "", //记录当前状态,
+				currentProjectDetail: {
+					id: "",
+					name: "",
+					worker_salary_min: "",
+					worker_salary_max: "",
+					worker_salary_type: ""
+				}
 			}
 		},
 		computed: {
@@ -280,7 +288,6 @@
 			let scanId = params.scene ? decodeURIComponent(params.scene).split("=")[1] : ""
 			this.shareId = params.share_id ? params.share_id : (scanId ? scanId : "")
 			this.params = params
-
 			location = await this.getPosition()
 			this.setLocation(location)
 			let token = uni.getStorageSync("token") ? uni.getStorageSync("token") : ""
@@ -292,6 +299,10 @@
 				"Authorization": "bearer " + token,
 			}
 			this.openid = await this.getOpenid()
+			if (params.job_id) {
+				// 存在具体职位
+				this.getProjectDetail(params.job_id)
+			}
 			this.getSetting()
 			if (this.isLogin()) {
 				this.getInfo()
@@ -386,6 +397,15 @@
 				"setAiReady", "resetAiReady", "resetCity", "setChannelInterviewCard", "closeChannelInterviewCard",
 				"setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst", "setQunCode"
 			]),
+			getProjectDetail(id) {
+				let url = "/worker/project/" + id
+				this.$request(url).then(res => {
+					if (res.code == 0) {
+						this.currentProjectDetail = res.data
+						this.showProPop = true
+					}
+				})
+			},
 			onInput(e) {
 				this.question = e.target.value
 			},
@@ -493,20 +513,12 @@
 			},
 			getPosition() {
 				return new Promise((resolve, reject) => {
-					let url = "https://apis.map.qq.com/ws/location/v1/ip?key=" + app.globalData.qqMapKey
-					uni.request({
-						url: url,
-						method: "GET",
-						success(res) {
-							console.log(res)
-							resolve(res.data.result)
-						},
-						fail(err) {
-							reject("error")
+					this.$request("/guest/location").then(res => {
+						if (res.code == 0) {
+							resolve(res.data)
 						}
 					})
 				})
-
 			},
 			getOpenid() {
 				let _this = this
@@ -757,11 +769,11 @@
 				})
 			},
 			async sendBtnMsg(obj) {
+				let _this = this
 				if (!this.isLogin()) {
 					this.showLogin = true
 					return
 				}
-				this.currentTabIndex = 1
 				if (!this.aiReady) {
 					uni.showToast({
 						title: "连接中，请稍后",
@@ -779,6 +791,7 @@
 					})
 					return
 				}
+				this.closeProPop()
 				this.jobId = obj.job_id
 				this.action = obj.action
 				if (obj.type == "job") {
@@ -794,7 +807,15 @@
 				} else {
 					this.question = obj.msg
 				}
-				this.sendQuestion()
+				if (this.currentTabIndex != 1) {
+					this.currentTabIndex = 1
+					setTimeout(function() {
+						_this.sendQuestion()
+					}, 500)
+				} else {
+					this.sendQuestion()
+				}
+
 			},
 			handleBtnMsg(msg) {
 				let _this = this
@@ -1043,6 +1064,7 @@
 					this.openCansend()
 					this.setAiReady()
 					console.log('已成功建立链接onOpen', res);
+					// 如果是其他页面进入首页
 				})
 				app.globalData.socketTask.onError((err) => {
 					app.globalData.socketTask = null
@@ -1166,10 +1188,6 @@
 				var _this = this;
 				if (!this.question) {
 					return
-					// uni.showToast({
-					// 	icon: "error",
-					// 	title: "无输入"
-					// })
 				} else {
 					this.inputHeight = 0
 					var showData = {
@@ -1177,6 +1195,7 @@
 						origin: "customer",
 						msg_type: "text"
 					}
+
 					this.send(this.question, showData, "")
 				}
 			},
@@ -1380,6 +1399,8 @@
 				if (this.isLogin()) {
 					// 已登录
 					this.showMenu = true
+					this.getSignList()
+					this.getViewList()
 				} else {
 					// 未登录显示登录弹窗
 					this.showLogin = true
@@ -1410,6 +1431,22 @@
 			closeLogin() {
 				this.showLogin = false
 			},
+			getSignList() {
+				let url = "/worker/register_record?page=1"
+				this.$request(url).then(res => {
+					if (res.code == 0) {
+						this.menuList[0].value = res.data.pagination.totalCount
+					}
+				})
+			},
+			getViewList() {
+				let url = "/worker/browse_record?page=1"
+				this.$request(url).then(res => {
+					if (res.code == 0) {
+						this.menuList[1].value = res.data.pagination.totalCount + "条"
+					}
+				})
+			},
 			async getInfo() {
 				this.$request("/worker/profile").then(response => {
 					if (response.code == 0) {
@@ -1421,7 +1458,6 @@
 				})
 				this.historyId = 0
 				this.historyList = await this.getHistory()
-				console.log("historyList：", this.historyList)
 			}
 		}
 	}
