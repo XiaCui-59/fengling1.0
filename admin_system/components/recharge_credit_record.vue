@@ -24,9 +24,9 @@
 						<uni-td align="center">{{index+1+currentCount*(currentPage - 1)}}</uni-td>
 						<uni-td align="center">{{item.id}}</uni-td>
 						<uni-td align="center">{{item.worker_name}}</uni-td>
-						<uni-td align="center">{{item.worker_mobile}}</uni-td>
-						<uni-td align="center">{{item.id}}</uni-td>
-						<uni-td align="center">{{item.amount}}</uni-td>
+						<uni-td align="center">{{item.mobile}}</uni-td>
+						<uni-td align="center">{{item.package_id}}</uni-td>
+						<uni-td align="center">{{item.charge_amount}}</uni-td>
 						<uni-td align="center">{{item.channel=="wechat"?"微信支付":""}}</uni-td>
 						<uni-td align="center">{{item.pay_time}}</uni-td>
 					</uni-tr>
@@ -52,6 +52,7 @@
 				searEmployee: "",
 				searStart: "",
 				searEnd: "",
+				searCode: "",
 				currentCount: 15
 			};
 		},
@@ -60,7 +61,7 @@
 			pageBox
 		},
 		created() {
-			// this.getList()
+			this.getList()
 		},
 		methods: {
 			toNext(e1, e2) {
@@ -70,8 +71,8 @@
 			},
 			getList() {
 				let url = "/admin/credit/charge_record?page=" + this.currentPage +
-					"&keyword=" + this.searEmployee + "&page_size=" + this.currentCount + "&pay_time_start=" + this
-					.searStart + "&pay_time_end=" + this.searEnd
+					"&user_info=" + this.searEmployee + "&page_size=" + this.currentCount + "&pay_start_time=" + this
+					.searStart + "&pay_end_time=" + this.searEnd + "&package_id=" + this.searCode
 				this.$request(url).then(res => {
 					if (res.code == 0) {
 						this.list = res.data.list
@@ -84,6 +85,7 @@
 				this.searEmployee = e.employeeName
 				this.searStart = e.startTime
 				this.searEnd = e.endTime
+				this.searCode = e.code
 				this.getList()
 			},
 		}

@@ -23,8 +23,8 @@
 		<view class="main_box">
 			<!-- 风铃页 -->
 			<welcome ref="welcome" v-show="currentTabIndex == 0" :top="statusBarHeight+44" :bottom="botSafe"
-				:canPlay="canPlay" @sendMsg="sendBtnMsg" @openCanPlay="openCanPlay" @setGreetStatus="setGreetStatus"
-				@tocall="toCall">
+				:canPlay="canPlay" :showUserStep="showUserStep" @sendMsg="sendBtnMsg" @openCanPlay="openCanPlay"
+				@setGreetStatus="setGreetStatus" @tocall="toCall" @closeStep="closeStep">
 			</welcome>
 			<chat ref="chatRef" v-show="currentTabIndex == 1" :top="statusBarHeight+44" :bottom="botSafe"
 				:historyList="historyList" :qaList="qaList" :scrollHeight="chatScrollHeight" :answering="answering"
@@ -111,6 +111,7 @@
 	export default {
 		data() {
 			return {
+				showUserStep: false,
 				showProPop: false,
 				showFlMask: false,
 				canPlay: true,
@@ -299,10 +300,20 @@
 				"Authorization": "bearer " + token,
 			}
 			this.openid = await this.getOpenid()
+			let readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : ""
 			if (params.job_id) {
 				// 存在具体职位
-				this.getProjectDetail(params.job_id)
+				uni.setStorageSync("readsteps", 1)
+				this.canPlay = false
+				this.getProjectDetail()
+			} else {
+				if (!readStep) {
+					this.showUserStep = true
+				} else {
+					this.showUserStep = false
+				}
 			}
+			this.postParams()
 			this.getSetting()
 			if (this.isLogin()) {
 				this.getInfo()
@@ -397,8 +408,18 @@
 				"setAiReady", "resetAiReady", "resetCity", "setChannelInterviewCard", "closeChannelInterviewCard",
 				"setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst", "setQunCode"
 			]),
-			getProjectDetail(id) {
-				let url = "/worker/project/" + id
+			postParams() {
+				this.$request("/ad/tracking", this.params, "POST").then(res => {
+					if (res.code == 0) {
+						console.log("参数上传成功：", this.params)
+					}
+				})
+			},
+			closeStep() {
+				this.showUserStep = false
+			},
+			getProjectDetail() {
+				let url = "/guest/project/" + this.params.job_id
 				this.$request(url).then(res => {
 					if (res.code == 0) {
 						this.currentProjectDetail = res.data
@@ -770,6 +791,10 @@
 			},
 			async sendBtnMsg(obj) {
 				let _this = this
+				if (obj.job_id) {
+					this.currentProjectDetail.id = obj.job_id
+					this.currentProjectDetail.name = obj.name
+				}
 				if (!this.isLogin()) {
 					this.showLogin = true
 					return
@@ -1456,6 +1481,13 @@
 						this.menuList[3].value = response.data.balance.total_amount
 					}
 				})
+				if (this.currentProjectDetail.id) {
+					let obj = {
+						type: "job",
+						msg: this.currentProjectDetail.name + "(ID:" + this.currentProjectDetail.id + ")"
+					}
+					this.sendBtnMsg(obj)
+				}
 				this.historyId = 0
 				this.historyList = await this.getHistory()
 			}

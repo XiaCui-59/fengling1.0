@@ -345,11 +345,11 @@
 						value: "",
 						text: "全部"
 					}, {
-						value: "recharge_credit",
+						value: "charge_credit",
 						text: "充值积分"
 					},
 					{
-						value: "sign_cost",
+						value: "register_deduct",
 						text: "报名扣除"
 					}
 				],

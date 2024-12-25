@@ -282,7 +282,7 @@
 	const app = getApp();
 	export default {
 		name: "welcome",
-		props: ["top", "bottom", "canPlay"],
+		props: ["top", "bottom", "canPlay", "showUserStep"],
 		data() {
 			return {
 				showSureJob: false,
@@ -302,7 +302,6 @@
 					"worker_salary_min": "",
 					"worker_salary_type": ""
 				},
-				canPlayWelcome: true,
 				currentPlayIndex: 0,
 				muted: false, //是否静音
 				systemHeight: app.globalData.systemHeight,
@@ -318,10 +317,20 @@
 				mayAskCount: 0, //记录mayAsk异常重连次数,
 				bannerImageInfo: null,
 				bannerHeight: 0,
-				showUserStep: false,
+				// showUserStep: false,
 				currentStep: 1,
 				firstEnd: false,
-				isWelcome: true
+				isWelcome: true,
+				clickProject: {
+					"project_id": "",
+					"content": "",
+					"may_ask": [],
+					"project_name": "",
+					"voice": "",
+					"worker_salary_max": "",
+					"worker_salary_min": "",
+					"worker_salary_type": ""
+				}
 			};
 		},
 		computed: {
@@ -351,11 +360,11 @@
 
 				}
 			});
-			let readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : ""
-			if (!readStep) {
-				// 未阅读过新手指引
-				this.showUserStep = true
-			}
+			// let readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : ""
+			// if (!readStep) {
+			// 	// 未阅读过新手指引
+			// 	this.showUserStep = true
+			// }
 		},
 		watch: {
 			animationActive(newVal) {
@@ -389,10 +398,13 @@
 				})
 			},
 			toChat(type) {
+				this.clickProject = {
+					...this.currentPlay
+				}
 				let action = type == "surejob" ? "text_want_application" : (type == "findjob" ? "text_look_for_job" :
 					"text_interview")
-				let jobId = type == "surejob" ? this.currentPlay.project_id : ""
-				let msg = type == "surejob" ? ("我对" + this.currentPlay.project_name + "（职位ID：" + this.currentPlay
+				let jobId = type == "surejob" ? this.clickProject.project_id : ""
+				let msg = type == "surejob" ? ("我对" + this.clickProject.project_name + "（职位ID：" + this.clickProject
 					.project_id + "）很感兴趣，能为我介绍一下吗？") : (type == "findjob" ?
 					"我正在找工作，能帮我推荐一些合适的职位吗？" :
 					"我可以开始面试了，什么时候安排？")
@@ -400,7 +412,8 @@
 					msg: msg,
 					type: type,
 					job_id: jobId,
-					action: action
+					action: action,
+					name: this.clickProject.project_name ? this.clickProject.project_name : ""
 				}
 				this.$emit("sendMsg", obj)
 			},
@@ -415,10 +428,12 @@
 				if (this.currentStep < 6) {
 					this.currentStep++
 				} else {
-					this.showUserStep = false
 					// 存储已阅读新手指引状态
 					uni.setStorageSync("readsteps", 1)
-					this.playWelcome()
+					if (this.canPlay) {
+						this.playWelcome()
+					}
+					this.$emit("closeStep")
 				}
 			},
 			changeNext() {
@@ -537,7 +552,7 @@
 						this.recommendList = res.data.list
 						this.showSureJob = true
 						this.getMayAsk()
-						if (!this.showUserStep) {
+						if (!this.showUserStep && this.canPlay) {
 							this.playWelcome()
 						}
 
@@ -572,10 +587,14 @@
 				}
 			},
 			sendMsg(msg, type) {
+				this.clickProject = {
+					...this.currentPlay
+				}
 				let obj = {
-					msg: this.currentPlay.project_name + "（职位id：" + this.currentPlay.project_id + "）" + msg,
+					msg: this.clickProject.project_name + "（职位id：" + this.clickProject.project_id + "）" + msg,
 					type: type,
-					job_id: this.currentPlay.project_id
+					job_id: this.clickProject.project_id,
+					name: this.clickProject.project_name
 				}
 				this.$emit("sendMsg", obj)
 			},

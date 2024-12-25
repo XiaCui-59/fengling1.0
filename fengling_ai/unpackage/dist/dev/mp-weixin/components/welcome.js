@@ -159,7 +159,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 var app = getApp();
 var _default = {
   name: "welcome",
-  props: ["top", "bottom", "canPlay"],
+  props: ["top", "bottom", "canPlay", "showUserStep"],
   data: function data() {
     return {
       showSureJob: false,
@@ -181,7 +181,6 @@ var _default = {
         "worker_salary_min": "",
         "worker_salary_type": ""
       },
-      canPlayWelcome: true,
       currentPlayIndex: 0,
       muted: false,
       //是否静音
@@ -199,10 +198,20 @@ var _default = {
       //记录mayAsk异常重连次数,
       bannerImageInfo: null,
       bannerHeight: 0,
-      showUserStep: false,
+      // showUserStep: false,
       currentStep: 1,
       firstEnd: false,
-      isWelcome: true
+      isWelcome: true,
+      clickProject: {
+        "project_id": "",
+        "content": "",
+        "may_ask": [],
+        "project_name": "",
+        "voice": "",
+        "worker_salary_max": "",
+        "worker_salary_min": "",
+        "worker_salary_type": ""
+      }
     };
   },
   computed: _objectSpread({}, (0, _vuex.mapState)(["city", "aiReady"])),
@@ -229,12 +238,13 @@ var _default = {
         }
       }
     });
-    var readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : "";
-    if (!readStep) {
-      // 未阅读过新手指引
-      this.showUserStep = true;
-    }
+    // let readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : ""
+    // if (!readStep) {
+    // 	// 未阅读过新手指引
+    // 	this.showUserStep = true
+    // }
   },
+
   watch: {
     animationActive: function animationActive(newVal) {
       if (newVal) {
@@ -267,14 +277,16 @@ var _default = {
       });
     },
     toChat: function toChat(type) {
+      this.clickProject = _objectSpread({}, this.currentPlay);
       var action = type == "surejob" ? "text_want_application" : type == "findjob" ? "text_look_for_job" : "text_interview";
-      var jobId = type == "surejob" ? this.currentPlay.project_id : "";
-      var msg = type == "surejob" ? "我对" + this.currentPlay.project_name + "（职位ID：" + this.currentPlay.project_id + "）很感兴趣，能为我介绍一下吗？" : type == "findjob" ? "我正在找工作，能帮我推荐一些合适的职位吗？" : "我可以开始面试了，什么时候安排？";
+      var jobId = type == "surejob" ? this.clickProject.project_id : "";
+      var msg = type == "surejob" ? "我对" + this.clickProject.project_name + "（职位ID：" + this.clickProject.project_id + "）很感兴趣，能为我介绍一下吗？" : type == "findjob" ? "我正在找工作，能帮我推荐一些合适的职位吗？" : "我可以开始面试了，什么时候安排？";
       var obj = {
         msg: msg,
         type: type,
         job_id: jobId,
-        action: action
+        action: action,
+        name: this.clickProject.project_name ? this.clickProject.project_name : ""
       };
       this.$emit("sendMsg", obj);
     },
@@ -289,10 +301,12 @@ var _default = {
       if (this.currentStep < 6) {
         this.currentStep++;
       } else {
-        this.showUserStep = false;
         // 存储已阅读新手指引状态
         uni.setStorageSync("readsteps", 1);
-        this.playWelcome();
+        if (this.canPlay) {
+          this.playWelcome();
+        }
+        this.$emit("closeStep");
       }
     },
     changeNext: function changeNext() {
@@ -431,7 +445,7 @@ var _default = {
                   _this4.recommendList = res.data.list;
                   _this4.showSureJob = true;
                   _this4.getMayAsk();
-                  if (!_this4.showUserStep) {
+                  if (!_this4.showUserStep && _this4.canPlay) {
                     _this4.playWelcome();
                   }
                 } else {
@@ -473,10 +487,12 @@ var _default = {
       }))();
     },
     sendMsg: function sendMsg(msg, type) {
+      this.clickProject = _objectSpread({}, this.currentPlay);
       var obj = {
-        msg: this.currentPlay.project_name + "（职位id：" + this.currentPlay.project_id + "）" + msg,
+        msg: this.clickProject.project_name + "（职位id：" + this.clickProject.project_id + "）" + msg,
         type: type,
-        job_id: this.currentPlay.project_id
+        job_id: this.clickProject.project_id,
+        name: this.clickProject.project_name
       };
       this.$emit("sendMsg", obj);
     },

@@ -147,7 +147,7 @@
 			</view>
 			<view class="inner" style="width:50%;" v-if="showPlatform">
 				<view class="title">广告来源<text
-						style="color:#ffff00;position: relative;top:0;font-size: 16px;">（{{currentProject.name}}）</text>
+						style="color:#ffff00;position: relative;top:0;font-size: 16px;">（{{currentProject.name+" "+currentProject.id}}）</text>
 				</view>
 				<view class="close" @click="close">
 					<image src="/static/close_white.png" mode="widthFix"></image>
@@ -162,10 +162,25 @@
 							<view class="text">{{item.text}}</view>
 						</view>
 					</view>
-					<view class="line flex flex_end">
-						<view class="btn" @click="creatLink"
-							style="background:#fff;border:1px solid #226FF9;color:#226FF9;"
-							v-if="currentPlatform.value != 'system'">生成链接</view>
+					<view class="line" v-if="currentUrls.urlLink" style="margin:0;padding:0;">
+						<view class="line_item flex flex_btween" style="margin-top:20px ;align-items: flex-start;">
+							<view class="tit" style="white-space: nowrap;">小程序路径：</view>
+							<view class="text" style="width:75%;word-wrap: break-word;word-break:break-all;">
+								{{currentUrls.miniProgramPath}}
+							</view>
+							<view class="copy" style="color:#226FF9;cursor: pointer;flex-shrink: 0;"
+								@click="copyLink(currentUrls.miniProgramPath)">复制</view>
+						</view>
+						<view class="line_item flex flex_btween" style="margin-top:15px ;align-items: flex-start;">
+							<view class="tit" style="white-space: nowrap;">落地页url：</view>
+							<view class="text" style="width:75%;word-wrap: break-word;word-break:break-all;">
+								{{currentUrls.urlLink}}
+							</view>
+							<view class="copy" style="color:#226FF9;cursor: pointer;"
+								@click="copyLink(currentUrls.urlLink)">复制</view>
+						</view>
+					</view>
+					<view class="line flex flex_end" style="margin-top:40px;">
 						<view class="btn" style="margin-left: 15px;" @click="creatHaibao">
 							{{currentPlatform.value == "system"?"确定":"绘制海报"}}
 						</view>
@@ -278,6 +293,10 @@
 		name: "contract_list",
 		data() {
 			return {
+				currentUrls: {
+					miniProgramPath: "",
+					urlLink: ""
+				},
 				refuseReason: "",
 				showSetting: false,
 				// pageIndex:1,
@@ -454,6 +473,11 @@
 
 		},
 		methods: {
+			copyLink(url) {
+				uni.setClipboardData({
+					data: url
+				})
+			},
 			inputChange() {
 				if (!this.employeeName) {
 					this.showResultList = false
@@ -523,6 +547,15 @@
 			},
 			choosePlatform(item) {
 				this.currentPlatform = item
+				let data = {
+					platform: item.value,
+					job_id: this.currentProject.id
+				}
+				this.$request("/admin/shareJobLink", data, "POST").then(res => {
+					if (res.code == 0) {
+						this.currentUrls = res.data
+					}
+				})
 			},
 			setFee() {
 				let _this = this
@@ -560,6 +593,15 @@
 					gender: "",
 					age: 0,
 					mobile: ""
+				}
+				this.currentPlatform = {
+					value: "system",
+					text: "系统",
+					icon: "/static/system_data.png"
+				}
+				this.currentUrls = {
+					miniProgramPath: "",
+					urlLink: ""
 				}
 
 			},
@@ -755,19 +797,7 @@
 				this.showReason = false
 				this.showSetting = false
 				this.showEmployeeSearch = false
-			},
-			creatLink() {
-				let data = {
-					platform: this.currentPlatform.value,
-					job_id: this.currentProject.id
-				}
-				this.$request("/admin/shareJobLink", data, "POST").then(res => {
-					if (res.code == 0) {
-						uni.setClipboardData({
-							data: res.data
-						})
-					}
-				})
+				this.resetData()
 			},
 			async creatHaibao() {
 				this.showMask = false

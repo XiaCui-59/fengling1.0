@@ -206,7 +206,8 @@
 			</view>
 			<view class="inner" v-if="showSecond" style="overflow: hidden;height: 600px;">
 				<view class="inner_top">
-					<view class="title" style="margin-bottom: 0;">职位详情{{"（"+currentInfo.name+")"}}</view>
+					<view class="title" style="margin-bottom: 0;">职位详情{{"（"+currentInfo.name+"—"+currentInfo.id+")"}}
+					</view>
 					<view class="close" @click="close">
 						<image src="/static/close_white.png" mode="widthFix"></image>
 					</view>

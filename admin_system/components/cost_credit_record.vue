@@ -14,7 +14,7 @@
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">序号</uni-th>
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">账单编号</uni-th>
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">用户名称</uni-th>
-						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">手机号码</uni-th>
+						<!-- <uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">手机号码</uni-th> -->
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">积分</uni-th>
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">账单类型</uni-th>
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">支付方式</uni-th>
@@ -26,12 +26,17 @@
 						<uni-td align="center">{{index+1+currentCount*(currentPage - 1)}}</uni-td>
 						<uni-td align="center">{{item.id}}</uni-td>
 						<uni-td align="center">{{item.worker_name}}</uni-td>
-						<uni-td align="center">{{item.worker_mobile}}</uni-td>
-						<uni-td align="center">{{item.id}}</uni-td>
-						<uni-td align="center">{{item.amount}}</uni-td>
-						<uni-td align="center">{{item.channel=="wechat"?"微信支付":""}}</uni-td>
-						<uni-td align="center">{{item.worker_name}}</uni-td>
-						<uni-td align="center">{{item.worker_mobile}}</uni-td>
+						<!-- <uni-td align="center">{{item.worker_mobile}}</uni-td> -->
+						<uni-td align="center">{{item.credit}}</uni-td>
+						<uni-td
+							align="center">{{creditBillTypeRange.filter(el=>{return el.value==item.bill_type})[0].text}}</uni-td>
+						<uni-td align="center">{{item.channel=="wechat"?"微信支付":"积分支付"}}</uni-td>
+						<uni-td align="center">{{item.status == "success"?"已支付":""}}</uni-td>
+						<uni-td align="center" style="white-space: wrap;">
+							<view style="max-width: 200px;word-wrap: break-word;word-break:break-all;">
+								{{item.description}}
+							</view>
+						</uni-td>
 						<uni-td align="center">{{item.pay_time}}</uni-td>
 					</uni-tr>
 				</uni-table>
@@ -53,10 +58,23 @@
 				list: [],
 				pagination: {},
 				currentPage: 1,
+				creditBillType: "",
 				searEmployee: "",
 				searStart: "",
 				searEnd: "",
-				currentCount: 15
+				currentCount: 15,
+				creditBillTypeRange: [{
+						value: "",
+						text: "全部"
+					}, {
+						value: "charge_credit",
+						text: "充值积分"
+					},
+					{
+						value: "register_deduct",
+						text: "报名扣除"
+					}
+				]
 			};
 		},
 		components: {
@@ -64,7 +82,7 @@
 			pageBox
 		},
 		created() {
-			// this.getList()
+			this.getList()
 		},
 		methods: {
 			toNext(e1, e2) {
@@ -73,9 +91,9 @@
 				this.getList()
 			},
 			getList() {
-				let url = "/admin/worker-vip-orders?page=" + this.currentPage +
-					"&keyword=" + this.searEmployee + "&page_size=" + this.currentCount + "&pay_time_start=" + this
-					.searStart + "&pay_time_end=" + this.searEnd
+				let url = "/admin/credit/credit_order?page=" + this.currentPage +
+					"&user_name=" + this.searEmployee + "&page_size=" + this.currentCount + "&bill_start_time=" + this
+					.searStart + "&bill_end_time=" + this.searEnd + "&bill_type=" + this.creditBillType
 				this.$request(url).then(res => {
 					if (res.code == 0) {
 						this.list = res.data.list
@@ -88,6 +106,7 @@
 				this.searEmployee = e.employeeName
 				this.searStart = e.startTime
 				this.searEnd = e.endTime
+				this.creditBillType = e.creditBillType
 				this.getList()
 			},
 		}
@@ -96,6 +115,9 @@
 
 <style lang="scss">
 	::v-deep {
+		.uni-table-td {
+			white-space: pre-wrap;
+		}
 
 		.uni-table-tr .uni-table-th:last-child {
 			background: rgb(246, 246, 246);
