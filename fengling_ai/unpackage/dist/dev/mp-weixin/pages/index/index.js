@@ -340,12 +340,30 @@ var _default = {
   onLoad: function onLoad(params) {
     var _this2 = this;
     return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
-      var _this, location, scanId, token, readStep;
+      var _this, scanId, readStep, location, token;
       return _regenerator.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _this = _this2;
+              console.log("params", params);
+              // 扫码进入
+              scanId = params.scene ? decodeURIComponent(params.scene).split("=")[1] : "";
+              _this2.shareId = params.share_id ? params.share_id : scanId ? scanId : "";
+              _this2.params = params;
+              readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : "";
+              if (params.job_id) {
+                // 存在具体职位
+                uni.setStorageSync("readsteps", 1);
+                _this2.canPlay = false;
+                _this2.getProjectDetail();
+              } else {
+                if (!readStep) {
+                  _this2.showUserStep = true;
+                } else {
+                  _this2.showUserStep = false;
+                }
+              }
               _this2.resetCity();
               // 网络状态判断
               uni.getNetworkType({
@@ -393,22 +411,17 @@ var _default = {
                   return _ref.apply(this, arguments);
                 };
               }());
-              _context2.next = 6;
+              _context2.next = 12;
               return _commMethods.default.getElementInfo(".input_btn_wrap");
-            case 6:
+            case 12:
               _this2.btnInfo = _context2.sent;
               if (_this2.btnInfo) {
                 _this2.botSafe = app.globalData.systemHeight - _this2.btnInfo.top;
                 _this2.chatScrollHeight = _this2.btnInfo.top - _this2.statusBarHeight - 44;
               }
-              console.log("params", params);
-              // 扫码进入
-              scanId = params.scene ? decodeURIComponent(params.scene).split("=")[1] : "";
-              _this2.shareId = params.share_id ? params.share_id : scanId ? scanId : "";
-              _this2.params = params;
-              _context2.next = 14;
+              _context2.next = 16;
               return _this2.getPosition();
-            case 14:
+            case 16:
               location = _context2.sent;
               _this2.setLocation(location);
               token = uni.getStorageSync("token") ? uni.getStorageSync("token") : "";
@@ -417,25 +430,14 @@ var _default = {
                 "app-id": _url_setting.default.urls.appid,
                 "open-id": uni.getStorageSync("openid") ? uni.getStorageSync("openid") : "",
                 "address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
-                "Authorization": "bearer " + token
+                "Authorization": "bearer " + token,
+                "ad-platform": params.ad_platform ? params.ad_platform : "",
+                "ad-sub-platform": params.ad_sub_platform ? params.ad_sub_platform : ""
               };
-              _context2.next = 20;
+              _context2.next = 22;
               return _this2.getOpenid();
-            case 20:
+            case 22:
               _this2.openid = _context2.sent;
-              readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : "";
-              if (params.job_id) {
-                // 存在具体职位
-                uni.setStorageSync("readsteps", 1);
-                _this2.canPlay = false;
-                _this2.getProjectDetail();
-              } else {
-                if (!readStep) {
-                  _this2.showUserStep = true;
-                } else {
-                  _this2.showUserStep = false;
-                }
-              }
               _this2.postParams();
               _this2.getSetting();
               if (_this2.isLogin()) {
@@ -540,12 +542,12 @@ var _default = {
       }
     }
   },
-  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapMutations)(["openAnswering", "closeAnswering", "setConnected", "unConnected", "setConnecting", "unConnecting", "openCansend", "closeCansend", "notChannel", "isChannel", "addChannelQaList", "openAnswerContinue", "closeAnswerContinue", "updateChannelQaList", "setChannelId", "setLocation", "setToken", "clearChannelQaList", "notInCall", "setCallContent", "setRespEnd", "notRespEnd", "setInterviewCard", "setIncallEnroll", "setIncallJobId", "resetIncallEnroll", "closeInterviewCard", "setAiReady", "resetAiReady", "resetCity", "setChannelInterviewCard", "closeChannelInterviewCard", "setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst", "setQunCode"])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0, _vuex.mapMutations)(["openAnswering", "closeAnswering", "setConnected", "unConnected", "setConnecting", "unConnecting", "openCansend", "closeCansend", "notChannel", "isChannel", "addChannelQaList", "openAnswerContinue", "closeAnswerContinue", "updateChannelQaList", "setChannelId", "setLocation", "setToken", "clearChannelQaList", "notInCall", "setCallContent", "setRespEnd", "notRespEnd", "setInterviewCard", "setIncallEnroll", "setIncallJobId", "resetIncallEnroll", "closeInterviewCard", "setAiReady", "resetAiReady", "resetCity", "setChannelInterviewCard", "closeChannelInterviewCard", "setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst", "setQunCode", "setAdTrackingId"])), {}, {
     postParams: function postParams() {
       var _this4 = this;
       this.$request("/ad/tracking", this.params, "POST").then(function (res) {
         if (res.code == 0) {
-          console.log("参数上传成功：", _this4.params);
+          _this4.setAdTrackingId(res.data.ad_tracking_id);
         }
       });
     },
@@ -1582,28 +1584,6 @@ var _default = {
         this.showLogin = true;
       }
     },
-    logout: function logout() {
-      var _this = this;
-      this.$refs.myModal.showModal({
-        title: "确认退出登录？",
-        success: function success(res) {
-          if (res == "confirm") {
-            _this.$request("/worker/logout", {}, "POST").then(function (resp) {
-              if (resp.code == 0) {
-                _this.showMenu = false;
-                uni.removeStorageSync("token");
-                uni.removeStorageSync("userInfo");
-                uni.showToast({
-                  title: "已退出登录",
-                  icon: "none",
-                  duration: 2000
-                });
-              }
-            });
-          }
-        }
-      });
-    },
     closeLogin: function closeLogin() {
       this.showLogin = false;
     },
@@ -1612,7 +1592,7 @@ var _default = {
       var url = "/worker/register_record?page=1";
       this.$request(url).then(function (res) {
         if (res.code == 0) {
-          _this14.menuList[0].value = res.data.pagination.totalCount;
+          _this14.menuList[0].value = String(res.data.pagination.totalCount);
         }
       });
     },

@@ -136,7 +136,7 @@ var _default = {
       getPhoneData: {}
     };
   },
-  computed: _objectSpread({}, (0, _vuex.mapState)(["token"])),
+  computed: _objectSpread({}, (0, _vuex.mapState)(["token", "ad_tracking_id"])),
   methods: {
     readPolicy: function readPolicy() {
       this.showPolicy = true;
@@ -175,11 +175,13 @@ var _default = {
                   _this2.getPhoneData.encrypted_data = e.detail.encryptedData;
                   _this2.getPhoneData.iv = e.detail.iv;
                   _this2.getPhoneData.code = e.detail.code;
+                  _this2.getPhoneData.ad_tracking_id = _this2.ad_tracking_id;
                   url = "/auth/worker/wechat/mini/login";
                   _this.$request(url, _this2.getPhoneData, "POST").then(function (resp) {
                     if (resp.code == 0) {
                       _this.$emit("closeLogin");
                       uni.setStorageSync("token", resp.data.token);
+                      uni.setStorageSync("loginStatus", "in");
                       var header = {
                         "Authorization": "bearer " + resp.data.token,
                         "accept": "application/json",
@@ -193,6 +195,7 @@ var _default = {
                 } else {
                   uni.hideLoading();
                   _this.$emit("closeLogin");
+                  uni.setStorageSync("loginStatus", "in");
                   uni.setStorageSync("token", _this.token);
                   header = {
                     "Authorization": "bearer " + _this.token,

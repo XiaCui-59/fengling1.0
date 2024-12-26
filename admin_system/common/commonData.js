@@ -12,6 +12,15 @@ export default {
 			text: "充值失败"
 		},
 	],
+	payChannel: [{
+			value: "wechat",
+			text: "微信支付"
+		},
+		{
+			value: "creditpay",
+			text: "积分支付"
+		}
+	],
 	channelStatus: [{
 			value: "",
 			text: "全部"

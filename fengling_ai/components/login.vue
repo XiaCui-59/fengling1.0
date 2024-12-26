@@ -125,7 +125,7 @@
 			};
 		},
 		computed: {
-			...mapState(["token"])
+			...mapState(["token", "ad_tracking_id"])
 		},
 		methods: {
 			// #ifdef MP-BAIDU
@@ -192,6 +192,7 @@
 					this.getPhoneData.iv = e.detail.iv;
 					// #ifdef MP-WEIXIN
 					this.getPhoneData.code = e.detail.code;
+					this.getPhoneData.ad_tracking_id = this.ad_tracking_id
 					url = "/auth/worker/wechat/mini/login"
 					// #endif
 					// #ifdef MP-KUAISHOU
@@ -207,6 +208,7 @@
 						if (resp.code == 0) {
 							_this.$emit("closeLogin")
 							uni.setStorageSync("token", resp.data.token)
+							uni.setStorageSync("loginStatus", "in")
 							let header = {
 								"Authorization": "bearer " + resp.data.token,
 								"accept": "application/json",
@@ -221,6 +223,7 @@
 				} else {
 					uni.hideLoading()
 					_this.$emit("closeLogin")
+					uni.setStorageSync("loginStatus", "in")
 					uni.setStorageSync("token", _this.token)
 					let header = {
 						"Authorization": "bearer " + _this.token,

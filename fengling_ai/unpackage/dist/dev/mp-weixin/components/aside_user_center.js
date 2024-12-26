@@ -227,6 +227,9 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
 
 var app = getApp();
 var _default = {
@@ -264,18 +267,24 @@ var _default = {
         title: "确认退出登录？",
         success: function success(res) {
           if (res == "confirm") {
-            _this.$request("/worker/logout", {}, "POST").then(function (resp) {
-              if (resp.code == 0) {
-                _this.closeMenu();
-                uni.removeStorageSync("token");
-                uni.removeStorageSync("userInfo");
-                uni.showToast({
-                  title: "已退出登录",
-                  icon: "none",
-                  duration: 2000
-                });
-              }
+            uni.setStorageSync("loginStatus", "out");
+            _this.closeMenu();
+            uni.showToast({
+              title: "已退出登录",
+              icon: "none",
+              duration: 2000
             });
+            // _this.$request("/worker/logout", {}, "POST").then(resp => {
+            // 	if (resp.code == 0) {
+            // 		uni.setStorageSync("loginStatus", "out")
+            // 		_this.closeMenu()
+            // 		uni.showToast({
+            // 			title: "已退出登录",
+            // 			icon: "none",
+            // 			duration: 2000
+            // 		})
+            // 	}
+            // })
           }
         }
       });

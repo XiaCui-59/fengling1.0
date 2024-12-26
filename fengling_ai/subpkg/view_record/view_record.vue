@@ -25,9 +25,12 @@
 								class="period">{{"元"+periodList.filter(el=>{return el.value==item.worker_salary_type})[0].text}}</text>
 						</view>
 					</view>
-					<view class="mid_in_item" v-if="item.status == 'running'">
-						<image :src="imgUrl+'/worker/new/ic_message.png'" mode="widthFix" style="width: 40rpx;"></image>
-					</view>
+					<view class="mid_in_item" v-if="item.status == 'running'">继续沟通</view>
+				</view>
+				<view class="bottom flex" :class="item.address?'flex_btween':'flex_end'">
+					<view class="location flex" v-if="item.address"><u-icon name="map-fill" color="#2675F5"
+							size="13"></u-icon>{{item.address}}</view>
+					<view class="time">{{item.create_time.slice(0,16)}}</view>
 				</view>
 				<view class="status">
 					<image
@@ -217,6 +220,14 @@
 					border-radius: 8rpx;
 
 					.mid_in_item {
+						&:last-child {
+							padding-bottom: 6rpx;
+							font-weight: 600;
+							font-size: 27rpx;
+							color: #2675F5;
+							border-bottom: 2rpx dashed #2675F5;
+						}
+
 						.tit {
 							font-size: 25rpx;
 							color: #5A5A5A;
@@ -255,10 +266,12 @@
 				}
 
 				.bottom {
+					margin-top: 16rpx;
+					font-weight: 400;
 					font-size: 23rpx;
-					color: #686868;
-					height: 60rpx;
-					line-height: 60rpx;
+					color: #5A5A5A;
+					padding-left: 22rpx;
+					box-sizing: border-box;
 				}
 			}
 		}

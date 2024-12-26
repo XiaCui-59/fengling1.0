@@ -30,7 +30,8 @@
 						<uni-td align="center">{{item.credit}}</uni-td>
 						<uni-td
 							align="center">{{creditBillTypeRange.filter(el=>{return el.value==item.bill_type})[0].text}}</uni-td>
-						<uni-td align="center">{{item.channel=="wechat"?"微信支付":"积分支付"}}</uni-td>
+						<uni-td
+							align="center">{{payChannel.filter(el=>{return el.value == item.channel})[0]?payChannel.filter(el=>{return el.value == item.channel})[0].text:""}}</uni-td>
 						<uni-td align="center">{{item.status == "success"?"已支付":""}}</uni-td>
 						<uni-td align="center" style="white-space: wrap;">
 							<view style="max-width: 200px;word-wrap: break-word;word-break:break-all;">
@@ -74,7 +75,8 @@
 						value: "register_deduct",
 						text: "报名扣除"
 					}
-				]
+				],
+				payChannel: commonData.payChannel
 			};
 		},
 		components: {

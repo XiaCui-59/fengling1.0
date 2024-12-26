@@ -23,10 +23,10 @@
 								<view class="user_base_info">
 									<view class="line flex flex_btween">
 										<view class=" flex flex-start">
-											<view class="gender" v-if="userInfo.gender">
-												{{userInfo.gender == "male"?"男":"女"}}
-											</view>
-											<view class="name">{{userInfo.name.slice(0,6)}}</view>
+											<!-- <view class="gender" v-if="userInfo.gender">
+												{{userInfo.gender == "male"?"男":(userInfo.gender == "female"?"女":"")}}
+											</view> -->
+											<view class="name">{{userInfo.name.slice(0,6)+"..."}}</view>
 										</view>
 										<view class="edit flex" @click="navigate('/subpkg/edit_info/edit_info')">
 											编辑资料<u-icon name="arrow-right" color="#fff" size="13"
@@ -34,6 +34,9 @@
 										</view>
 									</view>
 									<view class="line flex flex-start">
+										<view class="text" v-if="userInfo.gender">
+											{{userInfo.gender == "male"?"男":(userInfo.gender == "female"?"女":"")}}
+										</view>
 										<view class="text" v-if="userInfo.age">{{userInfo.age}}岁</view>
 										<view class="text" v-if="userInfo.nation">{{userInfo.nation}}</view>
 									</view>
@@ -100,18 +103,24 @@
 					title: "确认退出登录？",
 					success(res) {
 						if (res == "confirm") {
-							_this.$request("/worker/logout", {}, "POST").then(resp => {
-								if (resp.code == 0) {
-									_this.closeMenu()
-									uni.removeStorageSync("token")
-									uni.removeStorageSync("userInfo")
-									uni.showToast({
-										title: "已退出登录",
-										icon: "none",
-										duration: 2000
-									})
-								}
+							uni.setStorageSync("loginStatus", "out")
+							_this.closeMenu()
+							uni.showToast({
+								title: "已退出登录",
+								icon: "none",
+								duration: 2000
 							})
+							// _this.$request("/worker/logout", {}, "POST").then(resp => {
+							// 	if (resp.code == 0) {
+							// 		uni.setStorageSync("loginStatus", "out")
+							// 		_this.closeMenu()
+							// 		uni.showToast({
+							// 			title: "已退出登录",
+							// 			icon: "none",
+							// 			duration: 2000
+							// 		})
+							// 	}
+							// })
 						}
 					}
 				})

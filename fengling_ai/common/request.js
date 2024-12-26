@@ -34,6 +34,7 @@ const request = (url = '', date = {}, type = 'GET', header = {
 				}
 				if (res.data.code == -1) {
 					uni.removeStorageSync("token")
+					uni.setStorageSync("isLogout", true)
 				}
 				if (res.data.code != 0) {
 					console.log("出错啦")

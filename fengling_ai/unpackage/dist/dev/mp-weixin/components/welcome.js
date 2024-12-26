@@ -238,13 +238,7 @@ var _default = {
         }
       }
     });
-    // let readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : ""
-    // if (!readStep) {
-    // 	// 未阅读过新手指引
-    // 	this.showUserStep = true
-    // }
   },
-
   watch: {
     animationActive: function animationActive(newVal) {
       if (newVal) {

@@ -224,7 +224,7 @@ image {
   box-sizing: border-box;
 }
 .record .item .left {
-  width: calc(100% - 160rpx);
+  width: calc(100% - 180rpx);
 }
 .record .item .left .remark {
   font-weight: 600;
@@ -241,7 +241,7 @@ image {
   color: #5B5B5B;
 }
 .record .item .right {
-  width: 150rpx;
+  width: 170rpx;
   flex-shrink: 0;
 }
 .record .item .right.num {
@@ -252,7 +252,6 @@ image {
 }
 .record .item .right.num text {
   display: inline-block;
-  margin-right: 15rpx;
 }
 .record .item .right .red {
   color: #CC0002;

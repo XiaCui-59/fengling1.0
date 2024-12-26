@@ -131,13 +131,13 @@ var render = function () {
   var g0 = _vm.list.length
   var l0 = _vm.__map(_vm.list, function (item, index) {
     var $orig = _vm.__get_orig(item)
-    var g1 = g0 != 0 ? item.create_time.slice(0, 10) : null
-    var g2 =
+    var g1 =
       g0 != 0
         ? _vm.periodList.filter(function (el) {
             return el.value == item.worker_salary_type
           })
         : null
+    var g2 = g0 != 0 ? item.create_time.slice(0, 16) : null
     return {
       $orig: $orig,
       g1: g1,
@@ -194,6 +194,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+//
 //
 //
 //

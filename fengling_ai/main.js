@@ -15,11 +15,12 @@ Vue.prototype.$request = request
 Vue.prototype.$aiRequest = aiRequest
 Vue.prototype.$store = store
 Vue.prototype.isLogin = function() {
-	let token = uni.getStorageSync("token")
-	if (!token) {
-		return false
-	} else {
+	let loginStatus = uni.getStorageSync("loginStatus") == "in" ? true : false
+	if (loginStatus) {
+		// 登录
 		return true
+	} else {
+		return false
 	}
 }
 App.mpType = 'app'

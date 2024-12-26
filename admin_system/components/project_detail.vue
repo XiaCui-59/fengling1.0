@@ -805,8 +805,24 @@
 			this.getInfo()
 		},
 		methods: {
-			payMarkChange() {
-
+			payMarkChange(e) {
+				let data = {
+					vip: e.detail.value
+				}
+				let url = "/admin/credit/project_vip/" + this.id
+				let tips = e.detail.value ? "已开启付费" : "已关闭付费"
+				this.$request(url, data, "POST").then(res => {
+					if (res.code == 0) {
+						uni.showToast({
+							title: tips,
+							icon: "none",
+							duration: 2000
+						})
+					} else {
+						// 设置失败重置状态
+						this.getInfo()
+					}
+				})
 			},
 			getStatics() {
 				this.$request("/admin/project/signing-requests-status/stats?project_id=" + this.id).then(res => {
@@ -1071,6 +1087,11 @@
 				this.$request(url).then(res => {
 					if (res.code == 0) {
 						this.currentInfo = res.data
+						if (res.data.vip) {
+							this.currentMark = 0
+						} else {
+							this.currentMark = 1
+						}
 						for (let key in res.data.cleaning_result.tags) {
 							if (res.data.cleaning_result.tags[key] != "" && res.data.cleaning_result.tags[key] !=
 								"?" && res.data.cleaning_result.tags[key] != "？") {

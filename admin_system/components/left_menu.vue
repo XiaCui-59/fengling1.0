@@ -90,21 +90,7 @@
 							}
 						]
 					},
-					{
-						pid: 0,
-						id: 5,
-						pageName: "check_in",
-						icon: "/static/ic_check_in.png",
-						selectIcon: "/static/ic_check_in_sele.png",
-						text: "频道管理",
-						showSub: false,
-						subList: [{
-							pid: 5,
-							id: 6,
-							pageName: "channel_list",
-							text: "频道列表"
-						}]
-					},
+
 					{
 						pid: 0,
 						id: 9,
@@ -156,55 +142,6 @@
 								text: "积分账单(工人)"
 							}
 						]
-					},
-					{
-						pid: 0,
-						id: 12,
-						pageName: "broker",
-						icon: "/static/ic_broker.png",
-						selectIcon: "/static/ic_broker.png",
-						text: "劳务公司",
-						showSub: false,
-						subList: [
-							// {
-							// 	pid: 12,
-							// 	id: 13,
-							// 	pageName: "add_broker",
-							// 	text: "添加公司"
-							// },
-							{
-								pid: 12,
-								id: 14,
-								pageName: "broker_list",
-								text: "公司列表"
-							},
-							{
-								pid: 12,
-								id: 14,
-								pageName: "account_list",
-								text: "客户管理"
-							}
-						]
-					},
-					{
-						pid: 0,
-						id: 15,
-						pageName: "employee",
-						icon: "/static/ic_worker.png",
-						selectIcon: "/static/ic_worker.png",
-						text: "工人管理",
-						showSub: false,
-						subList: [{
-							pid: 15,
-							id: 16,
-							pageName: "employee_list",
-							text: "工人列表"
-						}, {
-							pid: 15,
-							id: 16,
-							pageName: "invite_list",
-							text: "邀请列表"
-						}]
 					},
 					{
 						pid: 0,
@@ -276,6 +213,70 @@
 							id: 21,
 							pageName: "group_chat",
 							text: "企微群聊列表"
+						}]
+					},
+					{
+						pid: 0,
+						id: 12,
+						pageName: "broker",
+						icon: "/static/ic_broker.png",
+						selectIcon: "/static/ic_broker.png",
+						text: "劳务公司",
+						showSub: false,
+						subList: [
+							// {
+							// 	pid: 12,
+							// 	id: 13,
+							// 	pageName: "add_broker",
+							// 	text: "添加公司"
+							// },
+							{
+								pid: 12,
+								id: 14,
+								pageName: "broker_list",
+								text: "公司列表"
+							},
+							{
+								pid: 12,
+								id: 14,
+								pageName: "account_list",
+								text: "客户管理"
+							}
+						]
+					},
+					{
+						pid: 0,
+						id: 15,
+						pageName: "employee",
+						icon: "/static/ic_worker.png",
+						selectIcon: "/static/ic_worker.png",
+						text: "工人管理",
+						showSub: false,
+						subList: [{
+							pid: 15,
+							id: 16,
+							pageName: "employee_list",
+							text: "工人列表"
+						}, {
+							pid: 15,
+							id: 16,
+							pageName: "invite_list",
+							text: "邀请列表"
+						}]
+					},
+					{
+						pid: 0,
+						id: 5,
+						pageName: "check_in",
+						icon: "/static/ic_check_in.png",
+						selectIcon: "/static/ic_check_in_sele.png",
+						text: "频道管理",
+						showSub: false,
+						subList: [{
+							pid: 5,
+							id: 6,
+							pageName: "channel_list",
+							text: "频道列表"
 						}]
 					},
 				]

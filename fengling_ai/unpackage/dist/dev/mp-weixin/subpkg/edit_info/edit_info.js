@@ -268,7 +268,7 @@ var _default = {
       info: {
         name: "",
         age: "",
-        gender: "男",
+        gender: "",
         nation: "",
         mobile: ""
       }
@@ -325,7 +325,7 @@ var _default = {
         if (response.code == 0) {
           uni.setStorageSync("userInfo", JSON.stringify(response.data));
           _this2.info.name = response.data.name;
-          _this2.info.gender = _this2.info.gender == "male" ? "男" : "女";
+          _this2.info.gender = _this2.info.gender == "male" ? "男" : _this2.info.gender == "female" ? "女" : "";
           _this2.info.age = response.data.age ? response.data.age : "";
           _this2.info.nation = response.data.nation;
           _this2.info.mobile = response.data.mobile;

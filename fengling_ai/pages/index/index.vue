@@ -246,6 +246,24 @@
 		},
 		async onLoad(params) {
 			var _this = this;
+			console.log("params", params)
+			// 扫码进入
+			let scanId = params.scene ? decodeURIComponent(params.scene).split("=")[1] : ""
+			this.shareId = params.share_id ? params.share_id : (scanId ? scanId : "")
+			this.params = params
+			let readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : ""
+			if (params.job_id) {
+				// 存在具体职位
+				uni.setStorageSync("readsteps", 1)
+				this.canPlay = false
+				this.getProjectDetail()
+			} else {
+				if (!readStep) {
+					this.showUserStep = true
+				} else {
+					this.showUserStep = false
+				}
+			}
 			let location;
 			this.resetCity()
 			// 网络状态判断
@@ -284,11 +302,6 @@
 				this.botSafe = app.globalData.systemHeight - this.btnInfo.top
 				this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44
 			}
-			console.log("params", params)
-			// 扫码进入
-			let scanId = params.scene ? decodeURIComponent(params.scene).split("=")[1] : ""
-			this.shareId = params.share_id ? params.share_id : (scanId ? scanId : "")
-			this.params = params
 			location = await this.getPosition()
 			this.setLocation(location)
 			let token = uni.getStorageSync("token") ? uni.getStorageSync("token") : ""
@@ -298,21 +311,11 @@
 				"open-id": uni.getStorageSync("openid") ? uni.getStorageSync("openid") : "",
 				"address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
 				"Authorization": "bearer " + token,
+				"ad-platform": params.ad_platform ? params.ad_platform : "",
+				"ad-sub-platform": params.ad_sub_platform ? params.ad_sub_platform : ""
 			}
 			this.openid = await this.getOpenid()
-			let readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : ""
-			if (params.job_id) {
-				// 存在具体职位
-				uni.setStorageSync("readsteps", 1)
-				this.canPlay = false
-				this.getProjectDetail()
-			} else {
-				if (!readStep) {
-					this.showUserStep = true
-				} else {
-					this.showUserStep = false
-				}
-			}
+
 			this.postParams()
 			this.getSetting()
 			if (this.isLogin()) {
@@ -406,12 +409,13 @@
 				"setToken", "clearChannelQaList", "notInCall", "setCallContent", "setRespEnd", "notRespEnd",
 				"setInterviewCard", "setIncallEnroll", "setIncallJobId", "resetIncallEnroll", "closeInterviewCard",
 				"setAiReady", "resetAiReady", "resetCity", "setChannelInterviewCard", "closeChannelInterviewCard",
-				"setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst", "setQunCode"
+				"setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst", "setQunCode",
+				"setAdTrackingId"
 			]),
 			postParams() {
 				this.$request("/ad/tracking", this.params, "POST").then(res => {
 					if (res.code == 0) {
-						console.log("参数上传成功：", this.params)
+						this.setAdTrackingId(res.data.ad_tracking_id)
 					}
 				})
 			},
@@ -1431,28 +1435,7 @@
 					this.showLogin = true
 				}
 			},
-			logout() {
-				let _this = this
-				this.$refs.myModal.showModal({
-					title: "确认退出登录？",
-					success(res) {
-						if (res == "confirm") {
-							_this.$request("/worker/logout", {}, "POST").then(resp => {
-								if (resp.code == 0) {
-									_this.showMenu = false
-									uni.removeStorageSync("token")
-									uni.removeStorageSync("userInfo")
-									uni.showToast({
-										title: "已退出登录",
-										icon: "none",
-										duration: 2000
-									})
-								}
-							})
-						}
-					}
-				})
-			},
+
 			closeLogin() {
 				this.showLogin = false
 			},
@@ -1460,7 +1443,7 @@
 				let url = "/worker/register_record?page=1"
 				this.$request(url).then(res => {
 					if (res.code == 0) {
-						this.menuList[0].value = res.data.pagination.totalCount
+						this.menuList[0].value = String(res.data.pagination.totalCount)
 					}
 				})
 			},

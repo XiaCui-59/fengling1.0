@@ -91,7 +91,7 @@
 				info: {
 					name: "",
 					age: "",
-					gender: "男",
+					gender: "",
 					nation: "",
 					mobile: ""
 				}
@@ -148,7 +148,8 @@
 					if (response.code == 0) {
 						uni.setStorageSync("userInfo", JSON.stringify(response.data))
 						this.info.name = response.data.name
-						this.info.gender = this.info.gender == "male" ? "男" : "女"
+						this.info.gender = this.info.gender == "male" ? "男" : (this.info.gender == "female" ? "女" :
+							"")
 						this.info.age = response.data.age ? response.data.age : ""
 						this.info.nation = response.data.nation
 						this.info.mobile = response.data.mobile

@@ -525,7 +525,7 @@
 			box-sizing: border-box;
 
 			.left {
-				width: calc(100% - 160rpx);
+				width: calc(100% - 180rpx);
 
 				.remark {
 					font-weight: 600;
@@ -545,7 +545,7 @@
 			}
 
 			.right {
-				width: 150rpx;
+				width: 170rpx;
 				flex-shrink: 0;
 
 				&.num {
@@ -556,7 +556,7 @@
 
 					text {
 						display: inline-block;
-						margin-right: 15rpx;
+						// margin-right: 15rpx;
 					}
 				}
 

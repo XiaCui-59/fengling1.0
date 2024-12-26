@@ -37,11 +37,12 @@ _vue.default.prototype.$request = _request.default;
 _vue.default.prototype.$aiRequest = _aiRequest.default;
 _vue.default.prototype.$store = _store.default;
 _vue.default.prototype.isLogin = function () {
-  var token = uni.getStorageSync("token");
-  if (!token) {
-    return false;
-  } else {
+  var loginStatus = uni.getStorageSync("loginStatus") == "in" ? true : false;
+  if (loginStatus) {
+    // 登录
     return true;
+  } else {
+    return false;
   }
 };
 _App.default.mpType = 'app';

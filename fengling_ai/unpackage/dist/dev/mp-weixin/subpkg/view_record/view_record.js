@@ -138,20 +138,22 @@ var render = function () {
             return el.value == item.worker_salary_type
           })
         : null
+    var g3 = g0 != 0 ? item.create_time.slice(0, 16) : null
     return {
       $orig: $orig,
       g1: g1,
       g2: g2,
+      g3: g3,
     }
   })
-  var g3 = _vm.list.length
+  var g4 = _vm.list.length
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
         g0: g0,
         l0: l0,
-        g3: g3,
+        g4: g4,
       },
     }
   )
@@ -194,6 +196,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+//
+//
+//
 //
 //
 //

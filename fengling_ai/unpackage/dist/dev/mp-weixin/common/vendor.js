@@ -10083,6 +10083,7 @@ var request = function request() {
         }
         if (res.data.code == -1) {
           uni.removeStorageSync("token");
+          uni.setStorageSync("isLogout", true);
         }
         if (res.data.code != 0) {
           console.log("出错啦");
@@ -10297,10 +10298,15 @@ var store = new _vuex.default.Store({
     sureJobId: "",
     hangUpFirst: false,
     //是否主动挂断电话
-    qunQrcode: "" //记录推送的群二维码
+    qunQrcode: "",
+    //记录推送的群二维码
+    ad_tracking_id: "" //记录参数id
   },
 
   mutations: {
+    setAdTrackingId: function setAdTrackingId(state, id) {
+      state.ad_tracking_id = id ? id : "";
+    },
     setHangUpFirst: function setHangUpFirst(state) {
       state.hangUpFirst = true;
     },
