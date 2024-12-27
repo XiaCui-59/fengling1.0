@@ -12,13 +12,11 @@
 		</u-navbar>
 		<view class="cont" :style="{marginTop:marginTop+tabMargin+'px',minHeight:contHeight+'px'}">
 			<view class="item" v-for="(item,index) in list" :key="index" @click="toChat(item)" v-if="list.length != 0">
-				<view class="title flex flex_btween" :class="item.status=='running'?'':'grey'">
-					<view class="text">{{item.project_name}}</view>
-					<view class="time">{{item.create_time.slice(0,10)}}</view>
+				<view class="title flex flex_btween" :class="item.status=='running'?'':'grey'">{{item.project_name}}
 				</view>
 				<view class="middle flex flex_btween">
 					<view class="mid_in_item">
-						<view class="tit">工资</view>
+						<!-- <view class="tit">工资</view> -->
 						<view class="salary flex flex-start" :class="item.status=='running'?'':'grey'">
 							{{(item.worker_salary_min == item.worker_salary_max?item.worker_salary_min:(item.worker_salary_min+"-"+item.worker_salary_max))}}
 							<text
@@ -118,8 +116,8 @@
 				setTimeout(function() {
 					if (prevPage && prevPage.$vm && typeof prevPage.$vm.sendBtnMsg === 'function') {
 						let obj = {
-							type: "job",
-							msg: item.project_name + "(ID:" + item.project_id + ")"
+							type: "",
+							msg: "我想继续了解一下" + item.project_name + "(ID:" + item.project_id + ")这个工作。"
 						}
 						prevPage.$vm.sendBtnMsg(obj);
 					}
@@ -164,6 +162,9 @@
 				}
 
 				.title {
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
 					padding-left: 22rpx;
 					box-sizing: border-box;
 					position: relative;

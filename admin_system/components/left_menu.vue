@@ -111,17 +111,17 @@
 								pageName: "cost_record",
 								text: "费用账单(企业)"
 							},
-							{
-								pid: 9,
-								id: 11,
-								pageName: "vip_record",
-								text: "会员记录(工人)"
-							},
+							// {
+							// 	pid: 9,
+							// 	id: 11,
+							// 	pageName: "vip_record",
+							// 	text: "会员记录(工人)"
+							// },
 							{
 								pid: 9,
 								id: 11,
 								pageName: "pay_award",
-								text: "支付奖励(工人)"
+								text: "邀请返现(工人)"
 							},
 							{
 								pid: 9,

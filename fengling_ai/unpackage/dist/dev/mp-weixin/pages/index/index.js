@@ -520,18 +520,18 @@ var _default = {
       if (newValue != 0) {
         // 关闭首页语音播放
         this.canPlay = false;
+        if (this.isLogin()) {
+          if (newValue == 1) {
+            this.$nextTick(function () {
+              _this.$refs.chatRef.toScroll();
+            });
+          }
+        } else {
+          this.showLogin = true;
+        }
       }
       if (newValue == 0) {
         this.canPlay = true;
-      }
-      if (this.isLogin()) {
-        if (newValue == 1) {
-          this.$nextTick(function () {
-            _this.$refs.chatRef.toScroll();
-          });
-        }
-      } else {
-        this.showLogin = true;
       }
     },
     question: function question(newVal) {
@@ -543,6 +543,12 @@ var _default = {
     }
   },
   methods: _objectSpread(_objectSpread({}, (0, _vuex.mapMutations)(["openAnswering", "closeAnswering", "setConnected", "unConnected", "setConnecting", "unConnecting", "openCansend", "closeCansend", "notChannel", "isChannel", "addChannelQaList", "openAnswerContinue", "closeAnswerContinue", "updateChannelQaList", "setChannelId", "setLocation", "setToken", "clearChannelQaList", "notInCall", "setCallContent", "setRespEnd", "notRespEnd", "setInterviewCard", "setIncallEnroll", "setIncallJobId", "resetIncallEnroll", "closeInterviewCard", "setAiReady", "resetAiReady", "resetCity", "setChannelInterviewCard", "closeChannelInterviewCard", "setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst", "setQunCode", "setAdTrackingId"])), {}, {
+    setScrollHeight: function setScrollHeight() {
+      this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44;
+    },
+    backHome: function backHome() {
+      this.currentTabIndex = 0;
+    },
     postParams: function postParams() {
       var _this4 = this;
       this.$request("/ad/tracking", this.params, "POST").then(function (res) {
@@ -1153,6 +1159,8 @@ var _default = {
             "action_type": _this.action
           }),
           success: function success(res) {
+            _this.currentProjectDetail.id = "";
+            _this.currentProjectDetail.name = "";
             _this.jobId = "";
             _this.action = "";
             _this.noMayAsk = false;
@@ -1174,6 +1182,8 @@ var _default = {
           },
           fail: function fail(err) {
             _this.jobId = "";
+            _this.currentProjectDetail.id = "";
+            _this.currentProjectDetail.name = "";
           }
         });
       }
@@ -1579,6 +1589,7 @@ var _default = {
         this.showMenu = true;
         this.getSignList();
         this.getViewList();
+        this.getInfo();
       } else {
         // 未登录显示登录弹窗
         this.showLogin = true;

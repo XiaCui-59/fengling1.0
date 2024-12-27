@@ -349,6 +349,9 @@ var _default = (_name$props$data$comp = {
       }
     }).exec();
   },
+  setScrollHeight: function setScrollHeight() {
+    this.$emit("setScrollHeight");
+  },
   closeHand: function closeHand() {
     this.showHand = false;
   },

@@ -1,7 +1,7 @@
 <template>
 	<view class="board">
 		<view class="box">
-			<view class="title">支付奖励记录</view>
+			<view class="title">邀请返现记录</view>
 			<view class="flex flex_btween" style="align-items: start;">
 				<searchBox :showEmployee="true" :showUser="true" :showRange="true" :searStart="searStart"
 					:searEnd="searEnd" :timeStr="timeStr" employeeStr="受邀人" userStr="邀请人" @handleSearch="handleSearch">
@@ -18,6 +18,7 @@
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">受邀人</uni-th>
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">受邀人电话</uni-th>
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">奖励金额</uni-th>
+						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">奖励类型</uni-th>
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">奖励时间</uni-th>
 					</uni-tr>
 					<uni-tr v-for="(item,index) in list" :key="index">
@@ -32,6 +33,8 @@
 						<uni-td align="center">{{item.invitee}}</uni-td>
 						<uni-td align="center">{{item.invitee_mobile}}</uni-td>
 						<uni-td align="center">{{item.reward_amount}}</uni-td>
+						<uni-td
+							align="center">{{reward_type.filter(el=>{return el.value == item.reward_type})[0]?reward_type.filter(el=>{return el.value == item.reward_type})[0].text:"无"}}</uni-td>
 						<uni-td align="center">{{item.time}}</uni-td>
 					</uni-tr>
 				</uni-table>
@@ -57,7 +60,16 @@
 				searUser: "",
 				searStart: "",
 				searEnd: "",
-				currentCount: 15
+				currentCount: 15,
+				reward_type: [{
+						value: "vip",
+						text: "会员奖励"
+					},
+					{
+						value: "credit",
+						text: "积分奖励"
+					}
+				]
 			};
 		},
 		components: {
@@ -105,7 +117,7 @@
 		}
 
 		.uni-table-tr .uni-table-td:last-child {
-			position: relative;
+			// position: relative;
 			background: #fff;
 
 		}
@@ -116,7 +128,7 @@
 		}
 
 		.uni-table-tr:nth-child(2n + 3) .uni-table-td:last-child {
-			position: relative;
+			// position: relative;
 			background: #fafafa;
 		}
 

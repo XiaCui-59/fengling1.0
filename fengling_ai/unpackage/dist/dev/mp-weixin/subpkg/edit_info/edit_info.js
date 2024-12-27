@@ -288,13 +288,18 @@ var _default = {
       var data = _objectSpread({}, this.info);
       data.gender = data.gender == "男" ? "male" : "female";
       data.age = Number(data.age);
-      data.nation = data.nation.indexOf("族") ? data.nation : data.nation + "族";
+      data.nation = data.nation.indexOf("族") != -1 ? data.nation : data.nation + "族";
       this.$request("/worker/profile", data, "POST").then(function (res) {
         if (res.code == 0) {
           uni.showToast({
             title: "保存成功",
             duration: 3000
           });
+          var pages = getCurrentPages();
+          var curPage = pages[pages.length - 2];
+          if (curPage && curPage.$vm.getInfo) {
+            curPage.$vm.getInfo();
+          }
         }
       });
     },
@@ -325,7 +330,11 @@ var _default = {
         if (response.code == 0) {
           uni.setStorageSync("userInfo", JSON.stringify(response.data));
           _this2.info.name = response.data.name;
-          _this2.info.gender = _this2.info.gender == "male" ? "男" : _this2.info.gender == "female" ? "女" : "";
+          _this2.info.gender = _this2.gender.filter(function (el) {
+            return el.value == response.data.gender;
+          })[0] ? _this2.gender.filter(function (el) {
+            return el.value == response.data.gender;
+          })[0].text : "";
           _this2.info.age = response.data.age ? response.data.age : "";
           _this2.info.nation = response.data.nation;
           _this2.info.mobile = response.data.mobile;

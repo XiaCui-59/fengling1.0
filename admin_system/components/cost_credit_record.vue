@@ -32,7 +32,7 @@
 							align="center">{{creditBillTypeRange.filter(el=>{return el.value==item.bill_type})[0].text}}</uni-td>
 						<uni-td
 							align="center">{{payChannel.filter(el=>{return el.value == item.channel})[0]?payChannel.filter(el=>{return el.value == item.channel})[0].text:""}}</uni-td>
-						<uni-td align="center">{{item.status == "success"?"已支付":""}}</uni-td>
+						<uni-td align="center">{{item.status == "success"?"已支付":"支付失败"}}</uni-td>
 						<uni-td align="center" style="white-space: wrap;">
 							<view style="max-width: 200px;word-wrap: break-word;word-break:break-all;">
 								{{item.description}}
@@ -94,7 +94,7 @@
 			},
 			getList() {
 				let url = "/admin/credit/credit_order?page=" + this.currentPage +
-					"&user_name=" + this.searEmployee + "&page_size=" + this.currentCount + "&bill_start_time=" + this
+					"&user_info=" + this.searEmployee + "&page_size=" + this.currentCount + "&bill_start_time=" + this
 					.searStart + "&bill_end_time=" + this.searEnd + "&bill_type=" + this.creditBillType
 				this.$request(url).then(res => {
 					if (res.code == 0) {

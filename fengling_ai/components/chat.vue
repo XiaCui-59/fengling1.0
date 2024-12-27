@@ -112,7 +112,7 @@
 									<!-- 最新一条 -->
 									<cardRecharge
 										v-if="item.card && item.card.type == 'score_not_enough' && !answerContinue"
-										@sendMsg="sendMsg('我已充值成功，请帮我报名。','')">
+										@sendMsg="sendMsg('我已充值成功，请帮我报名。','')" @setScrollHeight="setScrollHeight">
 									</cardRecharge>
 								</view>
 							</view>
@@ -267,6 +267,9 @@
 						_this.currentContHeight = data.height;
 					}
 				}).exec();
+			},
+			setScrollHeight() {
+				this.$emit("setScrollHeight")
 			},
 			closeHand() {
 				this.showHand = false

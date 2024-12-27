@@ -116,12 +116,14 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var g0 = _vm.userInfo.name.slice(0, 6)
+  var g0 = _vm.userInfo.name.indexOf("@")
+  var g1 = g0 != -1 ? _vm.userInfo.name.slice(0, 6) : null
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
         g0: g0,
+        g1: g1,
       },
     }
   )
@@ -230,6 +232,8 @@ exports.default = void 0;
 //
 //
 //
+//
+//
 
 var app = getApp();
 var _default = {
@@ -269,6 +273,7 @@ var _default = {
           if (res == "confirm") {
             uni.setStorageSync("loginStatus", "out");
             _this.closeMenu();
+            _this.$emit("backHome");
             uni.showToast({
               title: "已退出登录",
               icon: "none",

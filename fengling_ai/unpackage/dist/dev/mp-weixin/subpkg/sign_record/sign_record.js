@@ -311,8 +311,8 @@ var _default = {
       setTimeout(function () {
         if (prevPage && prevPage.$vm && typeof prevPage.$vm.sendBtnMsg === 'function') {
           var obj = {
-            type: "job",
-            msg: item.project_name + "(ID:" + item.project_id + ")"
+            type: "",
+            msg: "我想继续了解一下" + item.project_name + "(ID:" + item.project_id + ")这个工作。"
           };
           prevPage.$vm.sendBtnMsg(obj);
         }

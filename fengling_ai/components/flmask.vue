@@ -80,7 +80,8 @@
 				let obj = {
 					msg: item.project_name + "（职位ID：" + item.project_id + "）",
 					type: type,
-					job_id: item.project_id
+					job_id: item.project_id,
+					name: item.project_name
 				}
 				this.$emit("sendMsg", obj)
 			},

@@ -131,29 +131,27 @@ var render = function () {
   var g0 = _vm.list.length
   var l0 = _vm.__map(_vm.list, function (item, index) {
     var $orig = _vm.__get_orig(item)
-    var g1 = g0 != 0 ? item.create_time.slice(0, 10) : null
-    var g2 =
+    var g1 =
       g0 != 0
         ? _vm.periodList.filter(function (el) {
             return el.value == item.worker_salary_type
           })
         : null
-    var g3 = g0 != 0 ? item.create_time.slice(0, 16) : null
+    var g2 = g0 != 0 ? item.create_time.slice(0, 16) : null
     return {
       $orig: $orig,
       g1: g1,
       g2: g2,
-      g3: g3,
     }
   })
-  var g4 = _vm.list.length
+  var g3 = _vm.list.length
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
         g0: g0,
         l0: l0,
-        g4: g4,
+        g3: g3,
       },
     }
   )
@@ -196,8 +194,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
 //
 //
 //
@@ -314,8 +310,8 @@ var _default = {
       setTimeout(function () {
         if (prevPage && prevPage.$vm && typeof prevPage.$vm.sendBtnMsg === 'function') {
           var obj = {
-            type: "job",
-            msg: item.project_name + "(ID:" + item.project_id + ")"
+            type: "",
+            msg: "我想继续了解一下" + item.project_name + "(ID:" + item.project_id + ")这个工作。"
           };
           prevPage.$vm.sendBtnMsg(obj);
         }

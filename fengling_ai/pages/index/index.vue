@@ -29,14 +29,14 @@
 			<chat ref="chatRef" v-show="currentTabIndex == 1" :top="statusBarHeight+44" :bottom="botSafe"
 				:historyList="historyList" :qaList="qaList" :scrollHeight="chatScrollHeight" :answering="answering"
 				:greetingObj="greetingObj" :answerContinue="answerContinue" :scrollStr="scrollStr" @sendMsg="sendBtnMsg"
-				@moreHis="getMoreHistory" @tocall="toCall">
+				@moreHis="getMoreHistory" @tocall="toCall" @setScrollHeight="setScrollHeight">
 			</chat>
 			<!-- 频道页 -->
 			<channel :top="statusBarHeight+44" :bottom="botSafe" v-show="currentTabIndex == 2"
 				@handleChannelStatus="handleChannelStatus"></channel>
 		</view>
-		<asideUserCenter @closeMenu="closeMenu" @openMenu="openMenu" :userInfo="userInfo" :menuList="menuList"
-			:showMenu="showMenu">
+		<asideUserCenter @closeMenu="closeMenu" @openMenu="openMenu" @backHome="backHome" :userInfo="userInfo"
+			:menuList="menuList" :showMenu="showMenu">
 		</asideUserCenter>
 		<view class="input_btn_wrap"
 			:style="{bottom:inputHeight?inputHeight+10+'px':'65rpx',background:inputing?(cancelRecord?'#fe697f':'#216ff9'):'#fff'}"
@@ -379,20 +379,21 @@
 				if (newValue != 0) {
 					// 关闭首页语音播放
 					this.canPlay = false
+					if (this.isLogin()) {
+						if (newValue == 1) {
+							this.$nextTick(() => {
+								_this.$refs.chatRef.toScroll()
+							})
+
+						}
+					} else {
+						this.showLogin = true
+					}
 				}
 				if (newValue == 0) {
 					this.canPlay = true
 				}
-				if (this.isLogin()) {
-					if (newValue == 1) {
-						this.$nextTick(() => {
-							_this.$refs.chatRef.toScroll()
-						})
 
-					}
-				} else {
-					this.showLogin = true
-				}
 			},
 			question(newVal) {
 				if (!newVal) {
@@ -412,6 +413,12 @@
 				"setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst", "setQunCode",
 				"setAdTrackingId"
 			]),
+			setScrollHeight() {
+				this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44
+			},
+			backHome() {
+				this.currentTabIndex = 0
+			},
 			postParams() {
 				this.$request("/ad/tracking", this.params, "POST").then(res => {
 					if (res.code == 0) {
@@ -1015,6 +1022,8 @@
 							"action_type": _this.action
 						}),
 						success(res) {
+							_this.currentProjectDetail.id = ""
+							_this.currentProjectDetail.name = ""
 							_this.jobId = ""
 							_this.action = ""
 							_this.noMayAsk = false
@@ -1038,7 +1047,8 @@
 						},
 						fail(err) {
 							_this.jobId = ""
-
+							_this.currentProjectDetail.id = ""
+							_this.currentProjectDetail.name = ""
 						}
 					})
 				}
@@ -1430,6 +1440,7 @@
 					this.showMenu = true
 					this.getSignList()
 					this.getViewList()
+					this.getInfo()
 				} else {
 					// 未登录显示登录弹窗
 					this.showLogin = true

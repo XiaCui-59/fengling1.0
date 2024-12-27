@@ -21,8 +21,8 @@
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">初次接入时间</uni-th>
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">今日开始时间</uni-th>
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">会话来源</uni-th>
-						<!-- <uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">广告主平台</uni-th>
-						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">广告子平台</uni-th> -->
+						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">广告平台</uni-th>
+						<!-- <uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">广告子平台</uni-th> -->
 						<uni-th align="center" style="font-size: 14px;font-weight: 600;color:#333;">操作</uni-th>
 					</uni-tr>
 					<uni-tr v-for="(item,index) in list" :key="index">
@@ -39,9 +39,9 @@
 						<uni-td align="center">微信小程序</uni-td>
 						<!-- <uni-td
 							align="center">{{chatFrom.filter(el=>{return el.value == item.platform})[0].text}}</uni-td> -->
-						<!-- <uni-td
-							align="center">{{adMainPlat.filter(el=>{return el.value == item.ad_platform}).length>0?adMainPlat.filter(el=>{return el.value == item.ad_platform})[0].text:"无"}}</uni-td>
 						<uni-td
+							align="center">{{adMainPlat.filter(el=>{return el.value == item.ad_platform}).length>0?adMainPlat.filter(el=>{return el.value == item.ad_platform})[0].text:"无"}}</uni-td>
+						<!-- <uni-td
 							align="center">{{adSubPlat.filter(el=>{return el.value == item.ad_sub_platform}).length>0?adSubPlat.filter(el=>{return el.value == item.ad_sub_platform})[0].text:"无"}}</uni-td> -->
 						<uni-td align="center" style="padding:8px 0px;">
 							<view class="ope flex flex_around">

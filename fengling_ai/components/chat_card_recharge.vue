@@ -70,6 +70,8 @@
 										title: "充值成功",
 										duration: 2000
 									})
+									// 强制恢复聊天滚动区
+									_this.$emit("setScrollHeight")
 									_this.$emit("sendMsg")
 								},
 								fail(err) {

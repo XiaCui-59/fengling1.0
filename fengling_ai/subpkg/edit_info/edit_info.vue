@@ -113,13 +113,18 @@
 				}
 				data.gender = data.gender == "男" ? "male" : "female"
 				data.age = Number(data.age)
-				data.nation = data.nation.indexOf("族") ? data.nation : (data.nation + "族")
+				data.nation = data.nation.indexOf("族") != -1 ? data.nation : (data.nation + "族")
 				this.$request("/worker/profile", data, "POST").then(res => {
 					if (res.code == 0) {
 						uni.showToast({
 							title: "保存成功",
 							duration: 3000
 						})
+						let pages = getCurrentPages()
+						let curPage = pages[pages.length - 2]
+						if (curPage && curPage.$vm.getInfo) {
+							curPage.$vm.getInfo()
+						}
 					}
 				})
 			},
@@ -148,8 +153,11 @@
 					if (response.code == 0) {
 						uni.setStorageSync("userInfo", JSON.stringify(response.data))
 						this.info.name = response.data.name
-						this.info.gender = this.info.gender == "male" ? "男" : (this.info.gender == "female" ? "女" :
-							"")
+						this.info.gender = this.gender.filter(el => {
+							return el.value == response.data.gender
+						})[0] ? this.gender.filter(el => {
+							return el.value == response.data.gender
+						})[0].text : ""
 						this.info.age = response.data.age ? response.data.age : ""
 						this.info.nation = response.data.nation
 						this.info.mobile = response.data.mobile

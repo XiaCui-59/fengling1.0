@@ -17,7 +17,7 @@
 				</view>
 				<view class="middle flex flex_btween">
 					<view class="mid_in_item">
-						<view class="tit">工资</view>
+						<!-- <view class="tit">工资</view> -->
 						<view class="salary flex flex-start" :class="item.status=='running'?'':'grey'">
 							{{(item.worker_salary_min == item.worker_salary_max?item.worker_salary_min:(item.worker_salary_min+"-"+item.worker_salary_max))}}
 							<text
@@ -117,8 +117,8 @@
 				setTimeout(function() {
 					if (prevPage && prevPage.$vm && typeof prevPage.$vm.sendBtnMsg === 'function') {
 						let obj = {
-							type: "job",
-							msg: item.project_name + "(ID:" + item.project_id + ")"
+							type: "",
+							msg: "我想继续了解一下" + item.project_name + "(ID:" + item.project_id + ")这个工作。"
 						}
 						prevPage.$vm.sendBtnMsg(obj);
 					}

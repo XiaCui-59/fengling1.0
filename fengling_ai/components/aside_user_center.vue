@@ -26,7 +26,9 @@
 											<!-- <view class="gender" v-if="userInfo.gender">
 												{{userInfo.gender == "male"?"男":(userInfo.gender == "female"?"女":"")}}
 											</view> -->
-											<view class="name">{{userInfo.name.slice(0,6)+"..."}}</view>
+											<view class="name">
+												{{userInfo.name.indexOf("@")!=-1?(userInfo.name.slice(0,6)+"..."):userInfo.name}}
+											</view>
 										</view>
 										<view class="edit flex" @click="navigate('/subpkg/edit_info/edit_info')">
 											编辑资料<u-icon name="arrow-right" color="#fff" size="13"
@@ -105,6 +107,7 @@
 						if (res == "confirm") {
 							uni.setStorageSync("loginStatus", "out")
 							_this.closeMenu()
+							_this.$emit("backHome")
 							uni.showToast({
 								title: "已退出登录",
 								icon: "none",

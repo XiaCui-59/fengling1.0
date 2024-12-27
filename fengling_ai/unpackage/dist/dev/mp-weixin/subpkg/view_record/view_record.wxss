@@ -58,6 +58,9 @@ image {
   width: 96rpx;
 }
 .view_record .cont .item .title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   padding-left: 22rpx;
   box-sizing: border-box;
   position: relative;
