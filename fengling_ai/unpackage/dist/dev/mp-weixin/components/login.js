@@ -188,7 +188,7 @@ var _default = {
                         "open-id": !uni.getStorageSync("openid") ? "" : uni.getStorageSync("openid")
                       };
                       _this.getShareParams(header);
-                      _this.$emit("getInfo");
+                      _this.$emit("getInfo", "login");
                     }
                     uni.hideLoading();
                   });
@@ -203,7 +203,7 @@ var _default = {
                     "open-id": !uni.getStorageSync("openid") ? "" : uni.getStorageSync("openid")
                   };
                   _this.getShareParams(header);
-                  _this.$emit("getInfo");
+                  _this.$emit("getInfo", "login");
                 }
               case 8:
               case "end":

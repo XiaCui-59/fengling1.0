@@ -5,21 +5,19 @@
 	<view class="home_page body_bg" v-else @touchstart="bodyTouchStart" @touchmove="bodyTouchMove"
 		@touchend="bodyTouchEnd">
 		<!-- 自定义导航栏 -->
-		<view class="navbar">
-			<u-navbar :safeAreaInsetTop="true" bgColor="rgba(255, 255, 255, 0.25)">
-				<view class="u-nav-slot flex flex-start" slot="left">
-					<view class="ic_menu" @click="openMenu">
-						<image :src="imgUrl+'/worker/new/ic_menu.png'" mode="widthFix"></image>
-					</view>
-					<view class="tabs flex flex-start">
-						<view class="tab" v-for="(item,index) in list4" :class="currentTabIndex==index?'active':''"
-							@click.stop="changeTab(index)">
-							{{item.name}}
-						</view>
+		<u-navbar :safeAreaInsetTop="true" bgColor="rgba(255, 255, 255, 0.25)">
+			<view class="u-nav-slot flex flex-start" slot="left">
+				<view class="ic_menu" @click="openMenu">
+					<image :src="imgUrl+'/worker/new/ic_menu.png'" mode="widthFix"></image>
+				</view>
+				<view class="tabs flex flex-start">
+					<view class="tab" v-for="(item,index) in list4" :class="currentTabIndex==index?'active':''"
+						@click.stop="changeTab(index)">
+						{{item.name}}
 					</view>
 				</view>
-			</u-navbar>
-		</view>
+			</view>
+		</u-navbar>
 		<view class="main_box">
 			<!-- 风铃页 -->
 			<welcome ref="welcome" v-show="currentTabIndex == 0" :top="statusBarHeight+44" :bottom="botSafe"
@@ -88,7 +86,7 @@
 		<myModal ref="myModal">
 		</myModal>
 		<flMask v-if="showFlMask" @closeFengling="closeFengling" @sendMsg="sendBtnMsg"></flMask>
-		<projectPopup v-if="showProPop" @closeProPop="closeProPop" :project="currentProjectDetail"
+		<projectPopup v-show="showProPop" @closeProPop="closeProPop" :project="currentProjectDetail"
 			@sendMsg="sendBtnMsg"></projectPopup>
 	</view>
 </template>
@@ -242,7 +240,13 @@
 		computed: {
 			...mapState(["answering", "connected", "connecting", "canSend", "inChannel", "answerContinue", "channelQaLen",
 				"channelId", "channelQaList", "location", "token", "inCall", "responEnd", "aiReady"
-			])
+			]),
+			indexReady() {
+				if (this.aiReady && this.greetingReady) {
+					uni.hideLoading()
+				}
+				return this.aiReady && this.greetingReady
+			}
 		},
 		async onLoad(params) {
 			var _this = this;
@@ -256,7 +260,8 @@
 				// 存在具体职位
 				uni.setStorageSync("readsteps", 1)
 				this.canPlay = false
-				this.getProjectDetail()
+				this.currentProjectDetail = await this.getProjectDetail()
+
 			} else {
 				if (!readStep) {
 					this.showUserStep = true
@@ -312,7 +317,8 @@
 				"address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
 				"Authorization": "bearer " + token,
 				"ad-platform": params.ad_platform ? params.ad_platform : "",
-				"ad-sub-platform": params.ad_sub_platform ? params.ad_sub_platform : ""
+				"ad-sub-platform": params.ad_sub_platform ? params.ad_sub_platform : "",
+				"job_id": this.currentProjectDetail.id
 			}
 			this.openid = await this.getOpenid()
 
@@ -368,12 +374,18 @@
 			projectPopup
 		},
 		watch: {
-			greetingReady(newValue) {
-				if (newValue) {
-					uni.hideLoading()
-					// this.closeAnswerContinue()
-				}
-			},
+			// greetingReady(newValue) {
+			// 	if (newValue) {
+			// 		// uni.hideLoading()
+			// 		// this.closeAnswerContinue()
+			// 	}
+			// },
+			// aiReady(newValue) {
+			// 	if (newValue) {
+			// 		uni.hideLoading()
+			// 		// this.closeAnswerContinue()
+			// 	}
+			// },
 			currentTabIndex(newValue, oldValue) {
 				let _this = this
 				if (newValue != 0) {
@@ -430,13 +442,17 @@
 				this.showUserStep = false
 			},
 			getProjectDetail() {
-				let url = "/guest/project/" + this.params.job_id
-				this.$request(url).then(res => {
-					if (res.code == 0) {
-						this.currentProjectDetail = res.data
-						this.showProPop = true
-					}
+				let _this = this
+				return new Promise(resolve => {
+					let url = "/guest/project/" + _this.params.job_id
+					_this.$request(url).then(res => {
+						if (res.code == 0) {
+							resolve(res.data)
+							// _this.currentProjectDetail = res.data
+						}
+					})
 				})
+
 			},
 			onInput(e) {
 				this.question = e.target.value
@@ -449,6 +465,8 @@
 			},
 			closeProPop() {
 				this.showProPop = false
+				this.currentProjectDetail.id = ""
+				this.currentProjectDetail.name = ""
 			},
 			toCall(obj) {
 				if (!this.aiReady) {
@@ -801,6 +819,7 @@
 				})
 			},
 			async sendBtnMsg(obj) {
+				console.log("sendBtnMsg被调用：", obj)
 				let _this = this
 				if (obj.job_id) {
 					this.currentProjectDetail.id = obj.job_id
@@ -1074,6 +1093,9 @@
 			},
 			connectWebsocket(header) {
 				let _this = this
+				uni.showLoading({
+					title: "正在连接风铃"
+				})
 				return new Promise((resolve) => {
 					app.globalData.socketTask = uni.connectSocket({
 						url: app.globalData.wssUrl,
@@ -1102,6 +1124,9 @@
 					this.closeAnswerContinue()
 					this.openCansend()
 					this.setAiReady()
+					if (_this.currentProjectDetail.id && !_this.answerContinue) {
+						_this.showProPop = true
+					}
 					console.log('已成功建立链接onOpen', res);
 					// 如果是其他页面进入首页
 				})
@@ -1466,7 +1491,7 @@
 					}
 				})
 			},
-			async getInfo() {
+			async getInfo(type) {
 				this.$request("/worker/profile").then(response => {
 					if (response.code == 0) {
 						// uni.hideLoading()
@@ -1475,7 +1500,7 @@
 						this.menuList[3].value = response.data.balance.total_amount
 					}
 				})
-				if (this.currentProjectDetail.id) {
+				if (this.currentProjectDetail.id && (type == "login")) {
 					let obj = {
 						type: "job",
 						msg: this.currentProjectDetail.name + "(ID:" + this.currentProjectDetail.id + ")"

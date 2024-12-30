@@ -216,7 +216,7 @@
 									"openid")
 							}
 							_this.getShareParams(header)
-							_this.$emit("getInfo")
+							_this.$emit("getInfo", "login")
 						}
 						uni.hideLoading()
 					})
@@ -232,7 +232,7 @@
 							"openid")
 					}
 					_this.getShareParams(header)
-					_this.$emit("getInfo")
+					_this.$emit("getInfo", "login")
 
 				}
 			}

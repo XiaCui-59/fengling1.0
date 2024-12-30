@@ -10033,7 +10033,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
+/* WEBPACK VAR INJECTION */(function(uni, wx) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -10054,11 +10054,11 @@ var request = function request() {
     "app-id": _url_setting.default.urls.appid,
     "open-id": !uni.getStorageSync("openid") ? "" : uni.getStorageSync("openid")
   };
-  if (url == "/homepage") {
-    uni.showLoading({
-      title: "加载中"
-    });
-  }
+  // if (url == "/homepage") {
+  // 	uni.showLoading({
+  // 		title: "加载中"
+  // 	})
+  // }
   return new Promise(function (resolve, reject) {
     uni.request({
       method: type,
@@ -10097,9 +10097,14 @@ var request = function request() {
         console.log("error1：", error);
         reject(error);
       }
-      uni.hideLoading();
+
+      // wx.hideLoading({
+      // 	noConflict: true
+      // });
     }).catch(function (error) {
-      uni.hideLoading();
+      wx.hideLoading({
+        noConflict: true
+      });
       console.log("error：", error);
       var _error = (0, _slicedToArray2.default)(error, 2),
         err = _error[0],
@@ -10110,7 +10115,7 @@ var request = function request() {
 };
 var _default = request;
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"]))
 
 /***/ }),
 /* 38 */

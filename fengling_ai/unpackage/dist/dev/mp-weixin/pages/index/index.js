@@ -175,7 +175,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var projectPopup = function projectPopup() {
   __webpack_require__.e(/*! require.ensure | components/load_project_popup */ "components/load_project_popup").then((function () {
-    return resolve(__webpack_require__(/*! @/components/load_project_popup.vue */ 309));
+    return resolve(__webpack_require__(/*! @/components/load_project_popup.vue */ 532));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var flMask = function flMask() {
@@ -185,7 +185,7 @@ var flMask = function flMask() {
 };
 var asideUserCenter = function asideUserCenter() {
   __webpack_require__.e(/*! require.ensure | components/aside_user_center */ "components/aside_user_center").then((function () {
-    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 323));
+    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 540));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var login = function login() {
@@ -195,7 +195,7 @@ var login = function login() {
 };
 var welcome = function welcome() {
   Promise.all(/*! require.ensure | components/welcome */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/welcome")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 337));
+    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 548));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var chat = function chat() {
@@ -336,7 +336,14 @@ var _default = {
       }
     };
   },
-  computed: _objectSpread({}, (0, _vuex.mapState)(["answering", "connected", "connecting", "canSend", "inChannel", "answerContinue", "channelQaLen", "channelId", "channelQaList", "location", "token", "inCall", "responEnd", "aiReady"])),
+  computed: _objectSpread(_objectSpread({}, (0, _vuex.mapState)(["answering", "connected", "connecting", "canSend", "inChannel", "answerContinue", "channelQaLen", "channelId", "channelQaList", "location", "token", "inCall", "responEnd", "aiReady"])), {}, {
+    indexReady: function indexReady() {
+      if (this.aiReady && this.greetingReady) {
+        uni.hideLoading();
+      }
+      return this.aiReady && this.greetingReady;
+    }
+  }),
   onLoad: function onLoad(params) {
     var _this2 = this;
     return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
@@ -352,18 +359,26 @@ var _default = {
               _this2.shareId = params.share_id ? params.share_id : scanId ? scanId : "";
               _this2.params = params;
               readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : "";
-              if (params.job_id) {
-                // 存在具体职位
-                uni.setStorageSync("readsteps", 1);
-                _this2.canPlay = false;
-                _this2.getProjectDetail();
-              } else {
-                if (!readStep) {
-                  _this2.showUserStep = true;
-                } else {
-                  _this2.showUserStep = false;
-                }
+              if (!params.job_id) {
+                _context2.next = 14;
+                break;
               }
+              // 存在具体职位
+              uni.setStorageSync("readsteps", 1);
+              _this2.canPlay = false;
+              _context2.next = 11;
+              return _this2.getProjectDetail();
+            case 11:
+              _this2.currentProjectDetail = _context2.sent;
+              _context2.next = 15;
+              break;
+            case 14:
+              if (!readStep) {
+                _this2.showUserStep = true;
+              } else {
+                _this2.showUserStep = false;
+              }
+            case 15:
               _this2.resetCity();
               // 网络状态判断
               uni.getNetworkType({
@@ -411,17 +426,17 @@ var _default = {
                   return _ref.apply(this, arguments);
                 };
               }());
-              _context2.next = 12;
+              _context2.next = 20;
               return _commMethods.default.getElementInfo(".input_btn_wrap");
-            case 12:
+            case 20:
               _this2.btnInfo = _context2.sent;
               if (_this2.btnInfo) {
                 _this2.botSafe = app.globalData.systemHeight - _this2.btnInfo.top;
                 _this2.chatScrollHeight = _this2.btnInfo.top - _this2.statusBarHeight - 44;
               }
-              _context2.next = 16;
+              _context2.next = 24;
               return _this2.getPosition();
-            case 16:
+            case 24:
               location = _context2.sent;
               _this2.setLocation(location);
               token = uni.getStorageSync("token") ? uni.getStorageSync("token") : "";
@@ -432,11 +447,12 @@ var _default = {
                 "address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
                 "Authorization": "bearer " + token,
                 "ad-platform": params.ad_platform ? params.ad_platform : "",
-                "ad-sub-platform": params.ad_sub_platform ? params.ad_sub_platform : ""
+                "ad-sub-platform": params.ad_sub_platform ? params.ad_sub_platform : "",
+                "job_id": _this2.currentProjectDetail.id
               };
-              _context2.next = 22;
+              _context2.next = 30;
               return _this2.getOpenid();
-            case 22:
+            case 30:
               _this2.openid = _context2.sent;
               _this2.postParams();
               _this2.getSetting();
@@ -445,7 +461,7 @@ var _default = {
                 // this.closeInterviewCard()
                 // this.closeChannelInterviewCard()
               }
-            case 26:
+            case 34:
             case "end":
               return _context2.stop();
           }
@@ -509,12 +525,18 @@ var _default = {
     projectPopup: projectPopup
   },
   watch: {
-    greetingReady: function greetingReady(newValue) {
-      if (newValue) {
-        uni.hideLoading();
-        // this.closeAnswerContinue()
-      }
-    },
+    // greetingReady(newValue) {
+    // 	if (newValue) {
+    // 		// uni.hideLoading()
+    // 		// this.closeAnswerContinue()
+    // 	}
+    // },
+    // aiReady(newValue) {
+    // 	if (newValue) {
+    // 		uni.hideLoading()
+    // 		// this.closeAnswerContinue()
+    // 	}
+    // },
     currentTabIndex: function currentTabIndex(newValue, oldValue) {
       var _this = this;
       if (newValue != 0) {
@@ -561,13 +583,15 @@ var _default = {
       this.showUserStep = false;
     },
     getProjectDetail: function getProjectDetail() {
-      var _this5 = this;
-      var url = "/guest/project/" + this.params.job_id;
-      this.$request(url).then(function (res) {
-        if (res.code == 0) {
-          _this5.currentProjectDetail = res.data;
-          _this5.showProPop = true;
-        }
+      var _this = this;
+      return new Promise(function (resolve) {
+        var url = "/guest/project/" + _this.params.job_id;
+        _this.$request(url).then(function (res) {
+          if (res.code == 0) {
+            resolve(res.data);
+            // _this.currentProjectDetail = res.data
+          }
+        });
       });
     },
     onInput: function onInput(e) {
@@ -581,6 +605,8 @@ var _default = {
     },
     closeProPop: function closeProPop() {
       this.showProPop = false;
+      this.currentProjectDetail.id = "";
+      this.currentProjectDetail.name = "";
     },
     toCall: function toCall(obj) {
       if (!this.aiReady) {
@@ -672,9 +698,9 @@ var _default = {
       this.showFlMask = false;
     },
     getPosition: function getPosition() {
-      var _this6 = this;
+      var _this5 = this;
       return new Promise(function (resolve, reject) {
-        _this6.$request("/guest/location").then(function (res) {
+        _this5.$request("/guest/location").then(function (res) {
           if (res.code == 0) {
             resolve(res.data);
           }
@@ -763,7 +789,7 @@ var _default = {
       }, 30);
     },
     getMayAsk: function getMayAsk() {
-      var _this7 = this;
+      var _this6 = this;
       var data = {
         "job_channel_id": this.channelId
       };
@@ -771,17 +797,17 @@ var _default = {
       var obj = {};
       console.log("执行了mayask");
       this.$aiRequest("/api/chat/suggested-questions", data, "POST").then(function (res) {
-        if (_this7.channelId) {
+        if (_this6.channelId) {
           // 频道内
-          index = _this7.channelQaList.length - 1;
-          obj = _this7.channelQaList[index];
+          index = _this6.channelQaList.length - 1;
+          obj = _this6.channelQaList[index];
           obj.may_ask = res.questions;
-          _this7.updateChannelQaList(obj);
+          _this6.updateChannelQaList(obj);
         } else {
-          index = _this7.qaList.length - 1;
-          obj = _this7.qaList[index];
+          index = _this6.qaList.length - 1;
+          obj = _this6.qaList[index];
           obj.may_ask = res.questions;
-          _this7.$set(_this7.qaList, index, obj);
+          _this6.$set(_this6.qaList, index, obj);
         }
       });
     },
@@ -834,7 +860,7 @@ var _default = {
       });
     },
     getMoreHistory: function getMoreHistory() {
-      var _this8 = this;
+      var _this7 = this;
       var _this = this;
       if (!this.loadAllHistory) {
         if (!this.historyId) {
@@ -851,18 +877,18 @@ var _default = {
           if (res.code == 0) {
             var len = res.data.length;
             uni.hideLoading();
-            _this8.$refs.chatRef.refreshRestore();
+            _this7.$refs.chatRef.refreshRestore();
             if (len > 0) {
               var resArr = res.data.reverse();
-              var newArr = _this8.handleList(resArr);
-              _this8.historyList = newArr.concat(_this8.historyList);
-              _this8.scrollStr = "his" + res.data[len - 1].id;
-              _this8.historyId = res.data[0].id;
+              var newArr = _this7.handleList(resArr);
+              _this7.historyList = newArr.concat(_this7.historyList);
+              _this7.scrollStr = "his" + res.data[len - 1].id;
+              _this7.historyId = res.data[0].id;
             } else {
-              _this8.loadAllHistory = true;
+              _this7.loadAllHistory = true;
             }
           } else {
-            _this8.$refs.chatRef.refreshRestore();
+            _this7.$refs.chatRef.refreshRestore();
           }
         });
       } else {
@@ -920,27 +946,28 @@ var _default = {
       });
     },
     sendBtnMsg: function sendBtnMsg(obj) {
-      var _this9 = this;
+      var _this8 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
         var _this, strArr, random;
         return _regenerator.default.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _this = _this9;
+                console.log("sendBtnMsg被调用：", obj);
+                _this = _this8;
                 if (obj.job_id) {
-                  _this9.currentProjectDetail.id = obj.job_id;
-                  _this9.currentProjectDetail.name = obj.name;
+                  _this8.currentProjectDetail.id = obj.job_id;
+                  _this8.currentProjectDetail.name = obj.name;
                 }
-                if (_this9.isLogin()) {
-                  _context4.next = 5;
+                if (_this8.isLogin()) {
+                  _context4.next = 6;
                   break;
                 }
-                _this9.showLogin = true;
+                _this8.showLogin = true;
                 return _context4.abrupt("return");
-              case 5:
-                if (_this9.aiReady) {
-                  _context4.next = 8;
+              case 6:
+                if (_this8.aiReady) {
+                  _context4.next = 9;
                   break;
                 }
                 uni.showToast({
@@ -949,9 +976,9 @@ var _default = {
                   duration: 2000
                 });
                 return _context4.abrupt("return");
-              case 8:
-                if (!_this9.answerContinue) {
-                  _context4.next = 11;
+              case 9:
+                if (!_this8.answerContinue) {
+                  _context4.next = 12;
                   break;
                 }
                 uni.showToast({
@@ -960,10 +987,10 @@ var _default = {
                   duration: 2000
                 });
                 return _context4.abrupt("return");
-              case 11:
-                _this9.closeProPop();
-                _this9.jobId = obj.job_id;
-                _this9.action = obj.action;
+              case 12:
+                _this8.closeProPop();
+                _this8.jobId = obj.job_id;
+                _this8.action = obj.action;
                 if (obj.type == "job") {
                   // 词语润色
                   strArr = [];
@@ -973,19 +1000,19 @@ var _default = {
                   strArr.push(obj.msg + "这个工作看着还不错，请为我介绍下吧");
                   strArr.push(obj.msg + "这个工作的详细信息可以说一下吗？");
                   random = Math.floor(Math.random() * strArr.length);
-                  _this9.question = strArr[random];
+                  _this8.question = strArr[random];
                 } else {
-                  _this9.question = obj.msg;
+                  _this8.question = obj.msg;
                 }
-                if (_this9.currentTabIndex != 1) {
-                  _this9.currentTabIndex = 1;
+                if (_this8.currentTabIndex != 1) {
+                  _this8.currentTabIndex = 1;
                   setTimeout(function () {
                     _this.sendQuestion();
                   }, 500);
                 } else {
-                  _this9.sendQuestion();
+                  _this8.sendQuestion();
                 }
-              case 16:
+              case 17:
               case "end":
                 return _context4.stop();
             }
@@ -1018,18 +1045,18 @@ var _default = {
       }
     },
     initRecord: function initRecord() {
-      var _this10 = this;
+      var _this9 = this;
       //录音开始事件
       this.manager.onStart(function (e) {
-        _this10.inputing = true;
+        _this9.inputing = true;
       });
       //录音结束事件
       this.manager.onStop(function (res) {
-        var _this = _this10;
-        _this10.inputing = false;
+        var _this = _this9;
+        _this9.inputing = false;
         clearInterval(_this.secondTimer);
-        if (_this10.touchEndTime - _this10.touchStartTime > 1000) {
-          _this10.handleRecorder(res);
+        if (_this9.touchEndTime - _this9.touchStartTime > 1000) {
+          _this9.handleRecorder(res);
         } else {
           uni.showToast({
             title: "长按时间过短",
@@ -1038,8 +1065,8 @@ var _default = {
         }
       });
       this.manager.onError(function (res) {
-        var _this = _this10;
-        _this10.inputing = false;
+        var _this = _this9;
+        _this9.inputing = false;
         clearInterval(_this.secondTimer);
       });
     },
@@ -1189,38 +1216,38 @@ var _default = {
       }
     },
     creatConnect: function creatConnect(header) {
-      var _this11 = this;
+      var _this10 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5() {
         var _this, res;
         return _regenerator.default.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _this = _this11;
+                _this = _this10;
                 if (!app.globalData.socketTask) {
                   _context5.next = 5;
                   break;
                 }
                 _context5.next = 4;
-                return _this11.close();
+                return _this10.close();
               case 4:
                 return _context5.abrupt("return", false);
               case 5:
-                console.log("connected：", _this11.connected);
-                if (!(_this11.connected || _this11.connecting)) {
+                console.log("connected：", _this10.connected);
+                if (!(_this10.connected || _this10.connecting)) {
                   _context5.next = 8;
                   break;
                 }
                 return _context5.abrupt("return", false);
               case 8:
                 // 两个链接状态都为false才开始创建链接
-                _this11.setConnecting();
+                _this10.setConnecting();
                 _context5.next = 11;
-                return _this11.connectWebsocket(header);
+                return _this10.connectWebsocket(header);
               case 11:
                 res = _context5.sent;
                 if (res.errMsg == "connectSocket:ok") {
-                  _this11.initWebsocket();
+                  _this10.initWebsocket();
                 }
               case 13:
               case "end":
@@ -1232,6 +1259,9 @@ var _default = {
     },
     connectWebsocket: function connectWebsocket(header) {
       var _this = this;
+      uni.showLoading({
+        title: "正在连接风铃"
+      });
       return new Promise(function (resolve) {
         app.globalData.socketTask = uni.connectSocket({
           url: app.globalData.wssUrl,
@@ -1252,15 +1282,18 @@ var _default = {
       });
     },
     initWebsocket: function initWebsocket() {
-      var _this12 = this;
+      var _this11 = this;
       var _this = this;
       app.globalData.socketTask.onOpen(function (res) {
-        _this12.unConnecting();
-        _this12.setConnected();
-        _this12.closeAnswering();
-        _this12.closeAnswerContinue();
-        _this12.openCansend();
-        _this12.setAiReady();
+        _this11.unConnecting();
+        _this11.setConnected();
+        _this11.closeAnswering();
+        _this11.closeAnswerContinue();
+        _this11.openCansend();
+        _this11.setAiReady();
+        if (_this.currentProjectDetail.id && !_this.answerContinue) {
+          _this.showProPop = true;
+        }
         console.log('已成功建立链接onOpen', res);
         // 如果是其他页面进入首页
       });
@@ -1268,11 +1301,11 @@ var _default = {
       app.globalData.socketTask.onError(function (err) {
         app.globalData.socketTask = null;
         clearInterval(_this.timer);
-        _this12.unConnected();
-        _this12.unConnecting();
-        _this12.resetAiReady();
-        if (_this12.answering || _this12.answerContinue) {
-          _this12.handleConnectErr();
+        _this11.unConnected();
+        _this11.unConnecting();
+        _this11.resetAiReady();
+        if (_this11.answering || _this11.answerContinue) {
+          _this11.handleConnectErr();
         }
         setTimeout(function () {
           _this.creatConnect(_this.header);
@@ -1342,27 +1375,27 @@ var _default = {
         // uni.hideLoading()
         console.log('onClose', res);
         app.globalData.socketTask = null;
-        _this12.unConnected();
-        _this12.unConnecting();
-        _this12.resetAiReady();
+        _this11.unConnected();
+        _this11.unConnecting();
+        _this11.resetAiReady();
         clearInterval(_this.timer);
         setTimeout(function () {
           _this.creatConnect(_this.header);
         }, 2000);
-        if (_this12.answering || _this12.answerContinue) {
-          _this12.handleConnectErr();
+        if (_this11.answering || _this11.answerContinue) {
+          _this11.handleConnectErr();
         }
       });
     },
     getQrcode: function getQrcode(id) {
-      var _this13 = this;
+      var _this12 = this;
       if (!id) {
         return;
       }
       var url = "/worker/project/" + id + "/wework/external/group/qrcode";
       this.$request(url).then(function (res) {
         if (res.code == 0) {
-          _this13.setQunCode(res.data.qrcode_url);
+          _this12.setQunCode(res.data.qrcode_url);
         }
       });
     },
@@ -1599,51 +1632,51 @@ var _default = {
       this.showLogin = false;
     },
     getSignList: function getSignList() {
-      var _this14 = this;
+      var _this13 = this;
       var url = "/worker/register_record?page=1";
       this.$request(url).then(function (res) {
         if (res.code == 0) {
-          _this14.menuList[0].value = String(res.data.pagination.totalCount);
+          _this13.menuList[0].value = String(res.data.pagination.totalCount);
         }
       });
     },
     getViewList: function getViewList() {
-      var _this15 = this;
+      var _this14 = this;
       var url = "/worker/browse_record?page=1";
       this.$request(url).then(function (res) {
         if (res.code == 0) {
-          _this15.menuList[1].value = res.data.pagination.totalCount + "条";
+          _this14.menuList[1].value = res.data.pagination.totalCount + "条";
         }
       });
     },
-    getInfo: function getInfo() {
-      var _this16 = this;
+    getInfo: function getInfo(type) {
+      var _this15 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6() {
         var obj;
         return _regenerator.default.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _this16.$request("/worker/profile").then(function (response) {
+                _this15.$request("/worker/profile").then(function (response) {
                   if (response.code == 0) {
                     // uni.hideLoading()
                     uni.setStorageSync("userInfo", JSON.stringify(response.data));
-                    _this16.userInfo = response.data;
-                    _this16.menuList[3].value = response.data.balance.total_amount;
+                    _this15.userInfo = response.data;
+                    _this15.menuList[3].value = response.data.balance.total_amount;
                   }
                 });
-                if (_this16.currentProjectDetail.id) {
+                if (_this15.currentProjectDetail.id && type == "login") {
                   obj = {
                     type: "job",
-                    msg: _this16.currentProjectDetail.name + "(ID:" + _this16.currentProjectDetail.id + ")"
+                    msg: _this15.currentProjectDetail.name + "(ID:" + _this15.currentProjectDetail.id + ")"
                   };
-                  _this16.sendBtnMsg(obj);
+                  _this15.sendBtnMsg(obj);
                 }
-                _this16.historyId = 0;
+                _this15.historyId = 0;
                 _context6.next = 5;
-                return _this16.getHistory();
+                return _this15.getHistory();
               case 5:
-                _this16.historyList = _context6.sent;
+                _this15.historyList = _context6.sent;
               case 6:
               case "end":
                 return _context6.stop();
