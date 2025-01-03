@@ -68,6 +68,13 @@
 								@change="typeChange"></uni-data-select>
 						</view>
 					</view>
+					<view class="line">
+						<view class="tit">职位权重</view>
+						<view class="input_wrap">
+							<input type="number" v-model="currentInfo.weight" placeholder="请输入数字,数值越高权重越大"
+								maxlength="32" />
+						</view>
+					</view>
 					<!-- 	<view class="line">
 						<view class="tit">工作福利</view>
 						<view class="wrap" @click="tagChoose('welfare')">{{welfare?welfare:"请选择工作福利"}}</view>
@@ -274,6 +281,7 @@
 					"worker_salary_max": 0,
 					"worker_salary_min": 0,
 					"worker_salary_type": "",
+					"weight": ""
 				},
 				gender: [{
 						value: "male",
@@ -636,6 +644,7 @@
 				let _this = this
 				this.currentInfo.worker_gender = this.gender[this.currentGender].value
 				this.currentInfo.worker_age_min = Number(this.currentInfo.worker_age_min)
+				this.currentInfo.weight = Number(this.currentInfo.weight)
 				this.currentInfo.worker_age_max = Number(this.currentInfo.worker_age_max)
 				// this.currentInfo.job_benefits = this.welIds
 				// this.currentInfo.job_info = this.workIds

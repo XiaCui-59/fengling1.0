@@ -85,6 +85,12 @@
 								@change="typeChange"></uni-data-select>
 						</view>
 					</view>
+					<view class="line">
+						<view class="tit">职位权重</view>
+						<view class="input_wrap">
+							<input type="number" v-model="weight" placeholder="请输入数字,数值越高权重越大" maxlength="32" />
+						</view>
+					</view>
 					<!-- <view class="line">
 						<view class="tit">工作福利</view>
 						<view class="wrap" @click="tagChoose('welfare')">{{welfare?welfare:"请选择工作福利"}}</view>
@@ -231,6 +237,7 @@
 						lng: 116.332039
 					}
 				},
+				weight: "",
 				content: "",
 				minSalary: "",
 				maxSalary: "",
@@ -591,6 +598,7 @@
 				this.videoValue = []
 				this.imageValue = []
 				this.imageKeys = []
+				this.weight = ""
 				// this.getCurrentLocation()
 			},
 			cancel() {
@@ -662,7 +670,8 @@
 					"work_address": this.addressObj,
 					"content": this.content,
 					"videos": this.videoKeys,
-					"images": this.imageKeys
+					"images": this.imageKeys,
+					"weight": Number(this.weight)
 				}
 				console.log(data)
 				this.$request("/admin/projects", data, "POST").then(res => {

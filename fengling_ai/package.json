@@ -92,6 +92,7 @@
 		}
 	},
 	"dependencies": {
+		"flv.js": "^1.6.2",
 		"text-encoding-shim": "^1.0.5"
 	}
 }
