@@ -239,7 +239,8 @@
 		},
 		computed: {
 			...mapState(["answering", "connected", "connecting", "canSend", "inChannel", "answerContinue", "channelQaLen",
-				"channelId", "channelQaList", "location", "token", "inCall", "responEnd", "aiReady"
+				"channelId", "channelQaList", "location", "token", "inCall", "responEnd", "aiReady", "ad_tracking_id",
+				"callBackCount"
 			]),
 			indexReady() {
 				if (this.aiReady && this.greetingReady) {
@@ -271,6 +272,7 @@
 			}
 			let location;
 			this.resetCity()
+			this.resetCallBackCount()
 			// 网络状态判断
 			uni.getNetworkType({
 				success(res) {
@@ -318,7 +320,7 @@
 				"Authorization": "bearer " + token,
 				"ad-platform": params.ad_platform ? params.ad_platform : "",
 				"ad-sub-platform": params.ad_sub_platform ? params.ad_sub_platform : "",
-				"job_id": this.currentProjectDetail.id
+				"job-id": this.currentProjectDetail.id
 			}
 			this.openid = await this.getOpenid()
 
@@ -405,6 +407,19 @@
 				if (newValue == 0) {
 					this.canPlay = true
 				}
+				if ((newValue == 1) && (this.callBackCount == 0)) {
+					if (this.ad_tracking_id) {
+						let data = {
+							ad_tracking_id: this.ad_tracking_id
+						}
+						this.$request("/worker/ad/callback", data, "POST").then(res => {
+							if (res.code == 0) {
+								console.log("执行回传")
+								this.setCallBackCount()
+							}
+						})
+					}
+				}
 
 			},
 			question(newVal) {
@@ -423,7 +438,7 @@
 				"setInterviewCard", "setIncallEnroll", "setIncallJobId", "resetIncallEnroll", "closeInterviewCard",
 				"setAiReady", "resetAiReady", "resetCity", "setChannelInterviewCard", "closeChannelInterviewCard",
 				"setJobName", "resetJobName", "setJobId", "resetJobId", "setHangUpFirst", "setQunCode",
-				"setAdTrackingId"
+				"setAdTrackingId", "setCallBackCount", "resetCallBackCount"
 			]),
 			setScrollHeight() {
 				this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44
@@ -592,6 +607,8 @@
 										_this.header["Authorization"] = "bearer " + resp.data
 											.token
 										_this.setToken(resp.data.token)
+										uni.setStorageSync("token", resp.data.token)
+										uni.setStorageSync("loginStatus", "in")
 										_this.creatConnect(_this.header)
 										resolve(resp.data.open_id)
 									}

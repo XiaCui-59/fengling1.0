@@ -39,9 +39,16 @@ const store = new Vuex.Store({
 		sureJobId: "",
 		hangUpFirst: false, //是否主动挂断电话
 		qunQrcode: "", //记录推送的群二维码
-		ad_tracking_id: "" //记录参数id
+		ad_tracking_id: "", //记录参数id,
+		callBackCount: 0 //记录回传调用次数
 	},
 	mutations: {
+		setCallBackCount(state) {
+			state.callBackCount = 1
+		},
+		resetCallBackCount(state) {
+			state.callBackCount = 0
+		},
 		setAdTrackingId(state, id) {
 			state.ad_tracking_id = id ? id : ""
 		},

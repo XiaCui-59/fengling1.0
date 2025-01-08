@@ -337,6 +337,10 @@ export default {
 		{
 			value: "netbar",
 			text: "网吧"
+		},
+		{
+			value: "wkanx",
+			text: "万能钥匙"
 		}
 	],
 	adSubPlat: [{

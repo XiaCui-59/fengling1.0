@@ -13,8 +13,11 @@
 					</view>
 					<view class="in_box">
 						<view class="text">{{project.name}}</view>
-						<view class="text">
+						<view class="text" v-if="project.worker_salary_min!=project.worker_salary_max">
 							{{project.worker_salary_min}}-{{project.worker_salary_max}}元{{periodList.filter(el=>{return el.value == project.worker_salary_type})[0].text}}
+						</view>
+						<view class="text" v-if="project.worker_salary_min==project.worker_salary_max">
+							{{project.worker_salary_max}}元{{periodList.filter(el=>{return el.value == project.worker_salary_type})[0].text}}
 						</view>
 						<view class="sure_btn" @click="toChat">了解详情</view>
 					</view>

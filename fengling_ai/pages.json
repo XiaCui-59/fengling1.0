@@ -63,13 +63,6 @@
 			"style": {
 				"navigationBarTitleText": ""
 			}
-		},
-		{
-			"path" : "subpkg/live/live",
-			"style" : 
-			{
-				"navigationBarTitleText" : ""
-			}
 		}
 
 	],
