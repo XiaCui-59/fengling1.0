@@ -1,1 +1,0 @@
-<view class="content_body"><view class="inner"><view class="image"><image src="{{imgUrl+'/worker/new/error_server.png'}}" mode="widthFix"></image></view><view class="tit">服务器开小差了</view><view class="text">紧急修复中，请耐心等待</view></view></view>

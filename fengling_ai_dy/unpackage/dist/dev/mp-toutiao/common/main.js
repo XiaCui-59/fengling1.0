@@ -26,7 +26,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;
 var myModal = function myModal() {
   __webpack_require__.e(/*! require.ensure | components/myModal */ "components/myModal").then((function () {
-    return resolve(__webpack_require__(/*! @/components/myModal.vue */ 293));
+    return resolve(__webpack_require__(/*! @/components/myModal.vue */ 172));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 _vue.default.mixin(_share.default);
@@ -218,7 +218,12 @@ var _default = {
               // 计算两个topHeight的高度
               systemInfo = uni.getSystemInfoSync();
               _this.globalData.statusBarHeight = systemInfo.statusBarHeight;
-              _this.globalData.systemHeight = systemInfo.windowHeight;
+              _this.globalData.systemHeight = systemInfo.screenHeight;
+              //
+
+              //
+              // this.globalData.systemHeight = systemInfo.windowHeight
+              //
               highPercent = 230 / 844;
               percent = 170 / 844;
               _this.globalData.highTopHeight = Math.floor(systemInfo.screenHeight * highPercent);
@@ -231,7 +236,7 @@ var _default = {
               _this.globalData.tabMargin = Math.floor(systemInfo.screenHeight * marginPercent);
               // 计算胶囊底部到顶部的距离
               _this.globalData.menuButtonInfo = uni.getMenuButtonBoundingClientRect();
-
+              _this.globalData.marginTop = _this.globalData.menuButtonInfo.height + _this.globalData.menuButtonInfo.top;
               // 计算tabbar的高度
               _this.globalData.tabbarHeight = Math.floor(systemInfo.screenHeight * (46 / 844));
               console.log(_this.globalData.systemHeight, _this.globalData.tabbarHeight);
@@ -251,7 +256,7 @@ var _default = {
               _this.globalData.loginHeadHeight = Math.floor(systemInfo.screenHeight * (292 / 844));
               _this.globalData.loginAreaTop = Math.floor(systemInfo.screenHeight * (218 / 844));
               _this.globalData.bannerHeight = Math.floor(systemInfo.screenHeight * (100 / 844));
-            case 31:
+            case 32:
             case "end":
               return _context.stop();
           }

@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "tabbar": "/components/tabbar",
-    "custom-header": "/components/custom_header"
-  }
-}

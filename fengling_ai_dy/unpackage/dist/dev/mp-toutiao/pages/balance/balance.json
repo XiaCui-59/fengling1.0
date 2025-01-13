@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "",
-  "usingComponents": {
-    "u-navbar": "/uni_modules/uview-ui/components/u-navbar/u-navbar",
-    "u-icon": "/uni_modules/uview-ui/components/u-icon/u-icon",
-    "my-modal": "/components/myModal"
-  }
-}

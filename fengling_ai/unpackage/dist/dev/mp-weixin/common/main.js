@@ -26,7 +26,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;
 var myModal = function myModal() {
   __webpack_require__.e(/*! require.ensure | components/myModal */ "components/myModal").then((function () {
-    return resolve(__webpack_require__(/*! @/components/myModal.vue */ 294));
+    return resolve(__webpack_require__(/*! @/components/myModal.vue */ 302));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 _vue.default.mixin(_share.default);

@@ -152,37 +152,17 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var projectPopup = function projectPopup() {
   __webpack_require__.e(/*! require.ensure | components/load_project_popup */ "components/load_project_popup").then((function () {
-    return resolve(__webpack_require__(/*! @/components/load_project_popup.vue */ 308));
+    return resolve(__webpack_require__(/*! @/components/load_project_popup.vue */ 179));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var flMask = function flMask() {
   __webpack_require__.e(/*! require.ensure | components/flmask */ "components/flmask").then((function () {
-    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 315));
-  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-};
-var asideUserCenter = function asideUserCenter() {
-  __webpack_require__.e(/*! require.ensure | components/aside_user_center */ "components/aside_user_center").then((function () {
-    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 322));
-  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-};
-var login = function login() {
-  Promise.all(/*! require.ensure | components/login */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/login")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/login.vue */ 329));
-  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-};
-var welcome = function welcome() {
-  Promise.all(/*! require.ensure | components/welcome */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/welcome")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 336));
+    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 186));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var chat = function chat() {
   __webpack_require__.e(/*! require.ensure | components/chat */ "components/chat").then((function () {
-    return resolve(__webpack_require__(/*! @/components/chat.vue */ 343));
-  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
-};
-var channel = function channel() {
-  __webpack_require__.e(/*! require.ensure | components/channel */ "components/channel").then((function () {
-    return resolve(__webpack_require__(/*! @/components/channel.vue */ 350));
+    return resolve(__webpack_require__(/*! @/components/chat.vue */ 215));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var app = getApp();
@@ -275,7 +255,31 @@ var _default = {
       num: 1,
       hold: "h1",
       question: "",
-      qaList: [],
+      qaList: [{
+        origin: "ai",
+        content: "欢迎回来，上次您咨询的成都的陪诊师，还有兴趣再聊一聊吗？",
+        msg_type: "text"
+      }, {
+        origin: "customer",
+        content: "我今天想了解一下其他的工作",
+        msg_type: "text"
+      }, {
+        origin: "ai",
+        content: "好的，为了能更好的为您推荐职位，请问您的姓名，年龄和性别是？",
+        msg_type: "text"
+      }, {
+        origin: "customer",
+        content: "夏天，30，女",
+        msg_type: "text"
+      }, {
+        origin: "ai",
+        content: "了解了，这边有一个成都春熙路的促销兼职，您觉得可以吗？",
+        msg_type: "text"
+      }, {
+        origin: "customer",
+        content: "还行，帮我介绍一下呢",
+        msg_type: "text"
+      }],
       currentQalength: 0,
       curRespone: {
         content: "",
@@ -287,7 +291,15 @@ var _default = {
       responCount: 0,
       //用于第一次接收到信息时，开启打字效果
       prinTimer: null,
-      historyList: [],
+      historyList: [{
+        origin: "ai",
+        content: "您好，我是您的专属顾问风铃，请问有什么可以帮您的吗？",
+        msg_type: "text"
+      }, {
+        origin: "customer",
+        content: "我想找个成都的兼职，有什么推荐的吗？",
+        msg_type: "text"
+      }],
       historyId: 0,
       loadAllHistory: false,
       inputHeight: 0,
@@ -372,7 +384,7 @@ var _default = {
               _this2.btnInfo = _context2.sent;
               if (_this2.btnInfo) {
                 _this2.botSafe = app.globalData.systemHeight - _this2.btnInfo.top;
-                _this2.chatScrollHeight = _this2.btnInfo.top - _this2.statusBarHeight - 44;
+                _this2.chatScrollHeight = _this2.btnInfo.top;
               }
               console.log("params", params);
               // 扫码进入
@@ -453,12 +465,8 @@ var _default = {
   },
   mounted: function mounted() {},
   components: {
-    login: login,
-    welcome: welcome,
     chat: chat,
-    channel: channel,
     flMask: flMask,
-    asideUserCenter: asideUserCenter,
     projectPopup: projectPopup
   },
   watch: {
@@ -581,12 +589,17 @@ var _default = {
       }
     },
     listenKeyBoard: function listenKeyBoard(e) {
-      if (e.detail.height == 0) {
-        this.inputHeight = 0;
-        this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44;
-      } else {
-        this.chatScrollHeight = app.globalData.systemHeight - this.statusBarHeight - 44 - e.detail.height - this.btnInfo.height - 10;
-      }
+      var _this = this;
+      this.$nextTick(function () {
+        console.log("键盘高度：", e.detail);
+        if (e.detail.height == 0) {
+          _this.inputHeight = 0;
+          _this.chatScrollHeight = _this.btnInfo.top;
+        } else {
+          _this.inputHeight = e.detail.height;
+          _this.chatScrollHeight = app.globalData.systemHeight - e.detail.height - _this.btnInfo.height - 10 - _this.marginTop;
+        }
+      });
     },
     handleChannelStatus: function handleChannelStatus(e) {
       this.hasChannel = e;
@@ -1533,13 +1546,10 @@ var _default = {
                     _this10.menuList[0].value = response.data.balance.total_amount;
                   }
                 });
-                _this10.historyId = 0;
-                _context6.next = 4;
-                return _this10.getHistory();
-              case 4:
-                _this10.historyList = _context6.sent;
-                console.log("historyList：", _this10.historyList);
-              case 6:
+                // this.historyId = 0
+                // this.historyList = await this.getHistory()
+                // console.log("historyList：", this.historyList)
+              case 1:
               case "end":
                 return _context6.stop();
             }

@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "设置",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "tabbar": "/components/tabbar",
-    "custom-header": "/components/custom_header"
-  }
-}

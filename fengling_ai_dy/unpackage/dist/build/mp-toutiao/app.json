@@ -1,62 +1,16 @@
 {
   "pages": [
-    "pages/work/work",
-    "pages/login/login",
-    "pages/mine/mine",
-    "pages/waiting_handle/waiting_handle",
-    "pages/webview/webview",
-    "pages/fadada_return/fadada_return"
+    "pages/index/index"
   ],
-  "subPackages": [
-    {
-      "root": "subpkg",
-      "pages": [
-        "authentication/authentication",
-        "work_detail/work_detail",
-        "project_detail/project_detail",
-        "message_detail/message_detail",
-        "my_info/my_info",
-        "bank_card/bank_card",
-        "setting_password/setting_password",
-        "setting/setting",
-        "message/message",
-        "about_us/about_us",
-        "my_resume/my_resume",
-        "my_intro/my_intro"
-      ]
-    }
-  ],
+  "subPackages": [],
   "window": {
     "navigationBarTextStyle": "white",
     "navigationBarTitleText": "灵动优聘",
-    "navigationBarBackgroundColor": "#20b1f3",
+    "navigationBarBackgroundColor": "#4284ff",
     "backgroundColor": "#f6f6f6"
-  },
-  "tabBar": {
-    "color": "#757579",
-    "selectedColor": "#20b1f3",
-    "borderStyle": "white",
-    "backgroundColor": "#f6f6f6",
-    "fontSize": "16px",
-    "iconWidth": "20px",
-    "padding": "10rpx",
-    "list": [
-      {
-        "pagePath": "pages/work/work",
-        "iconPath": "static/ic_work.png",
-        "selectedIconPath": "static/ic_work_active.png",
-        "text": "找工作"
-      },
-      {
-        "pagePath": "pages/mine/mine",
-        "iconPath": "static/ic_mine_normal.png",
-        "selectedIconPath": "static/ic_mine_sele.png",
-        "text": "我的"
-      }
-    ]
   },
   "component2": true,
   "usingComponents": {
-    "custom-modal": "/components/custom_modal"
+    "my-modal": "/components/myModal"
   }
 }

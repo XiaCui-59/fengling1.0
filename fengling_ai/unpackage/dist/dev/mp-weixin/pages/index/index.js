@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uNavbar: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-navbar/u-navbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-navbar/u-navbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-navbar/u-navbar.vue */ 301))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-navbar/u-navbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-navbar/u-navbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-navbar/u-navbar.vue */ 309))
     },
   }
 } catch (e) {
@@ -175,37 +175,37 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var projectPopup = function projectPopup() {
   __webpack_require__.e(/*! require.ensure | components/load_project_popup */ "components/load_project_popup").then((function () {
-    return resolve(__webpack_require__(/*! @/components/load_project_popup.vue */ 309));
+    return resolve(__webpack_require__(/*! @/components/load_project_popup.vue */ 317));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var flMask = function flMask() {
   __webpack_require__.e(/*! require.ensure | components/flmask */ "components/flmask").then((function () {
-    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 316));
+    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 324));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var asideUserCenter = function asideUserCenter() {
   __webpack_require__.e(/*! require.ensure | components/aside_user_center */ "components/aside_user_center").then((function () {
-    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 323));
+    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 331));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var login = function login() {
   Promise.all(/*! require.ensure | components/login */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/login")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/login.vue */ 330));
+    return resolve(__webpack_require__(/*! @/components/login.vue */ 338));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var welcome = function welcome() {
   Promise.all(/*! require.ensure | components/welcome */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/welcome")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 337));
+    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 345));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var chat = function chat() {
   __webpack_require__.e(/*! require.ensure | components/chat */ "components/chat").then((function () {
-    return resolve(__webpack_require__(/*! @/components/chat.vue */ 344));
+    return resolve(__webpack_require__(/*! @/components/chat.vue */ 352));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var channel = function channel() {
   __webpack_require__.e(/*! require.ensure | components/channel */ "components/channel").then((function () {
-    return resolve(__webpack_require__(/*! @/components/channel.vue */ 351));
+    return resolve(__webpack_require__(/*! @/components/channel.vue */ 359));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var app = getApp();
@@ -373,10 +373,15 @@ var _default = {
               _context2.next = 15;
               break;
             case 14:
-              if (!readStep) {
-                _this2.showUserStep = true;
+              if (params.from == "ad") {
+                uni.setStorageSync("readsteps", 1);
+                _this2.canPlay = false;
               } else {
-                _this2.showUserStep = false;
+                if (!readStep) {
+                  _this2.showUserStep = true;
+                } else {
+                  _this2.showUserStep = false;
+                }
               }
             case 15:
               _this2.resetCity();
@@ -1312,6 +1317,14 @@ var _default = {
           _this.showProPop = true;
         }
         console.log('已成功建立链接onOpen', res);
+        if (_this12.params.from == "ad") {
+          var obj = {
+            job_id: _this12.params.pro_id,
+            name: _this12.params.pro_name,
+            msg: "我已报名" + _this12.params.pro_name + "(职位ID：" + _this12.params.pro_id + ")，怎么联系你们呢？"
+          };
+          _this12.sendBtnMsg(obj);
+        }
         // 如果是其他页面进入首页
       });
 

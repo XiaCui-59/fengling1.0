@@ -1,7 +1,7 @@
 <template>
 	<view class="home_page body_bg">
 		<view class="main_box">
-			<chat ref="chatRef" :top="statusBarHeight+44" :bottom="botSafe" :historyList="historyList" :qaList="qaList"
+			<chat ref="chatRef" :top="0" :bottom="botSafe" :historyList="historyList" :qaList="qaList"
 				:scrollHeight="chatScrollHeight" :answering="answering" :greetingObj="greetingObj"
 				:answerContinue="answerContinue" :scrollStr="scrollStr" @sendMsg="sendBtnMsg" @moreHis="getMoreHistory"
 				@tocall="toCall">
@@ -52,8 +52,6 @@
 				<image :src="imgUrl+'/worker/new/ic_telephone.png'" mode="widthFix"></image>
 			</view> -->
 		</view>
-		<login :showLogin="showLogin" @closeLogin="closeLogin" @getInfo="getInfo" :shareId="shareId">
-		</login>
 		<myModal ref="myModal">
 		</myModal>
 		<flMask v-if="showFlMask" @closeFengling="closeFengling" @sendMsg="sendBtnMsg"></flMask>
@@ -64,11 +62,7 @@
 <script>
 	import projectPopup from "@/components/load_project_popup.vue"
 	import flMask from "@/components/flmask.vue"
-	import asideUserCenter from "@/components/aside_user_center.vue"
-	import login from "@/components/login.vue"
-	import welcome from "@/components/welcome.vue"
 	import chat from "@/components/chat.vue"
-	import channel from "@/components/channel.vue"
 	import commonMethods from "@/common/commMethods.js"
 	import urlSetting from "@/url_setting";
 	import {
@@ -170,7 +164,37 @@
 				num: 1,
 				hold: "h1",
 				question: "",
-				qaList: [],
+				qaList: [{
+						origin: "ai",
+						content: "欢迎回来，上次您咨询的成都的陪诊师，还有兴趣再聊一聊吗？",
+						msg_type: "text"
+					},
+					{
+						origin: "customer",
+						content: "我今天想了解一下其他的工作",
+						msg_type: "text"
+					},
+					{
+						origin: "ai",
+						content: "好的，为了能更好的为您推荐职位，请问您的姓名，年龄和性别是？",
+						msg_type: "text"
+					},
+					{
+						origin: "customer",
+						content: "夏天，30，女",
+						msg_type: "text"
+					},
+					{
+						origin: "ai",
+						content: "了解了，这边有一个成都春熙路的促销兼职，您觉得可以吗？",
+						msg_type: "text"
+					},
+					{
+						origin: "customer",
+						content: "还行，帮我介绍一下呢",
+						msg_type: "text"
+					}
+				],
 				currentQalength: 0,
 				curRespone: {
 					content: "",
@@ -181,7 +205,17 @@
 				responseStr: "",
 				responCount: 0, //用于第一次接收到信息时，开启打字效果
 				prinTimer: null,
-				historyList: [],
+				historyList: [{
+						origin: "ai",
+						content: "您好，我是您的专属顾问风铃，请问有什么可以帮您的吗？",
+						msg_type: "text"
+					},
+					{
+						origin: "customer",
+						content: "我想找个成都的兼职，有什么推荐的吗？",
+						msg_type: "text"
+					}
+				],
 				historyId: 0,
 				loadAllHistory: false,
 				inputHeight: 0,
@@ -244,7 +278,7 @@
 			this.btnInfo = await commonMethods.getElementInfo(".input_btn_wrap")
 			if (this.btnInfo) {
 				this.botSafe = app.globalData.systemHeight - this.btnInfo.top
-				this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44
+				this.chatScrollHeight = this.btnInfo.top
 			}
 			console.log("params", params)
 			// 扫码进入
@@ -305,12 +339,8 @@
 		},
 		mounted() {},
 		components: {
-			login,
-			welcome,
 			chat,
-			channel,
 			flMask,
-			asideUserCenter,
 			projectPopup
 		},
 		watch: {
@@ -444,13 +474,19 @@
 				}
 			},
 			listenKeyBoard(e) {
-				if (e.detail.height == 0) {
-					this.inputHeight = 0
-					this.chatScrollHeight = this.btnInfo.top - this.statusBarHeight - 44
-				} else {
-					this.chatScrollHeight = app.globalData.systemHeight - this.statusBarHeight - 44 - e.detail.height -
-						this.btnInfo.height - 10
-				}
+				let _this = this
+				this.$nextTick(() => {
+					console.log("键盘高度：", e.detail)
+					if (e.detail.height == 0) {
+						_this.inputHeight = 0
+						_this.chatScrollHeight = _this.btnInfo.top
+					} else {
+						_this.inputHeight = e.detail.height
+						_this.chatScrollHeight = app.globalData.systemHeight - e.detail.height -
+							_this.btnInfo.height - 10 - _this.marginTop
+					}
+				})
+
 			},
 			handleChannelStatus(e) {
 				this.hasChannel = e
@@ -1374,9 +1410,9 @@
 						this.menuList[0].value = response.data.balance.total_amount
 					}
 				})
-				this.historyId = 0
-				this.historyList = await this.getHistory()
-				console.log("historyList：", this.historyList)
+				// this.historyId = 0
+				// this.historyList = await this.getHistory()
+				// console.log("historyList：", this.historyList)
 			}
 		}
 	}

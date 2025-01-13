@@ -6,13 +6,11 @@
   },
   "setting": {
     "urlCheck": false,
-    "es6": true,
+    "es6": false,
     "postcss": false,
     "minified": false,
     "newFeature": true,
     "bigPackageSizeSupport": true,
-    "enhance": true,
-    "packNpmRelationList": [],
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -21,7 +19,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "3.7.1",
-  "appid": "wx4c07bc53643db85e",
+  "appid": "wxba7ae6c3643ac944",
   "projectname": "employee_miniprograme",
   "condition": {},
   "editorSetting": {

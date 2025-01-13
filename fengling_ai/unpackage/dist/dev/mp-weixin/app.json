@@ -17,6 +17,7 @@
       "root": "subpkg/",
       "pages": [
         "edit_info/edit_info",
+        "ad_page/ad_page",
         "view_record/view_record",
         "sign_record/sign_record",
         "score/score",

@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "我的资料",
-  "enablePullDownRefresh": true,
-  "usingComponents": {
-    "custom-header": "/components/custom_header"
-  }
-}

@@ -264,11 +264,17 @@
 				this.currentProjectDetail = await this.getProjectDetail()
 
 			} else {
-				if (!readStep) {
-					this.showUserStep = true
+				if (params.from == "ad") {
+					uni.setStorageSync("readsteps", 1)
+					this.canPlay = false
 				} else {
-					this.showUserStep = false
+					if (!readStep) {
+						this.showUserStep = true
+					} else {
+						this.showUserStep = false
+					}
 				}
+
 			}
 			let location;
 			this.resetCity()
@@ -331,7 +337,6 @@
 				// this.closeInterviewCard()
 				// this.closeChannelInterviewCard()
 			}
-
 		},
 		onUnload() {
 			console.log("执行了onUnload")
@@ -1145,6 +1150,14 @@
 						_this.showProPop = true
 					}
 					console.log('已成功建立链接onOpen', res);
+					if (this.params.from == "ad") {
+						let obj = {
+							job_id: this.params.pro_id,
+							name: this.params.pro_name,
+							msg: "我已报名" + this.params.pro_name + "(职位ID：" + this.params.pro_id + ")，怎么联系你们呢？"
+						}
+						this.sendBtnMsg(obj)
+					}
 					// 如果是其他页面进入首页
 				})
 				app.globalData.socketTask.onError((err) => {

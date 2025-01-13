@@ -84,12 +84,13 @@
 			// 计算两个topHeight的高度
 			let systemInfo = uni.getSystemInfoSync()
 			this.globalData.statusBarHeight = systemInfo.statusBarHeight
-			// #ifdef MP-WEIXIN || MP-KUAISHOU
 			this.globalData.systemHeight = systemInfo.screenHeight
-			// #endif
-			// #ifdef MP-TOUTIAO
-			this.globalData.systemHeight = systemInfo.windowHeight
-			// #endif
+			// // #ifdef MP-WEIXIN || MP-KUAISHOU
+			// this.globalData.systemHeight = systemInfo.screenHeight
+			// // #endif
+			// // #ifdef MP-TOUTIAO
+			// this.globalData.systemHeight = systemInfo.windowHeight
+			// // #endif
 			let highPercent = 230 / 844
 			let percent = 170 / 844
 			this.globalData.highTopHeight = Math.floor(systemInfo.screenHeight * highPercent)
@@ -102,9 +103,7 @@
 			this.globalData.tabMargin = Math.floor(systemInfo.screenHeight * marginPercent)
 			// 计算胶囊底部到顶部的距离
 			this.globalData.menuButtonInfo = uni.getMenuButtonBoundingClientRect()
-			// #ifdef MP-WEIXIN || MP-KUAISHOU
 			this.globalData.marginTop = this.globalData.menuButtonInfo.height + this.globalData.menuButtonInfo.top
-			// #endif
 			// 计算tabbar的高度
 			this.globalData.tabbarHeight = Math.floor(systemInfo.screenHeight * (46 / 844))
 			console.log(this.globalData.systemHeight, this.globalData.tabbarHeight)

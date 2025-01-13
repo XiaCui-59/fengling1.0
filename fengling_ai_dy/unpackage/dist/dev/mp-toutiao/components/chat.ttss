@@ -338,6 +338,9 @@ image {
 .content_body .chat_wrap .list .qa_item .line .inline_box .cont .customer_text.last_ai_text {
   padding: 26rpx 30rpx 50rpx 30rpx;
 }
+.content_body .chat_wrap .list .qa_item .line .inline_box .cont .ai_text {
+  padding: 0rpx 30rpx;
+}
 .content_body .chat_wrap .list .qa_item .line.left {
   text-align: left;
 }

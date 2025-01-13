@@ -54,7 +54,7 @@
 						</view>
 					</view>
 				</view>
-				<view class="iwant_item flex flex_btween" @click="toChat('findjob')">
+				<view class="iwant_item flex flex_btween" @click="toJob">
 					<view class="iwant_tips">
 						<view class="tit">我要找工作</view>
 						<view class="tips_list">
@@ -66,6 +66,18 @@
 						<image :src="imgUrl+'/worker/new/iwant02.png'" mode="widthFix"></image>
 					</view>
 				</view>
+				<!-- <view class="iwant_item flex flex_btween" @click="toChat('findjob')">
+					<view class="iwant_tips">
+						<view class="tit">我要找工作</view>
+						<view class="tips_list">
+							<view class="tips">优质高效</view>
+							<view class="tips">我最懂你</view>
+						</view>
+					</view>
+					<view class="icon">
+						<image :src="imgUrl+'/worker/new/iwant02.png'" mode="widthFix"></image>
+					</view>
+				</view> -->
 			</view>
 		</view>
 		<myModal ref="myModal">

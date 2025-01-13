@@ -64,7 +64,6 @@
 				"navigationBarTitleText": ""
 			}
 		}
-
 	],
 	"subPackages": [
 		// 分包配置
@@ -78,6 +77,13 @@
 						"navigationBarTitleText": ""
 					}
 				},
+				{
+					"path": "ad_page/ad_page",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				},
+
 				{
 					"path": "view_record/view_record",
 					"style": {

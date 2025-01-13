@@ -4,111 +4,15 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "灵动优聘",
 				"disableScroll": true
 			}
-		},
-		{
-			"path": "pages/error_sever/error_sever",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		}, {
-			"path": "pages/phone_call/phone_call",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		}, {
-			"path": "pages/call/call",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		}, {
-			"path": "pages/invite/invite",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
-			"path": "pages/channel_chat/channel_chat",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
-			"path": "pages/vip/vip",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
-			"path": "pages/balance/balance",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		}, {
-			"path": "pages/invite_rule/invite_rule",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
-			"path": "pages/tx_record/tx_record",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		},
-		{
-			"path": "pages/about/about",
-			"style": {
-				"navigationBarTitleText": ""
-			}
-		}
-
-	],
-	"subPackages": [
-		// 分包配置
-		{
-			"root": "subpkg",
-			"pages": [
-				// 分包内页面
-				{
-					"path": "edit_info/edit_info",
-					"style": {
-						"navigationBarTitleText": ""
-					}
-				},
-				{
-					"path": "view_record/view_record",
-					"style": {
-						"navigationBarTitleText": ""
-					}
-				},
-				{
-					"path": "sign_record/sign_record",
-					"style": {
-						"navigationBarTitleText": ""
-					}
-				},
-				{
-					"path": "score/score",
-					"style": {
-						"navigationBarTitleText": ""
-					}
-				},
-				{
-					"path": "score_rule/score_rule",
-					"style": {
-						"navigationBarTitleText": ""
-					}
-				}
-			]
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "灵动优聘",
-		"navigationBarBackgroundColor": "#20b1f3",
+		"navigationBarBackgroundColor": "#4284ff",
 		// #ifdef MP-WEIXIN || MP-KUAISHOU
 		"navigationStyle": "custom",
 		// #endif
