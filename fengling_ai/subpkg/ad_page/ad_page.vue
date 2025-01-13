@@ -115,7 +115,7 @@
 				frontColor: '#000000',
 				backgroundColor: 'transparent'
 			})
-			this.id = param.id
+			this.id = param.job_id
 			this.info = await this.getInfo()
 			this.contHeight = app.globalData.systemHeight - this.marginTop - this.tabMargin
 			setTimeout(function() {
