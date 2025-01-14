@@ -341,6 +341,10 @@ export default {
 		{
 			value: "wkanx",
 			text: "万能钥匙"
+		},
+		{
+			value: "none",
+			text: "无"
 		}
 	],
 	adSubPlat: [{

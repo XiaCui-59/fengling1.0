@@ -73,15 +73,22 @@
 							{
 								pid: 2,
 								id: 4,
-								pageName: "ai_project",
-								text: "AI职位"
+								pageName: "sign_record",
+								text: "报名记录"
 							},
 							{
 								pid: 2,
 								id: 4,
-								pageName: "sign_record",
-								text: "报名记录"
+								pageName: "leave_info_record",
+								text: "留资记录"
 							},
+							{
+								pid: 2,
+								id: 4,
+								pageName: "ai_project",
+								text: "AI职位"
+							},
+
 							{
 								pid: 2,
 								id: 4,

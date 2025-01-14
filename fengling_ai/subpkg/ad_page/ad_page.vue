@@ -28,9 +28,12 @@
 				</view>
 			</view>
 			<view class="box top" :style="{height:topHeight+'px'}">
-				<view class="subtit">岗位介绍</view>
-				<scroll-view scroll-y="true" :style="{height:scrollHeight+'px'}">
-					<textarea v-model="info.content" style="line-height: 50rpx;height:100%;width:100%;" disabled />
+				<view class="subtit">工作介绍</view>
+				<scroll-view scroll-y="true"
+					:style="{height:scrollHeight+'px',paddingBottom:'30rpx',boxSizing:'border-box'}">
+					<text
+						style="line-height: 50rpx;height:100%;width:100%;display: inline-block;">{{info.content}}</text>
+					<!-- <textarea :value="info.content" style="line-height: 50rpx;height:100%;width:100%;" disabled /> -->
 				</scroll-view>
 
 			</view>
@@ -107,6 +110,7 @@
 				ad_tracking_id: "",
 				open_id: "",
 				workerInfo: null,
+				params: null
 			}
 		},
 		async onLoad(param) {
@@ -122,11 +126,9 @@
 				_this.getElementInfo()
 
 			}, 500)
-
-			this.ad_tracking_id = param.ad_tracking_id
 			this.open_id = await this.getOpenid()
 			this.workerInfo = await this.getWorderInfo()
-
+			this.ad_tracking_id = await this.postParams(param)
 			// uni.hideShareMenu()
 
 
@@ -141,6 +143,16 @@
 				uni.navigateTo({
 					url: "/pages/index/index"
 				})
+			},
+			postParams(params) {
+				return new Promise(resolve => {
+					this.$request("/ad/tracking", params, "POST").then(res => {
+						if (res.code == 0) {
+							resolve(res.data.ad_tracking_id)
+						}
+					})
+				})
+
 			},
 			getElementInfo() {
 				let _this = this
@@ -161,15 +173,17 @@
 			},
 			sureSign(obj) {
 				let _this = this
-				this.close()
-				let url = "/worker/project/" + this.id + "/apply"
+
+				let url = "/guest/project/" + this.id + "/lead-information"
 				let data = {
 					name: obj.name,
 					mobile: obj.mobile,
-					ad_tracking_id: this.ad_tracking_id
+					ad_tracking_id: this.ad_tracking_id,
+					source: "wechat_mini_program"
 				}
 				this.$request(url, data, "POST").then(res => {
 					if (res.code == 0) {
+						this.close()
 						uni.showModal({
 							title: "报名成功",
 							showCancel: false,

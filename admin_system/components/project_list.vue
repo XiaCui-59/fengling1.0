@@ -163,21 +163,32 @@
 						</view>
 					</view>
 					<view class="line" v-if="currentUrls.urlLink" style="margin:0;padding:0;">
-						<view class="line_item flex flex_btween" style="margin-top:20px ;align-items: flex-start;">
-							<view class="tit" style="white-space: nowrap;">小程序路径：</view>
-							<view class="text" style="width:75%;word-wrap: break-word;word-break:break-all;">
+						<view class="line_item flex" style="margin-top:20px ;align-items: flex-start;">
+							<view class="tit" style="white-space: nowrap;width:auto;flex-shrink: 0;">小程序路径：</view>
+							<view class="text"
+								style="width:auto;word-wrap: break-word;word-break:break-all;margin-right: 10px;">
 								{{currentUrls.miniProgramPath}}
 							</view>
 							<view class="copy" style="color:#226FF9;cursor: pointer;flex-shrink: 0;"
 								@click="copyLink(currentUrls.miniProgramPath)">复制</view>
 						</view>
-						<view class="line_item flex flex_btween" style="margin-top:15px ;align-items: flex-start;">
-							<view class="tit" style="white-space: nowrap;">落地页url：</view>
-							<view class="text" style="width:75%;word-wrap: break-word;word-break:break-all;">
+						<view class="line_item flex" style="margin-top:15px ;align-items: flex-start;">
+							<view class="tit" style="white-space: nowrap;width:auto;flex-shrink: 0;">落地页url(小程序)：</view>
+							<view class="text"
+								style="width:auto;word-wrap: break-word;word-break:break-all;margin-right: 10px;">
 								{{currentUrls.urlLink}}
 							</view>
-							<view class="copy" style="color:#226FF9;cursor: pointer;"
+							<view class="copy" style="color:#226FF9;cursor: pointer;flex-shrink: 0;"
 								@click="copyLink(currentUrls.urlLink)">复制</view>
+						</view>
+						<view class="line_item flex" style="margin-top:15px ;align-items: flex-start;">
+							<view class="tit" style="white-space: nowrap;width:auto;flex-shrink: 0;">落地页url(H5)：</view>
+							<view class="text"
+								style="width:auto;word-wrap: break-word;word-break:break-all;margin-right: 10px;">
+								{{currentUrls.h5Link}}
+							</view>
+							<view class="copy" style="color:#226FF9;cursor: pointer;flex-shrink: 0;"
+								@click="copyLink(currentUrls.h5Link)">复制</view>
 						</view>
 					</view>
 					<view class="line flex flex_end" style="margin-top:40px;">
@@ -1222,7 +1233,7 @@
 				}
 
 				.tit {
-					width: 80px;
+					width: 90px;
 				}
 
 				.input_wrap {

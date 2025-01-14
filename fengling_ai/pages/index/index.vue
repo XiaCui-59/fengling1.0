@@ -234,7 +234,10 @@
 					worker_salary_min: "",
 					worker_salary_max: "",
 					worker_salary_type: ""
-				}
+				},
+				pro_id: "",
+				pro_name: "",
+				loadWorkInfo: null
 			}
 		},
 		computed: {
@@ -267,6 +270,9 @@
 				if (params.from == "ad") {
 					uni.setStorageSync("readsteps", 1)
 					this.canPlay = false
+					this.pro_id = params.pro_id
+					this.pro_name = params.pro_name ? params.pro_name : ""
+					this.loadWorkInfo = await this.getWorkInfo()
 				} else {
 					if (!readStep) {
 						this.showUserStep = true
@@ -326,7 +332,8 @@
 				"Authorization": "bearer " + token,
 				"ad-platform": params.ad_platform ? params.ad_platform : "",
 				"ad-sub-platform": params.ad_sub_platform ? params.ad_sub_platform : "",
-				"job-id": this.currentProjectDetail.id
+				"job-id": this.currentProjectDetail.id ? this.currentProjectDetail.id : (params.pro_id ? params
+					.pro_id : "")
 			}
 			this.openid = await this.getOpenid()
 
@@ -1153,8 +1160,8 @@
 					if (this.params.from == "ad") {
 						let obj = {
 							job_id: this.params.pro_id,
-							name: this.params.pro_name,
-							msg: "我已报名" + this.params.pro_name + "(职位ID：" + this.params.pro_id + ")，怎么联系你们呢？"
+							name: this.loadWorkInfo.name,
+							msg: "我已报名" + this.loadWorkInfo.name + "(职位ID：" + this.params.pro_id + ")，怎么联系你们呢？"
 						}
 						this.sendBtnMsg(obj)
 					}
@@ -1251,6 +1258,17 @@
 						this.handleConnectErr()
 					}
 
+				})
+			},
+			getWorkInfo() {
+				let url = "/guest/project/" + this.pro_id
+				return new Promise(resolve => {
+					this.$request(url).then(res => {
+						if (res.code == 0) {
+							uni.hideLoading()
+							resolve(res.data)
+						}
+					})
 				})
 			},
 			getQrcode(id) {

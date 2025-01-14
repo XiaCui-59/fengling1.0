@@ -47,6 +47,7 @@
 				<rechargeCreditRecord v-if="pageName == 'recharge_credit_record'" @getPageName="getPageName">
 				</rechargeCreditRecord>
 				<costCreditRecord v-if="pageName == 'cost_credit_record'" @getPageName="getPageName"></costCreditRecord>
+				<leaveInfoRecord v-if="pageName == 'leave_info_record'" @getPageName="getPageName"></leaveInfoRecord>
 			</view>
 		</view>
 	</view>
@@ -95,6 +96,7 @@
 	import groupChat from "@/components/group_chat.vue"
 	import rechargeCreditRecord from "@/components/recharge_credit_record.vue"
 	import costCreditRecord from "@/components/cost_credit_record.vue"
+	import leaveInfoRecord from "@/components/leave_info_record.vue"
 	export default {
 		data() {
 			return {
@@ -148,7 +150,8 @@
 			paySetting,
 			groupChat,
 			rechargeCreditRecord,
-			costCreditRecord
+			costCreditRecord,
+			leaveInfoRecord
 		},
 		onLoad() {
 			// 设置本地存储tabs
