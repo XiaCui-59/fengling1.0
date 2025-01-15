@@ -253,6 +253,10 @@
 			}
 		},
 		async onLoad(params) {
+			uni.setNavigationBarColor({
+				frontColor: '#000000',
+				backgroundColor: 'transparent'
+			})
 			var _this = this;
 			console.log("params", params)
 			// 扫码进入
@@ -267,18 +271,10 @@
 				this.currentProjectDetail = await this.getProjectDetail()
 
 			} else {
-				if (params.from == "ad") {
-					uni.setStorageSync("readsteps", 1)
-					this.canPlay = false
-					this.pro_id = params.pro_id
-					this.pro_name = params.pro_name ? params.pro_name : ""
-					this.loadWorkInfo = await this.getWorkInfo()
+				if (!readStep) {
+					this.showUserStep = true
 				} else {
-					if (!readStep) {
-						this.showUserStep = true
-					} else {
-						this.showUserStep = false
-					}
+					this.showUserStep = false
 				}
 
 			}
@@ -336,7 +332,19 @@
 					.pro_id : "")
 			}
 			this.openid = await this.getOpenid()
-
+			if (params.from == "ad") {
+				uni.setStorageSync("readsteps", 1)
+				this.canPlay = false
+				this.pro_id = params.pro_id
+				this.loadWorkInfo = await this.getWorkInfo()
+			} else {
+				if (!readStep) {
+					this.showUserStep = true
+				} else {
+					this.showUserStep = false
+				}
+			}
+			this.creatConnect(this.header)
 			this.postParams()
 			this.getSetting()
 			if (this.isLogin()) {
@@ -621,7 +629,7 @@
 										_this.setToken(resp.data.token)
 										uni.setStorageSync("token", resp.data.token)
 										uni.setStorageSync("loginStatus", "in")
-										_this.creatConnect(_this.header)
+										// _this.creatConnect(_this.header)
 										resolve(resp.data.open_id)
 									}
 								})
@@ -1072,6 +1080,7 @@
 						success(res) {
 							_this.currentProjectDetail.id = ""
 							_this.currentProjectDetail.name = ""
+							_this.loadWorkInfo = null
 							_this.jobId = ""
 							_this.action = ""
 							_this.noMayAsk = false
@@ -1157,11 +1166,13 @@
 						_this.showProPop = true
 					}
 					console.log('已成功建立链接onOpen', res);
-					if (this.params.from == "ad") {
+					if (this.loadWorkInfo && this.loadWorkInfo.project_id) {
 						let obj = {
-							job_id: this.params.pro_id,
-							name: this.loadWorkInfo.name,
-							msg: "我已报名" + this.loadWorkInfo.name + "(职位ID：" + this.params.pro_id + ")，怎么联系你们呢？"
+							job_id: this.loadWorkInfo.project_id,
+							name: this.loadWorkInfo.project_name,
+							msg: "你好，我叫" + this.loadWorkInfo.name + "，电话" + this.loadWorkInfo.mobile + "，对职位" +
+								this.loadWorkInfo.project_name + "(职位ID：" + this.loadWorkInfo.project_id +
+								")感兴趣，请问如何报名呢？"
 						}
 						this.sendBtnMsg(obj)
 					}
@@ -1261,7 +1272,7 @@
 				})
 			},
 			getWorkInfo() {
-				let url = "/guest/project/" + this.pro_id
+				let url = "/worker/lead-information/" + this.pro_id
 				return new Promise(resolve => {
 					this.$request(url).then(res => {
 						if (res.code == 0) {

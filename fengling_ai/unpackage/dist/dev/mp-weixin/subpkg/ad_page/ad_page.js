@@ -337,13 +337,14 @@ var _default = {
       this.$request(url, data, "POST").then(function (res) {
         if (res.code == 0) {
           _this4.close();
+          var lead_information_id = res.data.lead_information_id;
           uni.showModal({
-            title: "报名成功",
+            title: "预约成功",
             showCancel: false,
             success: function success(resp) {
               if (resp.confirm) {
-                uni.navigateTo({
-                  url: "/pages/index/index?from=ad&pro_name=" + _this.info.name + "&pro_id=" + _this.info.id
+                uni.redirectTo({
+                  url: "/pages/index/index?from=ad&pro_id=" + lead_information_id
                 });
               }
             }

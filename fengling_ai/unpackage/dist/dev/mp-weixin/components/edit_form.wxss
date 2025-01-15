@@ -95,7 +95,6 @@ image {
   font-size: 28rpx;
   color: #216FF9;
   background: rgba(33, 111, 249, 0.1);
-  border-radius: 15rpx;
   margin-left: 0;
   margin-right: 0;
   padding: 0;

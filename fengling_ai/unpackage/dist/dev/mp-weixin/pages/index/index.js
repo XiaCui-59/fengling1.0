@@ -355,6 +355,10 @@ var _default = {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              uni.setNavigationBarColor({
+                frontColor: '#000000',
+                backgroundColor: 'transparent'
+              });
               _this = _this2;
               console.log("params", params);
               // 扫码进入
@@ -363,40 +367,25 @@ var _default = {
               _this2.params = params;
               readStep = uni.getStorageSync("readsteps") ? uni.getStorageSync("readsteps") : "";
               if (!params.job_id) {
-                _context2.next = 14;
+                _context2.next = 15;
                 break;
               }
               // 存在具体职位
               uni.setStorageSync("readsteps", 1);
               _this2.canPlay = false;
-              _context2.next = 11;
+              _context2.next = 12;
               return _this2.getProjectDetail();
-            case 11:
+            case 12:
               _this2.currentProjectDetail = _context2.sent;
-              _context2.next = 25;
+              _context2.next = 16;
               break;
-            case 14:
-              if (!(params.from == "ad")) {
-                _context2.next = 24;
-                break;
-              }
-              uni.setStorageSync("readsteps", 1);
-              _this2.canPlay = false;
-              _this2.pro_id = params.pro_id;
-              _this2.pro_name = params.pro_name ? params.pro_name : "";
-              _context2.next = 21;
-              return _this2.getWorkInfo();
-            case 21:
-              _this2.loadWorkInfo = _context2.sent;
-              _context2.next = 25;
-              break;
-            case 24:
+            case 15:
               if (!readStep) {
                 _this2.showUserStep = true;
               } else {
                 _this2.showUserStep = false;
               }
-            case 25:
+            case 16:
               _this2.resetCity();
               _this2.resetCallBackCount();
               // 网络状态判断
@@ -445,17 +434,17 @@ var _default = {
                   return _ref.apply(this, arguments);
                 };
               }());
-              _context2.next = 31;
+              _context2.next = 22;
               return _commMethods.default.getElementInfo(".input_btn_wrap");
-            case 31:
+            case 22:
               _this2.btnInfo = _context2.sent;
               if (_this2.btnInfo) {
                 _this2.botSafe = app.globalData.systemHeight - _this2.btnInfo.top;
                 _this2.chatScrollHeight = _this2.btnInfo.top - _this2.statusBarHeight - 44;
               }
-              _context2.next = 35;
+              _context2.next = 26;
               return _this2.getPosition();
-            case 35:
+            case 26:
               location = _context2.sent;
               _this2.setLocation(location);
               token = uni.getStorageSync("token") ? uni.getStorageSync("token") : "";
@@ -469,10 +458,31 @@ var _default = {
                 "ad-sub-platform": params.ad_sub_platform ? params.ad_sub_platform : "",
                 "job-id": _this2.currentProjectDetail.id ? _this2.currentProjectDetail.id : params.pro_id ? params.pro_id : ""
               };
-              _context2.next = 41;
+              _context2.next = 32;
               return _this2.getOpenid();
-            case 41:
+            case 32:
               _this2.openid = _context2.sent;
+              if (!(params.from == "ad")) {
+                _context2.next = 42;
+                break;
+              }
+              uni.setStorageSync("readsteps", 1);
+              _this2.canPlay = false;
+              _this2.pro_id = params.pro_id;
+              _context2.next = 39;
+              return _this2.getWorkInfo();
+            case 39:
+              _this2.loadWorkInfo = _context2.sent;
+              _context2.next = 43;
+              break;
+            case 42:
+              if (!readStep) {
+                _this2.showUserStep = true;
+              } else {
+                _this2.showUserStep = false;
+              }
+            case 43:
+              _this2.creatConnect(_this2.header);
               _this2.postParams();
               _this2.getSetting();
               if (_this2.isLogin()) {
@@ -480,7 +490,7 @@ var _default = {
                 // this.closeInterviewCard()
                 // this.closeChannelInterviewCard()
               }
-            case 45:
+            case 47:
             case "end":
               return _context2.stop();
           }
@@ -763,7 +773,7 @@ var _default = {
                   _this.setToken(resp.data.token);
                   uni.setStorageSync("token", resp.data.token);
                   uni.setStorageSync("loginStatus", "in");
-                  _this.creatConnect(_this.header);
+                  // _this.creatConnect(_this.header)
                   resolve(resp.data.open_id);
                 }
               });
@@ -1223,6 +1233,7 @@ var _default = {
           success: function success(res) {
             _this.currentProjectDetail.id = "";
             _this.currentProjectDetail.name = "";
+            _this.loadWorkInfo = null;
             _this.jobId = "";
             _this.action = "";
             _this.noMayAsk = false;
@@ -1330,11 +1341,11 @@ var _default = {
           _this.showProPop = true;
         }
         console.log('已成功建立链接onOpen', res);
-        if (_this12.params.from == "ad") {
+        if (_this12.loadWorkInfo && _this12.loadWorkInfo.project_id) {
           var obj = {
-            job_id: _this12.params.pro_id,
-            name: _this12.loadWorkInfo.name,
-            msg: "我已报名" + _this12.loadWorkInfo.name + "(职位ID：" + _this12.params.pro_id + ")，怎么联系你们呢？"
+            job_id: _this12.loadWorkInfo.project_id,
+            name: _this12.loadWorkInfo.project_name,
+            msg: "你好，我叫" + _this12.loadWorkInfo.name + "，电话" + _this12.loadWorkInfo.mobile + "，对职位" + _this12.loadWorkInfo.project_name + "(职位ID：" + _this12.loadWorkInfo.project_id + ")感兴趣，请问如何报名呢？"
           };
           _this12.sendBtnMsg(obj);
         }
@@ -1432,7 +1443,7 @@ var _default = {
     },
     getWorkInfo: function getWorkInfo() {
       var _this13 = this;
-      var url = "/guest/project/" + this.pro_id;
+      var url = "/worker/lead-information/" + this.pro_id;
       return new Promise(function (resolve) {
         _this13.$request(url).then(function (res) {
           if (res.code == 0) {

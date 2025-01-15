@@ -16,7 +16,7 @@
 				<view class="base_info">
 					<view class="title">{{info.name}}</view>
 					<view class="salary">
-						{{info.worker_age_min == info.worker_age_max?info.worker_age_max:(info.worker_age_min+'-'+info.worker_age_max)}}元/{{type.filter(el=>{return el.value == info.worker_salary_type})[0].text}}
+						{{info.worker_salary_min == info.worker_salary_max?info.worker_salary_max:(info.worker_salary_min+'-'+info.worker_salary_max)}}元/{{type.filter(el=>{return el.value == info.worker_salary_type})[0].text}}
 					</view>
 				</view>
 				<view class="address">
@@ -31,6 +31,7 @@
 				<view class="subtit">工作介绍</view>
 				<scroll-view scroll-y="true"
 					:style="{height:scrollHeight+'px',paddingBottom:'30rpx',boxSizing:'border-box'}">
+					<!-- <rich-text :nodes="info.content"></rich-text> -->
 					<text
 						style="line-height: 50rpx;height:100%;width:100%;display: inline-block;">{{info.content}}</text>
 					<!-- <textarea :value="info.content" style="line-height: 50rpx;height:100%;width:100%;" disabled /> -->
@@ -42,7 +43,7 @@
 
 			<view class="btn"
 				:style="{height:'40px',lineHeight:'40px',position:'fixed',bottom:'15px',left:'50%',transform:'translateX(-50%)',width:'80%',minWidth:'320rpx'}"
-				@click="open">立即报名</view>
+				@click="open">立即预约</view>
 		</view>
 		<u-popup :show="showForm" mode="bottom" :round="16" :closeable="true" @close="close" @open="open">
 			<editForm v-if="showEdit" @close="close" :openid="open_id" :userInfo="workerInfo" @sure="sureSign">
@@ -184,14 +185,15 @@
 				this.$request(url, data, "POST").then(res => {
 					if (res.code == 0) {
 						this.close()
+						let lead_information_id = res.data.lead_information_id
 						uni.showModal({
-							title: "报名成功",
+							title: "预约成功",
 							showCancel: false,
 							success(resp) {
 								if (resp.confirm) {
-									uni.navigateTo({
-										url: "/pages/index/index?from=ad&pro_name=" + _this.info
-											.name + "&pro_id=" + _this.info.id
+									uni.redirectTo({
+										url: "/pages/index/index?from=ad&pro_id=" +
+											lead_information_id
 									})
 								}
 							}

@@ -157,7 +157,7 @@ var _default = {
     };
   },
   created: function created() {
-    this.name = this.userInfo.name;
+    this.name = this.userInfo.name.indexOf("@") != -1 ? "" : this.userInfo.name;
     this.mobile = this.userInfo.mobile;
   },
   methods: {

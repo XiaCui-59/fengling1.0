@@ -33,7 +33,7 @@
 			};
 		},
 		created() {
-			this.name = this.userInfo.name
+			this.name = this.userInfo.name.indexOf("@") != -1 ? "" : this.userInfo.name
 			this.mobile = this.userInfo.mobile
 		},
 		methods: {
@@ -160,7 +160,7 @@
 						font-size: 28rpx;
 						color: #216FF9;
 						background: rgba(33, 111, 249, .1);
-						border-radius: 15rpx;
+						// border-radius: 15rpx;
 						margin-left: 0;
 						margin-right: 0;
 						padding: 0;

@@ -54,7 +54,7 @@
 						</view>
 					</view>
 				</view>
-				<view class="iwant_item flex flex_btween" @click="toJob">
+				<view class="iwant_item flex flex_btween" @click="toChat('findjob')">
 					<view class="iwant_tips">
 						<view class="tit">我要找工作</view>
 						<view class="tips_list">
