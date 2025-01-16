@@ -501,7 +501,7 @@ var _default = {
   onShow: function onShow() {
     var _this3 = this;
     return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
-      var _this, pages, currentPage, fullPath, urlParamStr, token;
+      var _this, pages, currentPage, fullPath, urlParamStr, token, obj;
       return _regenerator.default.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -528,7 +528,7 @@ var _default = {
                 "job-id": _this3.currentProjectDetail.id ? _this3.currentProjectDetail.id : _this3.params.pro_id ? _this3.params.pro_id : ""
               };
               if (!(_this3.params.from == "ad")) {
-                _context3.next = 14;
+                _context3.next = 15;
                 break;
               }
               _this3.pro_id = _this3.params.pro_id;
@@ -536,7 +536,15 @@ var _default = {
               return _this3.getWorkInfo();
             case 13:
               _this3.loadWorkInfo = _context3.sent;
-            case 14:
+              if (_this3.aiReady) {
+                obj = {
+                  job_id: _this3.loadWorkInfo.project_id,
+                  name: _this3.loadWorkInfo.project_name,
+                  msg: "你好，我叫" + _this3.loadWorkInfo.name + "，电话" + _this3.loadWorkInfo.mobile + "，对职位" + _this3.loadWorkInfo.project_name + "(职位ID：" + _this3.loadWorkInfo.project_id + ")感兴趣，请问如何报名呢？"
+                };
+                _this3.sendBtnMsg(obj);
+              }
+            case 15:
               // 录音初始化
               _this3.initRecord();
               // if (!this.answerContinue && !this.answering) {
@@ -549,7 +557,7 @@ var _default = {
                   _this.$refs.chatRef.toScroll();
                 });
               }
-            case 17:
+            case 18:
             case "end":
               return _context3.stop();
           }
@@ -1383,6 +1391,8 @@ var _default = {
       app.globalData.socketTask.onError(function (err) {
         app.globalData.socketTask = null;
         clearInterval(_this.timer);
+        _this12.closeAnswering();
+        _this12.closeAnswerContinue();
         _this12.unConnected();
         _this12.unConnecting();
         _this12.resetAiReady();
@@ -1394,6 +1404,8 @@ var _default = {
         }, 2000);
       });
       app.globalData.socketTask.onMessage(function (res) {
+        _this12.closeAnswering();
+        _this12.closeAnswerContinue();
         _this.openAnswerContinue();
         _this.closeAnswering();
         var respData = JSON.parse(res.data);

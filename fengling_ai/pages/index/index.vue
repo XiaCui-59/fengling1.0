@@ -383,6 +383,16 @@
 			if (this.params.from == "ad") {
 				this.pro_id = this.params.pro_id
 				this.loadWorkInfo = await this.getWorkInfo()
+				if (this.aiReady) {
+					let obj = {
+						job_id: this.loadWorkInfo.project_id,
+						name: this.loadWorkInfo.project_name,
+						msg: "你好，我叫" + this.loadWorkInfo.name + "，电话" + this.loadWorkInfo.mobile + "，对职位" +
+							this.loadWorkInfo.project_name + "(职位ID：" + this.loadWorkInfo.project_id +
+							")感兴趣，请问如何报名呢？"
+					}
+					this.sendBtnMsg(obj)
+				}
 			}
 			// 录音初始化
 			this.initRecord()
@@ -1209,6 +1219,8 @@
 				app.globalData.socketTask.onError((err) => {
 					app.globalData.socketTask = null
 					clearInterval(_this.timer)
+					this.closeAnswering()
+					this.closeAnswerContinue()
 					this.unConnected()
 					this.unConnecting()
 					this.resetAiReady()
@@ -1220,6 +1232,8 @@
 					}, 2000)
 				})
 				app.globalData.socketTask.onMessage((res) => {
+					this.closeAnswering()
+					this.closeAnswerContinue()
 					_this.openAnswerContinue()
 					_this.closeAnswering()
 					let respData = JSON.parse(res.data)
@@ -1289,6 +1303,7 @@
 					this.unConnected()
 					this.unConnecting()
 					this.resetAiReady()
+
 					clearInterval(_this.timer)
 					setTimeout(function() {
 						_this.creatConnect(_this.header)
