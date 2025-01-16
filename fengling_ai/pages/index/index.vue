@@ -237,7 +237,8 @@
 				},
 				pro_id: "",
 				pro_name: "",
-				loadWorkInfo: null
+				loadWorkInfo: null,
+				workReady:false
 			}
 		},
 		computed: {
@@ -250,6 +251,20 @@
 					uni.hideLoading()
 				}
 				return this.aiReady && this.greetingReady
+			},
+			sendAdWork(){
+				console.log("sendAdWork aiReady",this.aiReady)
+				console.log("sendAdWork workReady",this.workReady)
+				if(this.workReady && this.aiReady){
+					let obj = {
+						job_id: this.loadWorkInfo.project_id,
+						name: this.loadWorkInfo.project_name,
+						msg: "你好，我叫" + this.loadWorkInfo.name + "，电话" + this.loadWorkInfo.mobile + "，对职位" +
+							this.loadWorkInfo.project_name + "(职位ID：" + this.loadWorkInfo.project_id +
+							")感兴趣，请问如何报名呢？"
+					}
+					this.sendBtnMsg(obj)
+				}
 			}
 		},
 		async onLoad(params) {
@@ -383,16 +398,6 @@
 			if (this.params.from == "ad") {
 				this.pro_id = this.params.pro_id
 				this.loadWorkInfo = await this.getWorkInfo()
-				if (this.aiReady) {
-					let obj = {
-						job_id: this.loadWorkInfo.project_id,
-						name: this.loadWorkInfo.project_name,
-						msg: "你好，我叫" + this.loadWorkInfo.name + "，电话" + this.loadWorkInfo.mobile + "，对职位" +
-							this.loadWorkInfo.project_name + "(职位ID：" + this.loadWorkInfo.project_id +
-							")感兴趣，请问如何报名呢？"
-					}
-					this.sendBtnMsg(obj)
-				}
 			}
 			// 录音初始化
 			this.initRecord()
@@ -481,6 +486,15 @@
 				} else {
 					this.showSend = true
 				}
+			},
+			loadWorkInfo:{
+				handler: function(newVal, oldVal) {
+					let _this = this
+					if(newVal && newVal.project_id){
+						
+					}
+				},
+				deep: true, // 开启深度监听
 			}
 		},
 		methods: {
@@ -1114,6 +1128,7 @@
 							_this.currentProjectDetail.id = ""
 							_this.currentProjectDetail.name = ""
 							_this.loadWorkInfo = null
+							_this.workReady = false
 							_this.jobId = ""
 							_this.action = ""
 							_this.noMayAsk = false
@@ -1204,16 +1219,16 @@
 						_this.showProPop = true
 					}
 					console.log('已成功建立链接onOpen', res);
-					if (this.loadWorkInfo && this.loadWorkInfo.project_id) {
-						let obj = {
-							job_id: this.loadWorkInfo.project_id,
-							name: this.loadWorkInfo.project_name,
-							msg: "你好，我叫" + this.loadWorkInfo.name + "，电话" + this.loadWorkInfo.mobile + "，对职位" +
-								this.loadWorkInfo.project_name + "(职位ID：" + this.loadWorkInfo.project_id +
-								")感兴趣，请问如何报名呢？"
-						}
-						this.sendBtnMsg(obj)
-					}
+					// if (this.loadWorkInfo && this.loadWorkInfo.project_id) {
+					// 	let obj = {
+					// 		job_id: this.loadWorkInfo.project_id,
+					// 		name: this.loadWorkInfo.project_name,
+					// 		msg: "你好，我叫" + this.loadWorkInfo.name + "，电话" + this.loadWorkInfo.mobile + "，对职位" +
+					// 			this.loadWorkInfo.project_name + "(职位ID：" + this.loadWorkInfo.project_id +
+					// 			")感兴趣，请问如何报名呢？"
+					// 	}
+					// 	this.sendBtnMsg(obj)
+					// }
 					// 如果是其他页面进入首页
 				})
 				app.globalData.socketTask.onError((err) => {
@@ -1315,11 +1330,13 @@
 				})
 			},
 			getWorkInfo() {
+				let _this = this
 				let url = "/worker/lead-information/" + this.pro_id
 				return new Promise(resolve => {
 					this.$request(url).then(res => {
 						if (res.code == 0) {
 							uni.hideLoading()
+							_this.workReady = true
 							resolve(res.data)
 						}
 					})

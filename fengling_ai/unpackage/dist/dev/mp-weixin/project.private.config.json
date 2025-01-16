@@ -1,27 +1,27 @@
 {
-  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "subpkg/ad_page/ad_page",
-          "pathName": "subpkg/ad_page/ad_page",
-          "query": "job_id=57227692050803977",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "ad_list",
-          "pathName": "subpkg/ad_list/ad_list",
-          "query": "ad_platform=tencent",
-          "launchMode": "default",
-          "scene": null
+    "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+    "condition": {
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "subpkg/ad_page/ad_page",
+                    "pathName": "subpkg/ad_page/ad_page",
+                    "query": "job_id=57227692050803977",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "ad_list",
+                    "pathName": "subpkg/ad_list/ad_list",
+                    "query": "ad_platform=tencent",
+                    "launchMode": "default",
+                    "scene": null
+                }
+            ]
         }
-      ]
+    },
+    "projectname": "employee_miniprograme",
+    "setting": {
+        "compileHotReLoad": true
     }
-  },
-  "projectname": "employee_miniprograme",
-  "setting": {
-    "compileHotReLoad": true
-  }
 }
