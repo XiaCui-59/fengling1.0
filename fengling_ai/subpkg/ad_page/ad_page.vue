@@ -18,6 +18,9 @@
 					<view class="salary">
 						{{info.worker_salary_min == info.worker_salary_max?info.worker_salary_max:(info.worker_salary_min+'-'+info.worker_salary_max)}}元/{{type.filter(el=>{return el.value == info.worker_salary_type})[0].text}}
 					</view>
+					<view class="labels flex" v-if="info.highlight.length > 0">
+						<view class="label" v-for="(item,index) in info.highlight" :key="index">{{item}}</view>
+					</view>
 				</view>
 				<view class="address">
 					<view class="subtit">工作地址</view>
@@ -115,24 +118,42 @@
 			}
 		},
 		async onLoad(param) {
-			let _this = this
+			// let _this = this
+			// this.params = param
 			uni.setNavigationBarColor({
 				frontColor: '#000000',
 				backgroundColor: 'transparent'
 			})
-			this.id = param.job_id
+
+			// uni.hideShareMenu()
+
+
+
+		},
+		async onShow() {
+			let _this = this
+			let pages = getCurrentPages()
+			let currentPage = pages[pages.length - 1]
+			let fullPath = currentPage.$page.fullPath
+			let urlParamStr = fullPath.split("?").length > 1 ? fullPath.split("?")[1] : ""
+			if (urlParamStr) {
+				console.log("urlParamStr", urlParamStr)
+				this.params = this.getQueryParams(fullPath)
+			}
+			console.log("param", this.params)
+			this.id = this.params.job_id
 			this.info = await this.getInfo()
 			this.contHeight = app.globalData.systemHeight - this.marginTop - this.tabMargin
 			setTimeout(function() {
 				_this.getElementInfo()
-
 			}, 500)
 			this.open_id = await this.getOpenid()
 			this.workerInfo = await this.getWorderInfo()
-			this.ad_tracking_id = await this.postParams(param)
-			// uni.hideShareMenu()
-
-
+			if (this.params.from != "list") {
+				this.ad_tracking_id = await this.postParams(this.params)
+			} else {
+				this.ad_tracking_id = this.params.ad_tracking_id
+			}
 
 		},
 		components: {
@@ -141,9 +162,34 @@
 		methods: {
 			...mapMutations(["setToken"]),
 			leftClick() {
-				uni.navigateTo({
-					url: "/pages/index/index"
-				})
+				let pages = getCurrentPages()
+				let prev = pages[pages.length - 2]
+				if (!prev) {
+					uni.navigateTo({
+						url: "/pages/index/index"
+					})
+				}
+			},
+			getQueryParams(url) {
+				// 解析URL中的查询字符串
+				const queryString = url.split('?')[1];
+				if (!queryString) {
+					return {};
+				}
+
+				// 将查询字符串分割成键值对数组
+				const keyValuePairs = queryString.split('&');
+
+				// 将键值对数组转换为对象
+				const params = {};
+				keyValuePairs.forEach((pair) => {
+					if (pair) {
+						const [key, value] = pair.split('=');
+						params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+					}
+				});
+
+				return params;
 			},
 			postParams(params) {
 				return new Promise(resolve => {
@@ -186,14 +232,17 @@
 					if (res.code == 0) {
 						this.close()
 						let lead_information_id = res.data.lead_information_id
+						let ad_platform = _this.params.ad_platform ? _this.params.ad_platform : ""
+						let ad_sub_platform = _this.params.ad_sub_platform ? _this.params.ad_sub_platform : ""
 						uni.showModal({
 							title: "预约成功",
 							showCancel: false,
 							success(resp) {
 								if (resp.confirm) {
-									uni.redirectTo({
+									uni.reLaunch({
 										url: "/pages/index/index?from=ad&pro_id=" +
-											lead_information_id
+											lead_information_id + "&ad_platform=" + ad_platform +
+											"&ad_sub_platform=" + ad_sub_platform
 									})
 								}
 							}
@@ -347,6 +396,28 @@
 					color: #216FF9;
 					line-height: 60rpx;
 					font-weight: 600;
+				}
+
+				.labels {
+					margin-top: 10rpx;
+					flex-wrap: wrap;
+
+					.label {
+						width: 32%;
+						margin-bottom: 16rpx;
+						text-align: center;
+						background: rgba(33, 111, 249, 0.1);
+						border-radius: 4rpx;
+						font-size: 27rpx;
+						color: #216FF9;
+						margin-right: 2%;
+						height: 54rpx;
+						line-height: 54rpx;
+
+						&:nth-child(3n) {
+							margin-right: 0;
+						}
+					}
 				}
 
 				.address {

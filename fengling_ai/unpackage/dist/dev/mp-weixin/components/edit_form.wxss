@@ -45,9 +45,14 @@ image {
 }
 .form .tips {
   font-size: 27rpx;
-  color: #757575;
+  color: #216FF9;
   line-height: 38rpx;
   margin-bottom: 40rpx;
+  font-weight: 600;
+}
+.form .tips.grey {
+  font-weight: 400;
+  color: #757575;
 }
 .form .btns .btn {
   height: 80rpx;

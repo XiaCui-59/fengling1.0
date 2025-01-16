@@ -196,15 +196,14 @@
 						</view>
 						<view class="line flex flex_start" style="align-items: start;">
 							<view class="tit">职位亮点：</view>
-							<view class="text flex flex-start"
-								v-if="currentInfo.cleaning_result.highlights.length != 0">
-								<view class="tags" v-for="(item,index) in currentInfo.cleaning_result.highlights
+							<view class="text flex flex-start" v-if="currentInfo.highlight.length != 0">
+								<view class="tags" v-for="(item,index) in currentInfo.highlight
 ">
 									{{item}}
 								</view>
 							</view>
-							<view class="text flex flex-start"
-								v-if="currentInfo.cleaning_result.highlights.length == 0">未添加</view>
+							<view class="text flex flex-start" v-if="currentInfo.highlight.length == 0">
+								未添加</view>
 						</view>
 						<view class="line flex flex_start" style="align-items: start;">
 							<view class="tit">负面信息：</view>

@@ -81,6 +81,25 @@ image {
   line-height: 60rpx;
   font-weight: 600;
 }
+.edit .cont .box .labels {
+  margin-top: 10rpx;
+  flex-wrap: wrap;
+}
+.edit .cont .box .labels .label {
+  width: 32%;
+  margin-bottom: 16rpx;
+  text-align: center;
+  background: rgba(33, 111, 249, 0.1);
+  border-radius: 4rpx;
+  font-size: 27rpx;
+  color: #216FF9;
+  margin-right: 2%;
+  height: 54rpx;
+  line-height: 54rpx;
+}
+.edit .cont .box .labels .label:nth-child(3n) {
+  margin-right: 0;
+}
 .edit .cont .box .address {
   padding: 20rpx 0 0 0;
 }

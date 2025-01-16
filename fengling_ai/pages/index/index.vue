@@ -271,11 +271,17 @@
 				this.currentProjectDetail = await this.getProjectDetail()
 
 			} else {
-				if (!readStep) {
-					this.showUserStep = true
+				if (params.pro_id) {
+					uni.setStorageSync("readsteps", 1)
+					this.canPlay = false
 				} else {
-					this.showUserStep = false
+					if (!readStep) {
+						this.showUserStep = true
+					} else {
+						this.showUserStep = false
+					}
 				}
+
 
 			}
 			let location;
@@ -333,16 +339,8 @@
 			}
 			this.openid = await this.getOpenid()
 			if (params.from == "ad") {
-				uni.setStorageSync("readsteps", 1)
-				this.canPlay = false
 				this.pro_id = params.pro_id
 				this.loadWorkInfo = await this.getWorkInfo()
-			} else {
-				if (!readStep) {
-					this.showUserStep = true
-				} else {
-					this.showUserStep = false
-				}
 			}
 			this.creatConnect(this.header)
 			this.postParams()
@@ -361,6 +359,31 @@
 		async onShow() {
 			let _this = this
 			this.closeAnswering()
+			let pages = getCurrentPages()
+			let currentPage = pages[pages.length - 1]
+			let fullPath = currentPage.$page.fullPath
+			let urlParamStr = fullPath.split("?").length > 1 ? fullPath.split("?")[1] : ""
+			if (urlParamStr) {
+				console.log("urlParamStr", urlParamStr)
+				this.params = this.getQueryParams(fullPath)
+			}
+			let token = uni.getStorageSync("token") ? uni.getStorageSync("token") : ""
+			this.header = {
+				'content-type': 'application/json',
+				"app-id": urlSetting.urls.appid,
+				"open-id": uni.getStorageSync("openid") ? uni.getStorageSync("openid") : "",
+				"address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
+				"Authorization": "bearer " + token,
+				"ad-platform": this.params.ad_platform ? this.params.ad_platform : "",
+				"ad-sub-platform": this.params.ad_sub_platform ? this.params.ad_sub_platform : "",
+				"job-id": this.currentProjectDetail.id ? this.currentProjectDetail.id : (this.params.pro_id ? this
+					.params
+					.pro_id : "")
+			}
+			if (this.params.from == "ad") {
+				this.pro_id = this.params.pro_id
+				this.loadWorkInfo = await this.getWorkInfo()
+			}
 			// 录音初始化
 			this.initRecord()
 			// if (!this.answerContinue && !this.answering) {
@@ -1131,9 +1154,14 @@
 			},
 			connectWebsocket(header) {
 				let _this = this
-				uni.showLoading({
-					title: "正在连接风铃"
-				})
+				let pages = getCurrentPages()
+				let current = pages[pages.length - 1]
+				if (current.route.indexOf("index") != -1) {
+					uni.showLoading({
+						title: "正在连接风铃"
+					})
+				}
+
 				return new Promise((resolve) => {
 					app.globalData.socketTask = uni.connectSocket({
 						url: app.globalData.wssUrl,

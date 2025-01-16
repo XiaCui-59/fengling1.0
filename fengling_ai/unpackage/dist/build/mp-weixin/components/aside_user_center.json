@@ -1,10 +1,10 @@
 {
+  "component": true,
   "usingComponents": {
     "u-popup": "/uni_modules/uview-ui/components/u-popup/u-popup",
     "u-navbar": "/uni_modules/uview-ui/components/u-navbar/u-navbar",
     "u-icon": "/uni_modules/uview-ui/components/u-icon/u-icon",
     "u-cell-group": "/uni_modules/uview-ui/components/u-cell-group/u-cell-group",
     "u-cell": "/uni_modules/uview-ui/components/u-cell/u-cell"
-  },
-  "component": true
+  }
 }

@@ -6,12 +6,12 @@
   },
   "setting": {
     "urlCheck": false,
-    "es6": true,
+    "es6": false,
     "postcss": false,
     "minified": false,
     "newFeature": true,
     "bigPackageSizeSupport": true,
-    "enhance": true,
+    "enhance": false,
     "packNpmRelationList": [],
     "babelSetting": {
       "ignore": [],

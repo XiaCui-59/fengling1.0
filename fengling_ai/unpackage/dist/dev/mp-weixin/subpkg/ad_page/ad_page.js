@@ -101,13 +101,13 @@ var components
 try {
   components = {
     uNavbar: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-navbar/u-navbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-navbar/u-navbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-navbar/u-navbar.vue */ 309))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-navbar/u-navbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-navbar/u-navbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-navbar/u-navbar.vue */ 317))
     },
     uIcon: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 373))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 381))
     },
     uPopup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 441))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 449))
     },
   }
 } catch (e) {
@@ -134,11 +134,13 @@ var render = function () {
   var g0 = _vm.type.filter(function (el) {
     return el.value == _vm.info.worker_salary_type
   })
+  var g1 = _vm.info.highlight.length
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
         g0: g0,
+        g1: g1,
       },
     }
   )
@@ -183,6 +185,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 30));
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 32));
 var _vuex = __webpack_require__(/*! vuex */ 41);
@@ -190,7 +193,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var editForm = function editForm() {
   __webpack_require__.e(/*! require.ensure | components/edit_form */ "components/edit_form").then((function () {
-    return resolve(__webpack_require__(/*! @/components/edit_form.vue */ 449));
+    return resolve(__webpack_require__(/*! @/components/edit_form.vue */ 457));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var app = getApp();
@@ -246,40 +249,20 @@ var _default = {
     };
   },
   onLoad: function onLoad(param) {
-    var _this2 = this;
     return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-      var _this;
       return _regenerator.default.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _this = _this2;
+              // let _this = this
+              // this.params = param
               uni.setNavigationBarColor({
                 frontColor: '#000000',
                 backgroundColor: 'transparent'
               });
-              _this2.id = param.job_id;
-              _context.next = 5;
-              return _this2.getInfo();
-            case 5:
-              _this2.info = _context.sent;
-              _this2.contHeight = app.globalData.systemHeight - _this2.marginTop - _this2.tabMargin;
-              setTimeout(function () {
-                _this.getElementInfo();
-              }, 500);
-              _context.next = 10;
-              return _this2.getOpenid();
-            case 10:
-              _this2.open_id = _context.sent;
-              _context.next = 13;
-              return _this2.getWorderInfo();
-            case 13:
-              _this2.workerInfo = _context.sent;
-              _context.next = 16;
-              return _this2.postParams(param);
-            case 16:
-              _this2.ad_tracking_id = _context.sent;
-            case 17:
+
+              // uni.hideShareMenu()
+            case 1:
             case "end":
               return _context.stop();
           }
@@ -287,14 +270,96 @@ var _default = {
       }, _callee);
     }))();
   },
+  onShow: function onShow() {
+    var _this2 = this;
+    return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+      var _this, pages, currentPage, fullPath, urlParamStr;
+      return _regenerator.default.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _this = _this2;
+              pages = getCurrentPages();
+              currentPage = pages[pages.length - 1];
+              fullPath = currentPage.$page.fullPath;
+              urlParamStr = fullPath.split("?").length > 1 ? fullPath.split("?")[1] : "";
+              if (urlParamStr) {
+                console.log("urlParamStr", urlParamStr);
+                _this2.params = _this2.getQueryParams(fullPath);
+              }
+              console.log("param", _this2.params);
+              _this2.id = _this2.params.job_id;
+              _context2.next = 10;
+              return _this2.getInfo();
+            case 10:
+              _this2.info = _context2.sent;
+              _this2.contHeight = app.globalData.systemHeight - _this2.marginTop - _this2.tabMargin;
+              setTimeout(function () {
+                _this.getElementInfo();
+              }, 500);
+              _context2.next = 15;
+              return _this2.getOpenid();
+            case 15:
+              _this2.open_id = _context2.sent;
+              _context2.next = 18;
+              return _this2.getWorderInfo();
+            case 18:
+              _this2.workerInfo = _context2.sent;
+              if (!(_this2.params.from != "list")) {
+                _context2.next = 25;
+                break;
+              }
+              _context2.next = 22;
+              return _this2.postParams(_this2.params);
+            case 22:
+              _this2.ad_tracking_id = _context2.sent;
+              _context2.next = 26;
+              break;
+            case 25:
+              _this2.ad_tracking_id = _this2.params.ad_tracking_id;
+            case 26:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
   components: {
     editForm: editForm
   },
   methods: _objectSpread(_objectSpread({}, (0, _vuex.mapMutations)(["setToken"])), {}, {
     leftClick: function leftClick() {
-      uni.navigateTo({
-        url: "/pages/index/index"
+      var pages = getCurrentPages();
+      var prev = pages[pages.length - 2];
+      if (!prev) {
+        uni.navigateTo({
+          url: "/pages/index/index"
+        });
+      }
+    },
+    getQueryParams: function getQueryParams(url) {
+      // 解析URL中的查询字符串
+      var queryString = url.split('?')[1];
+      if (!queryString) {
+        return {};
+      }
+
+      // 将查询字符串分割成键值对数组
+      var keyValuePairs = queryString.split('&');
+
+      // 将键值对数组转换为对象
+      var params = {};
+      keyValuePairs.forEach(function (pair) {
+        if (pair) {
+          var _pair$split = pair.split('='),
+            _pair$split2 = (0, _slicedToArray2.default)(_pair$split, 2),
+            key = _pair$split2[0],
+            value = _pair$split2[1];
+          params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+        }
       });
+      return params;
     },
     postParams: function postParams(params) {
       var _this3 = this;
@@ -338,13 +403,15 @@ var _default = {
         if (res.code == 0) {
           _this4.close();
           var lead_information_id = res.data.lead_information_id;
+          var ad_platform = _this.params.ad_platform ? _this.params.ad_platform : "";
+          var ad_sub_platform = _this.params.ad_sub_platform ? _this.params.ad_sub_platform : "";
           uni.showModal({
             title: "预约成功",
             showCancel: false,
             success: function success(resp) {
               if (resp.confirm) {
-                uni.redirectTo({
-                  url: "/pages/index/index?from=ad&pro_id=" + lead_information_id
+                uni.reLaunch({
+                  url: "/pages/index/index?from=ad&pro_id=" + lead_information_id + "&ad_platform=" + ad_platform + "&ad_sub_platform=" + ad_sub_platform
                 });
               }
             }

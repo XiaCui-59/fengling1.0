@@ -1,7 +1,9 @@
 <template>
 	<view class="form">
-		<view class="title">个人简历</view>
-		<view class="tips">完善基本信息，获得更多高薪岗位机会</view>
+		<view class="title">预约职位</view>
+		<view class="tips" :class="currentProject.project_name?'':'grey'">
+			{{currentProject.project_name?currentProject.project_name:"快速预约 别再错失好工作"}}
+		</view>
 		<view class="line_box">
 			<view class="tit">姓名<text>(必填)</text></view>
 			<view class="input_wrap">
@@ -25,7 +27,20 @@
 <script>
 	export default {
 		name: "edit_form",
-		props: ["openid", "userInfo"],
+		props: {
+			currentProject: {
+				type: Object,
+				default: () => ({})
+			},
+			userInfo: {
+				type: Object,
+				default: () => ({})
+			},
+			openid: {
+				type: String,
+				default: ""
+			},
+		},
 		data() {
 			return {
 				name: "",
@@ -96,9 +111,15 @@
 
 		.tips {
 			font-size: 27rpx;
-			color: #757575;
+			color: #216FF9;
 			line-height: 38rpx;
 			margin-bottom: 40rpx;
+			font-weight: 600;
+
+			&.grey {
+				font-weight: 400;
+				color: #757575;
+			}
 		}
 
 		.btns {

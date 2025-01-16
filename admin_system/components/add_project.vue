@@ -7,11 +7,16 @@
 					<view class="line">
 						<view class="tit"><text>*</text>职位描述</view>
 						<view class="input_wrap noborder" style="height:auto;width:95%;">
-							<textarea v-model="content" placeholder="请输入详细需求" style="height:620px;" maxlength="1000" />
+							<textarea v-model="content" placeholder="请输入详细需求" style="height:610px;" maxlength="1000" />
 							<view class="word_len">{{content.length+"/1000"}}</view>
 						</view>
 					</view>
-
+					<view class="line">
+						<view class="tit">面试联系人</view>
+						<view class="input_wrap">
+							<input type="text" v-model="interviewer" placeholder="请输入面试联系人姓名" maxlength="32" />
+						</view>
+					</view>
 				</view>
 				<view class="sub_box">
 					<view class="line">
@@ -91,6 +96,25 @@
 							<input type="number" v-model="weight" placeholder="请输入数字,数值越高权重越大" maxlength="32" />
 						</view>
 					</view>
+					<view class="line">
+						<view class="tit flex">
+							<view>职位亮点</view>
+							<view class="add flex flex-start" :style="{marginBottom:highlights.length>=4?'10px':'0'}">
+								<input type="text" v-model="newHighlight" placeholder="输入新增内容,5字以内"
+									placeholder-style="font-size:14px;" maxlength="5" />
+								<view class="add_btn" @click="addHighlight">添加</view>
+							</view>
+						</view>
+						<view class="input_wrap" style="min-height:30px ;height:auto;padding:5px;">
+							<view class="labels flex">
+								<view class="label" v-for="(item,index) in highlights" :key="index"
+									:style="{marginBottom:highlights.length>=4?'10px':'0'}">
+									{{item}}
+									<view class="dele" @click="deleHighlight(item)">&times;</view>
+								</view>
+							</view>
+						</view>
+					</view>
 					<!-- <view class="line">
 						<view class="tit">工作福利</view>
 						<view class="wrap" @click="tagChoose('welfare')">{{welfare?welfare:"请选择工作福利"}}</view>
@@ -106,12 +130,7 @@
 								@change="channelChange"></uni-data-select>
 						</view>
 					</view> -->
-					<view class="line">
-						<view class="tit">面试联系人</view>
-						<view class="input_wrap">
-							<input type="text" v-model="interviewer" placeholder="请输入面试联系人姓名" maxlength="32" />
-						</view>
-					</view>
+
 					<view class="line">
 						<view class="tit">联系人电话</view>
 						<view class="input_wrap">
@@ -217,6 +236,8 @@
 		name: "add_require",
 		data() {
 			return {
+				highlights: [],
+				newHighlight: "",
 				interviewer: "",
 				interviewerMobile: "",
 				showComMask: false,
@@ -563,6 +584,41 @@
 					_this.areaList = res.data
 				})
 			},
+			addHighlight() {
+				if (!this.newHighlight) {
+					uni.showToast({
+						title: "没有输入",
+						icon: "error",
+						duration: 2000
+					})
+					return
+				}
+				if (this.highlights.indexOf(this.newHighlight) == -1) {
+					this.highlights.push(this.newHighlight)
+				} else {
+					uni.showModal({
+						title: "该亮点已存在。",
+						showCancel: false
+					})
+				}
+				this.newHighlight = ""
+
+			},
+			deleHighlight(item) {
+				let index = this.highlights.indexOf(item)
+				let _this = this
+				uni.showModal({
+					title: "确认删除亮点：" + item + "？",
+					confirmColor: "#f00",
+					confirmText: "确认删除",
+					success(res) {
+						if (res.confirm) {
+							_this.highlights.splice(index, 1)
+						}
+					}
+				})
+
+			},
 			openAddress() {
 				this.showMask = true
 				this.showMap = true
@@ -671,7 +727,8 @@
 					"content": this.content,
 					"videos": this.videoKeys,
 					"images": this.imageKeys,
-					"weight": Number(this.weight)
+					"weight": Number(this.weight),
+					"highlight": this.highlights
 				}
 				console.log(data)
 				this.$request("/admin/projects", data, "POST").then(res => {
@@ -822,6 +879,36 @@
 				line-height: 30px;
 			}
 
+			.add {
+				width: 50%;
+				margin-left: 10px;
+
+				input {
+					width: 200px;
+					background: #ffffff;
+					border: 1px solid #0092ff;
+					height: 30px;
+					padding: 0 10px;
+					box-sizing: border-box;
+				}
+
+				.add_btn {
+					margin-left: 5px;
+					width: 80px;
+					height: 30px;
+					text-align: center;
+					line-height: 30px;
+					background: #009eff;
+					color: #fff;
+					border-radius: 2px;
+					cursor: pointer;
+
+					&:hover {
+						opacity: 0.8;
+					}
+				}
+			}
+
 			.input_wrap {
 				width: 460px;
 				height: 30px;
@@ -829,6 +916,50 @@
 				border: 1px solid #D9D9D9;
 				position: relative;
 				margin-top: 8px;
+
+				.labels {
+					width: 100%;
+					flex-wrap: wrap;
+
+
+
+					.label {
+						width: 22%;
+						height: 30px;
+						line-height: 30px;
+						text-align: center;
+						background: #e6e6e6;
+						border-radius: 4px;
+						margin-right: 4%;
+						font-size: 14px;
+						position: relative;
+
+						.dele {
+							position: absolute;
+							width: 15px;
+							height: 15px;
+							text-align: center;
+							line-height: 15px;
+							font-size: 12px;
+							border-radius: 50%;
+							top: -7px;
+							right: -7px;
+							border: 1px solid #ccc;
+							background: #fff;
+
+							&:hover {
+								cursor: pointer;
+								background: #f00;
+								border: 1px solid #f00;
+								color: #f6f6f6;
+							}
+						}
+
+						&:nth-child(4n) {
+							margin-right: 0;
+						}
+					}
+				}
 
 
 

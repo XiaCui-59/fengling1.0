@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uNavbar: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-navbar/u-navbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-navbar/u-navbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-navbar/u-navbar.vue */ 309))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-navbar/u-navbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-navbar/u-navbar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-navbar/u-navbar.vue */ 317))
     },
   }
 } catch (e) {
@@ -175,37 +175,37 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var projectPopup = function projectPopup() {
   __webpack_require__.e(/*! require.ensure | components/load_project_popup */ "components/load_project_popup").then((function () {
-    return resolve(__webpack_require__(/*! @/components/load_project_popup.vue */ 317));
+    return resolve(__webpack_require__(/*! @/components/load_project_popup.vue */ 325));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var flMask = function flMask() {
   __webpack_require__.e(/*! require.ensure | components/flmask */ "components/flmask").then((function () {
-    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 324));
+    return resolve(__webpack_require__(/*! @/components/flmask.vue */ 332));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var asideUserCenter = function asideUserCenter() {
   __webpack_require__.e(/*! require.ensure | components/aside_user_center */ "components/aside_user_center").then((function () {
-    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 331));
+    return resolve(__webpack_require__(/*! @/components/aside_user_center.vue */ 339));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var login = function login() {
   Promise.all(/*! require.ensure | components/login */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/login")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/login.vue */ 338));
+    return resolve(__webpack_require__(/*! @/components/login.vue */ 346));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var welcome = function welcome() {
   Promise.all(/*! require.ensure | components/welcome */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/welcome")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 345));
+    return resolve(__webpack_require__(/*! @/components/welcome.vue */ 353));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var chat = function chat() {
   __webpack_require__.e(/*! require.ensure | components/chat */ "components/chat").then((function () {
-    return resolve(__webpack_require__(/*! @/components/chat.vue */ 352));
+    return resolve(__webpack_require__(/*! @/components/chat.vue */ 360));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var channel = function channel() {
   __webpack_require__.e(/*! require.ensure | components/channel */ "components/channel").then((function () {
-    return resolve(__webpack_require__(/*! @/components/channel.vue */ 359));
+    return resolve(__webpack_require__(/*! @/components/channel.vue */ 367));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var app = getApp();
@@ -380,10 +380,15 @@ var _default = {
               _context2.next = 16;
               break;
             case 15:
-              if (!readStep) {
-                _this2.showUserStep = true;
+              if (params.pro_id) {
+                uni.setStorageSync("readsteps", 1);
+                _this2.canPlay = false;
               } else {
-                _this2.showUserStep = false;
+                if (!readStep) {
+                  _this2.showUserStep = true;
+                } else {
+                  _this2.showUserStep = false;
+                }
               }
             case 16:
               _this2.resetCity();
@@ -463,25 +468,15 @@ var _default = {
             case 32:
               _this2.openid = _context2.sent;
               if (!(params.from == "ad")) {
-                _context2.next = 42;
+                _context2.next = 38;
                 break;
               }
-              uni.setStorageSync("readsteps", 1);
-              _this2.canPlay = false;
               _this2.pro_id = params.pro_id;
-              _context2.next = 39;
+              _context2.next = 37;
               return _this2.getWorkInfo();
-            case 39:
+            case 37:
               _this2.loadWorkInfo = _context2.sent;
-              _context2.next = 43;
-              break;
-            case 42:
-              if (!readStep) {
-                _this2.showUserStep = true;
-              } else {
-                _this2.showUserStep = false;
-              }
-            case 43:
+            case 38:
               _this2.creatConnect(_this2.header);
               _this2.postParams();
               _this2.getSetting();
@@ -490,7 +485,7 @@ var _default = {
                 // this.closeInterviewCard()
                 // this.closeChannelInterviewCard()
               }
-            case 47:
+            case 42:
             case "end":
               return _context2.stop();
           }
@@ -506,13 +501,42 @@ var _default = {
   onShow: function onShow() {
     var _this3 = this;
     return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
-      var _this;
+      var _this, pages, currentPage, fullPath, urlParamStr, token;
       return _regenerator.default.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               _this = _this3;
               _this3.closeAnswering();
+              pages = getCurrentPages();
+              currentPage = pages[pages.length - 1];
+              fullPath = currentPage.$page.fullPath;
+              urlParamStr = fullPath.split("?").length > 1 ? fullPath.split("?")[1] : "";
+              if (urlParamStr) {
+                console.log("urlParamStr", urlParamStr);
+                _this3.params = _this3.getQueryParams(fullPath);
+              }
+              token = uni.getStorageSync("token") ? uni.getStorageSync("token") : "";
+              _this3.header = {
+                'content-type': 'application/json',
+                "app-id": _url_setting.default.urls.appid,
+                "open-id": uni.getStorageSync("openid") ? uni.getStorageSync("openid") : "",
+                "address": _this.location ? encodeURIComponent(JSON.stringify(_this.location)) : "",
+                "Authorization": "bearer " + token,
+                "ad-platform": _this3.params.ad_platform ? _this3.params.ad_platform : "",
+                "ad-sub-platform": _this3.params.ad_sub_platform ? _this3.params.ad_sub_platform : "",
+                "job-id": _this3.currentProjectDetail.id ? _this3.currentProjectDetail.id : _this3.params.pro_id ? _this3.params.pro_id : ""
+              };
+              if (!(_this3.params.from == "ad")) {
+                _context3.next = 14;
+                break;
+              }
+              _this3.pro_id = _this3.params.pro_id;
+              _context3.next = 13;
+              return _this3.getWorkInfo();
+            case 13:
+              _this3.loadWorkInfo = _context3.sent;
+            case 14:
               // 录音初始化
               _this3.initRecord();
               // if (!this.answerContinue && !this.answering) {
@@ -525,7 +549,7 @@ var _default = {
                   _this.$refs.chatRef.toScroll();
                 });
               }
-            case 5:
+            case 17:
             case "end":
               return _context3.stop();
           }
@@ -1305,9 +1329,13 @@ var _default = {
     },
     connectWebsocket: function connectWebsocket(header) {
       var _this = this;
-      uni.showLoading({
-        title: "正在连接风铃"
-      });
+      var pages = getCurrentPages();
+      var current = pages[pages.length - 1];
+      if (current.route.indexOf("index") != -1) {
+        uni.showLoading({
+          title: "正在连接风铃"
+        });
+      }
       return new Promise(function (resolve) {
         app.globalData.socketTask = uni.connectSocket({
           url: app.globalData.wssUrl,

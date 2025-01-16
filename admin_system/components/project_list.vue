@@ -162,33 +162,71 @@
 							<view class="text">{{item.text}}</view>
 						</view>
 					</view>
-					<view class="line" v-if="currentUrls.urlLink" style="margin:0;padding:0;">
-						<view class="line_item flex" style="margin-top:20px ;align-items: flex-start;">
-							<view class="tit" style="white-space: nowrap;width:auto;flex-shrink: 0;">小程序路径：</view>
-							<view class="text"
-								style="width:auto;word-wrap: break-word;word-break:break-all;margin-right: 10px;">
-								{{currentUrls.miniProgramPath}}
+					<view class="line" v-if="currentUrls.detail.urlLink || currentUrls.list.urlLink"
+						style="margin:0;padding:0;">
+						<view class="line_box">
+							<view class="box_tit" style="font-weight: 600;">详情页</view>
+							<view class="box_items">
+								<view class="line_item flex">
+									<view class="tit">
+										<image src="/static/mini_link_ic.png" mode="widthFix"></image>路径：
+									</view>
+									<view class="text">
+										{{currentUrls.detail.miniProgramPath}}
+									</view>
+									<view class="copy" @click="copyLink(currentUrls.detail.miniProgramPath)">复制</view>
+								</view>
+								<view class="line_item flex" style="margin-top:15px ;align-items: flex-start;">
+									<view class="tit">
+										<image src="/static/mini_link_ic.png" mode="widthFix"></image>落地页：
+									</view>
+									<view class="text">
+										{{currentUrls.detail.urlLink}}
+									</view>
+									<view class="copy" @click="copyLink(currentUrls.detail.urlLink)">复制</view>
+								</view>
+								<view class="line_item flex">
+									<view class="tit">
+										<image src="/static/h5_link_ic.png" mode="widthFix"></image>落地页：
+									</view>
+									<view class="text">
+										{{currentUrls.detail.h5Link}}
+									</view>
+									<view class="copy" @click="copyLink(currentUrls.detail.h5Link)">复制</view>
+								</view>
 							</view>
-							<view class="copy" style="color:#226FF9;cursor: pointer;flex-shrink: 0;"
-								@click="copyLink(currentUrls.miniProgramPath)">复制</view>
 						</view>
-						<view class="line_item flex" style="margin-top:15px ;align-items: flex-start;">
-							<view class="tit" style="white-space: nowrap;width:auto;flex-shrink: 0;">落地页url(小程序)：</view>
-							<view class="text"
-								style="width:auto;word-wrap: break-word;word-break:break-all;margin-right: 10px;">
-								{{currentUrls.urlLink}}
+						<view class="line_box">
+							<view class="box_tit" style="font-weight: 600;">列表页</view>
+							<view class="box_items">
+								<view class="line_item flex">
+									<view class="tit">
+										<image src="/static/mini_link_ic.png" mode="widthFix"></image>路径：
+									</view>
+									<view class="text">
+										{{currentUrls.list.miniProgramPath}}
+									</view>
+									<view class="copy" @click="copyLink(currentUrls.list.miniProgramPath)">复制</view>
+								</view>
+								<view class="line_item flex">
+									<view class="tit">
+										<image src="/static/mini_link_ic.png" mode="widthFix"></image>落地页：
+									</view>
+									<view class="text">
+										{{currentUrls.list.urlLink}}
+									</view>
+									<view class="copy" @click="copyLink(currentUrls.list.urlLink)">复制</view>
+								</view>
+								<view class="line_item flex">
+									<view class="tit">
+										<image src="/static/h5_link_ic.png" mode="widthFix"></image>落地页：
+									</view>
+									<view class="text">
+										{{currentUrls.list.h5Link}}
+									</view>
+									<view class="copy" @click="copyLink(currentUrls.list.h5Link)">复制</view>
+								</view>
 							</view>
-							<view class="copy" style="color:#226FF9;cursor: pointer;flex-shrink: 0;"
-								@click="copyLink(currentUrls.urlLink)">复制</view>
-						</view>
-						<view class="line_item flex" style="margin-top:15px ;align-items: flex-start;">
-							<view class="tit" style="white-space: nowrap;width:auto;flex-shrink: 0;">落地页url(H5)：</view>
-							<view class="text"
-								style="width:auto;word-wrap: break-word;word-break:break-all;margin-right: 10px;">
-								{{currentUrls.h5Link}}
-							</view>
-							<view class="copy" style="color:#226FF9;cursor: pointer;flex-shrink: 0;"
-								@click="copyLink(currentUrls.h5Link)">复制</view>
 						</view>
 					</view>
 					<view class="line flex flex_end" style="margin-top:40px;">
@@ -305,8 +343,12 @@
 		data() {
 			return {
 				currentUrls: {
-					miniProgramPath: "",
-					urlLink: ""
+					detail: {
+						urlLink: ""
+					},
+					list: {
+						urlLink: ""
+					}
 				},
 				refuseReason: "",
 				showSetting: false,
@@ -1059,6 +1101,47 @@
 </script>
 
 <style lang="scss" scoped>
+	.line_box {
+		margin-top: 20px;
+	}
+
+	.box_items {
+
+
+		.line_item {
+
+			font-size: 14px;
+			margin-top: 15px;
+			align-items: flex-start;
+
+			.copy {
+				color: #226FF9;
+				cursor: pointer;
+				flex-shrink: 0;
+			}
+
+			image {
+				width: 25px;
+				vertical-align: middle;
+				margin-right: 5px;
+			}
+
+			.tit {
+				white-space: nowrap;
+				width: auto;
+				flex-shrink: 0;
+			}
+
+			.text {
+				width: auto;
+				word-wrap: break-word;
+				word-break: break-all;
+				margin-right: 10px;
+
+			}
+		}
+	}
+
 	.result_list {
 		width: 100%;
 		position: absolute;

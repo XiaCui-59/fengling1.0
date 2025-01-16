@@ -6,7 +6,14 @@
         {
           "name": "subpkg/ad_page/ad_page",
           "pathName": "subpkg/ad_page/ad_page",
-          "query": "job_id=60565010505592073",
+          "query": "job_id=57227692050803977",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "ad_list",
+          "pathName": "subpkg/ad_list/ad_list",
+          "query": "ad_platform=tencent",
           "launchMode": "default",
           "scene": null
         }
