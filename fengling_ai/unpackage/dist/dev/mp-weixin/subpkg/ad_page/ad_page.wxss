@@ -41,17 +41,21 @@ image {
   background-size: cover;
   background-position: center center;
 }
+page {
+  background: #F7F8FA;
+}
 .edit {
   height: 100vh;
-  background: #fff;
+  overflow: hidden;
   color: #010101;
 }
 .edit .cont {
-  background: #F3F3F5;
+  background: #F7F8FA;
   padding: 0rpx 26rpx;
-  box-sizing: border-box;
   color: #333;
   font-size: 29rpx;
+  min-height: 100%;
+  box-sizing: border-box;
 }
 .edit .cont .box {
   background: #fff;

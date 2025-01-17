@@ -10,44 +10,44 @@
 					custom-style="display: inline-block;line-height: 57rpx;margin:0 auto;left:-2rpx;"></u-icon>
 			</view>
 		</u-navbar>
-		<view class="cont"
-			:style="{marginTop:marginTop+tabMargin+'px',height:contHeight+'px',paddingTop:tabMargin+'px'}">
-			<view class="box" :style="{marginBottom:tabMargin+'px'}">
-				<view class="base_info">
-					<view class="title">{{info.name}}</view>
-					<view class="salary">
-						{{info.worker_salary_min == info.worker_salary_max?info.worker_salary_max:(info.worker_salary_min+'-'+info.worker_salary_max)}}元/{{type.filter(el=>{return el.value == info.worker_salary_type})[0].text}}
+		<scroll-view scroll-y="true" :style="{height:contHeight+'px'}" :show-scrollbar="false"
+			refresher-background="transparent">
+			<view class="cont" :style="{paddingTop:marginTop+2*tabMargin+'px'}">
+				<view class="box" :style="{marginBottom:tabMargin+'px'}">
+					<view class="base_info">
+						<view class="title">{{info.name}}</view>
+						<view class="salary">
+							{{info.worker_salary_min == info.worker_salary_max?info.worker_salary_max:(info.worker_salary_min+'-'+info.worker_salary_max)}}元/{{type.filter(el=>{return el.value == info.worker_salary_type})[0].text}}
+						</view>
+						<view class="labels flex" v-if="info.highlight.length > 0">
+							<view class="label" v-for="(item,index) in info.highlight" :key="index">{{item}}</view>
+						</view>
 					</view>
-					<view class="labels flex" v-if="info.highlight.length > 0">
-						<view class="label" v-for="(item,index) in info.highlight" :key="index">{{item}}</view>
+					<view class="address">
+						<view class="subtit">工作地址</view>
+						<view class="flex flex_start">
+							<u-icon name="map" color="#216FF9" size="18"></u-icon>
+							<text>{{info.work_address.address}}</text>
+						</view>
 					</view>
 				</view>
-				<view class="address">
-					<view class="subtit">工作地址</view>
-					<view class="flex flex_start">
-						<u-icon name="map" color="#216FF9" size="18"></u-icon>
-						<text>{{info.work_address.address}}</text>
+				<view class="box top" :style="{paddingBottom:'60px'}">
+					<view class="subtit">工作介绍</view>
+					<view>
+						<text
+							style="line-height: 50rpx;height:100%;width:100%;display: inline-block;">{{info.content}}</text>
 					</view>
+
 				</view>
+
+
+
+				<view class="btn"
+					:style="{height:'40px',lineHeight:'40px',position:'fixed',bottom:'15px',left:'50%',transform:'translateX(-50%)',width:'80%',minWidth:'320rpx'}"
+					@click="open">立即预约</view>
 			</view>
-			<view class="box top" :style="{height:topHeight+'px'}">
-				<view class="subtit">工作介绍</view>
-				<scroll-view scroll-y="true"
-					:style="{height:scrollHeight+'px',paddingBottom:'30rpx',boxSizing:'border-box'}">
-					<!-- <rich-text :nodes="info.content"></rich-text> -->
-					<text
-						style="line-height: 50rpx;height:100%;width:100%;display: inline-block;">{{info.content}}</text>
-					<!-- <textarea :value="info.content" style="line-height: 50rpx;height:100%;width:100%;" disabled /> -->
-				</scroll-view>
+		</scroll-view>
 
-			</view>
-
-
-
-			<view class="btn"
-				:style="{height:'40px',lineHeight:'40px',position:'fixed',bottom:'15px',left:'50%',transform:'translateX(-50%)',width:'80%',minWidth:'320rpx'}"
-				@click="open">立即预约</view>
-		</view>
 		<u-popup :show="showForm" mode="bottom" :round="16" :closeable="true" @close="close" @open="open">
 			<editForm v-if="showEdit" @close="close" :openid="open_id" :userInfo="workerInfo" @sure="sureSign">
 			</editForm>
@@ -124,7 +124,6 @@
 				frontColor: '#000000',
 				backgroundColor: 'transparent'
 			})
-
 			// uni.hideShareMenu()
 
 
@@ -143,10 +142,10 @@
 			console.log("param", this.params)
 			this.id = this.params.job_id
 			this.info = await this.getInfo()
-			this.contHeight = app.globalData.systemHeight - this.marginTop - this.tabMargin
-			setTimeout(function() {
-				_this.getElementInfo()
-			}, 500)
+			this.contHeight = app.globalData.systemHeight
+			// setTimeout(function() {
+			// 	_this.getElementInfo()
+			// }, 500)
 			this.open_id = await this.getOpenid()
 			this.workerInfo = await this.getWorderInfo()
 			if (this.params.from != "list") {
@@ -352,17 +351,22 @@
 		}
 	}
 
+	page {
+		background: #F7F8FA;
+	}
+
 	.edit {
 		height: 100vh;
-		background: #fff;
+		overflow: hidden;
 		color: $base-fontcolor;
 
 		.cont {
-			background: #F3F3F5;
+			background: #F7F8FA;
 			padding: 0rpx 26rpx;
-			box-sizing: border-box;
 			color: #333;
 			font-size: 29rpx;
+			min-height: 100%;
+			box-sizing: border-box;
 
 			.box {
 				background: #fff;

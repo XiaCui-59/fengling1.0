@@ -10,44 +10,48 @@
 					custom-style="display: inline-block;line-height: 57rpx;margin:0 auto;left:-2rpx;"></u-icon>
 			</view>
 		</u-navbar>
-		<view class="cont" :style="{marginTop:marginTop+tabMargin+'px',minHeight:contHeight+'px'}">
-			<view class="item" v-for="(item,index) in list" :key="index" v-if="list.length != 0"
-				@click="toDetail(item)">
-				<view class="title flex flex_btween">{{item.project_name}}
-				</view>
-				<view class="middle_wrap">
-					<view class="middle flex flex_btween">
-						<view class="mid_in_item">
-							<!-- <view class="tit">工资</view> -->
-							<view class="salary flex flex-start">
-								{{(item.worker_salary_min == item.worker_salary_max?item.worker_salary_min:(item.worker_salary_min+"-"+item.worker_salary_max))}}
-								<text
-									class="period">{{"元"+periodList.filter(el=>{return el.value==item.worker_salary_type})[0].text}}</text>
+		<scroll-view scroll-y="true" :style="{height:contHeight+'px',boxSizing:'border-box'}" :show-scrollbar="false"
+			refresher-background="transparent">
+			<view class="cont" :style="{paddingTop:marginTop+2*tabMargin+'px',paddingBottom:'30rpx'}">
+				<view class="item" v-for="(item,index) in list" :key="index" v-if="list.length != 0"
+					@click="toDetail(item)">
+					<view class="title flex flex_btween">{{item.project_name}}
+					</view>
+					<view class="middle_wrap">
+						<view class="middle flex flex_btween">
+							<view class="mid_in_item">
+								<!-- <view class="tit">工资</view> -->
+								<view class="salary flex flex-start">
+									{{(item.worker_salary_min == item.worker_salary_max?item.worker_salary_min:(item.worker_salary_min+"-"+item.worker_salary_max))}}
+									<text
+										class="period">{{"元"+periodList.filter(el=>{return el.value==item.worker_salary_type})[0].text}}</text>
+								</view>
+							</view>
+							<view class="mid_in_item" @click.stop="toOpen(item)">立即预约</view>
+						</view>
+						<view class="labels flex" :class="item.highlight.length >2?'flex_btween':'flex-start'"
+							v-if="item.highlight.length != 0">
+							<view class="label flex" :class="item.highlight.length >2?'':'min_width'"
+								v-for="(label,labIndex) in item.highlight.slice(0,3)" :key="labIndex">
+								<text></text>{{label}}
 							</view>
 						</view>
-						<view class="mid_in_item" @click.stop="toOpen(item)">立即预约</view>
 					</view>
-					<view class="labels flex" :class="item.highlight.length >2?'flex_btween':'flex-start'"
-						v-if="item.highlight.length != 0">
-						<view class="label flex" :class="item.highlight.length >2?'':'min_width'"
-							v-for="(label,labIndex) in item.highlight.slice(0,3)" :key="labIndex">
-							<text></text>{{label}}
-						</view>
+					<view class="bottom flex" :class="item.worker_address.address?'flex_btween':'flex_end'">
+						<view class="location flex" v-if="item.worker_address.address"><u-icon name="map-fill"
+								color="#2675F5" size="13"></u-icon>{{item.worker_address.address}}</view>
+						<view class="time">{{item.create_time}}</view>
+					</view>
+					<view class="status">
+						<image :src="imgUrl+'/worker/new/ad_hot.png'" mode="widthFix"></image>
 					</view>
 				</view>
-				<view class="bottom flex" :class="item.worker_address.address?'flex_btween':'flex_end'">
-					<view class="location flex" v-if="item.worker_address.address"><u-icon name="map-fill"
-							color="#2675F5" size="13"></u-icon>{{item.worker_address.address}}</view>
-					<view class="time">{{item.create_time}}</view>
-				</view>
-				<view class="status">
-					<image :src="imgUrl+'/worker/new/ad_hot.png'" mode="widthFix"></image>
+				<view class="empty" v-if="list.length == 0">
+					<image :src="imgUrl+'/worker/no_data.png'" mode="widthFix"></image>
 				</view>
 			</view>
-			<view class="empty" v-if="list.length == 0">
-				<image :src="imgUrl+'/worker/no_data.png'" mode="widthFix"></image>
-			</view>
-		</view>
+		</scroll-view>
+
 		<u-popup :show="showForm" mode="bottom" :round="16" :closeable="true" @close="close" @open="open">
 			<editForm v-if="showEdit" @close="close" :openid="open_id" :userInfo="workerInfo"
 				:currentProject="currentPro" @sure="sureSign">
@@ -113,14 +117,14 @@
 		onLoad(param) {
 			// console.log("param", param)
 			// this.param = param
+			uni.showLoading()
 			uni.setNavigationBarColor({
 				frontColor: '#000000',
 				backgroundColor: 'transparent'
 			})
+			this.contHeight = app.globalData.systemHeight
 		},
-
 		async onShow() {
-			this.contHeight = app.globalData.systemHeight - this.marginTop - this.tabMargin
 			let pages = getCurrentPages()
 			let currentPage = pages[pages.length - 1]
 			let fullPath = currentPage.$page.fullPath
@@ -164,7 +168,6 @@
 				return params;
 			},
 			getList() {
-				uni.showLoading()
 				let url = "/guest/worker/hot-jobs?page=" + this.currentPage
 				this.$request(url).then(res => {
 					if (res.code == 0) {
@@ -320,15 +323,19 @@
 		}
 	}
 
+	page {
+		background: #F7F8FA;
+	}
+
 	.view_record {
 		height: 100vh;
-		background: #fff;
 		color: #333;
 
 		.cont {
 			background: #F7F8FA;
 			padding: 38rpx 26rpx;
 			box-sizing: border-box;
+			min-height: 100%;
 
 			.item {
 				padding: 40rpx 48rpx 23rpx 40rpx;

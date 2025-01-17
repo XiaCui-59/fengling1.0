@@ -44,15 +44,18 @@ image {
  .uni-page-head-btn, .uni-page-head .uni-btn-icon {
   display: none !important;
 }
+page {
+  background: #F7F8FA;
+}
 .view_record {
   height: 100vh;
-  background: #fff;
   color: #333;
 }
 .view_record .cont {
   background: #F7F8FA;
   padding: 38rpx 26rpx;
   box-sizing: border-box;
+  min-height: 100%;
 }
 .view_record .cont .item {
   padding: 40rpx 48rpx 23rpx 40rpx;

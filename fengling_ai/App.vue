@@ -154,6 +154,10 @@
 
 	}
 
+	::-webkit-scrollbar {
+		display: none !important;
+	}
+
 	/*每个页面公共css */
 	.single_page {
 		width: 100%;

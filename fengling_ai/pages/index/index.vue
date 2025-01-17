@@ -238,7 +238,7 @@
 				pro_id: "",
 				pro_name: "",
 				loadWorkInfo: null,
-				workReady:false
+				workReady: false
 			}
 		},
 		computed: {
@@ -252,10 +252,10 @@
 				}
 				return this.aiReady && this.greetingReady
 			},
-			sendAdWork(){
-				console.log("sendAdWork aiReady",this.aiReady)
-				console.log("sendAdWork workReady",this.workReady)
-				if(this.workReady && this.aiReady){
+			sendAdWork() {
+				console.log("sendAdWork aiReady", this.aiReady)
+				console.log("sendAdWork workReady", this.workReady)
+				if (this.workReady && this.aiReady) {
 					let obj = {
 						job_id: this.loadWorkInfo.project_id,
 						name: this.loadWorkInfo.project_name,
@@ -265,6 +265,7 @@
 					}
 					this.sendBtnMsg(obj)
 				}
+				return this.aiReady && this.workReady
 			}
 		},
 		async onLoad(params) {
@@ -487,11 +488,11 @@
 					this.showSend = true
 				}
 			},
-			loadWorkInfo:{
+			loadWorkInfo: {
 				handler: function(newVal, oldVal) {
 					let _this = this
-					if(newVal && newVal.project_id){
-						
+					if (newVal && newVal.project_id) {
+
 					}
 				},
 				deep: true, // 开启深度监听
