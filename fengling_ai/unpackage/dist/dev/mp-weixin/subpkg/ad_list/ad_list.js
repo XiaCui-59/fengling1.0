@@ -319,8 +319,10 @@ var _default = {
   },
   methods: _objectSpread(_objectSpread({}, (0, _vuex.mapMutations)(["setToken"])), {}, {
     leftClick: function leftClick() {
-      uni.navigateTo({
-        url: "/pages/index/index"
+      var ad_platform = this.param.ad_platform ? this.param.ad_platform : "";
+      var ad_sub_platform = this.param.ad_sub_platform ? this.param.ad_sub_platform : "";
+      uni.reLaunch({
+        url: "/pages/index/index?ad_platform=" + ad_platform + "&ad_sub_platform=" + ad_sub_platform
       });
     },
     getQueryParams: function getQueryParams(url) {
@@ -436,18 +438,22 @@ var _default = {
       this.$request(url, data, "POST").then(function (res) {
         if (res.code == 0) {
           _this6.close();
-          uni.showToast({
-            title: "预约成功",
-            duration: 2000
-          });
           var lead_information_id = res.data.lead_information_id;
           var ad_platform = _this.param.ad_platform ? _this.param.ad_platform : "";
           var ad_sub_platform = _this.param.ad_sub_platform ? _this.param.ad_sub_platform : "";
-          setTimeout(function () {
-            uni.reLaunch({
-              url: "/pages/index/index?from=ad&pro_id=" + lead_information_id + "&ad_platform=" + ad_platform + "&ad_sub_platform=" + ad_sub_platform
-            });
-          }, 1000);
+          uni.showModal({
+            title: "预约成功，将进入小程序报名和确认。",
+            showCancel: false,
+            success: function success(resp) {
+              if (resp.confirm) {
+                setTimeout(function () {
+                  uni.reLaunch({
+                    url: "/pages/index/index?from=ad&pro_id=" + lead_information_id + "&ad_platform=" + ad_platform + "&ad_sub_platform=" + ad_sub_platform
+                  });
+                }, 1000);
+              }
+            }
+          });
         }
       });
     },

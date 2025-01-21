@@ -27,7 +27,7 @@
 										class="period">{{"元"+periodList.filter(el=>{return el.value==item.worker_salary_type})[0].text}}</text>
 								</view>
 							</view>
-							<view class="mid_in_item" @click.stop="toOpen(item)">立即预约</view>
+							<!-- <view class="mid_in_item" @click.stop="toOpen(item)">立即预约</view> -->
 						</view>
 						<view class="labels flex" :class="item.highlight.length >2?'flex_btween':'flex-start'"
 							v-if="item.highlight.length != 0">
@@ -40,7 +40,8 @@
 					<view class="bottom flex" :class="item.worker_address.address?'flex_btween':'flex_end'">
 						<view class="location flex" v-if="item.worker_address.address"><u-icon name="map-fill"
 								color="#2675F5" size="13"></u-icon>{{item.worker_address.address}}</view>
-						<view class="time">{{item.create_time}}</view>
+						<view class="sign_btn" @click.stop="toOpen(item)">立即预约</view>
+						<!-- <view class="time">{{item.create_time}}</view> -->
 					</view>
 					<view class="status">
 						<image :src="imgUrl+'/worker/new/ad_hot.png'" mode="widthFix"></image>
@@ -142,8 +143,10 @@
 		methods: {
 			...mapMutations(["setToken"]),
 			leftClick() {
-				uni.navigateTo({
-					url: "/pages/index/index"
+				let ad_platform = this.param.ad_platform ? this.param.ad_platform : ""
+				let ad_sub_platform = this.param.ad_sub_platform ? this.param.ad_sub_platform : ""
+				uni.reLaunch({
+					url: "/pages/index/index?ad_platform=" + ad_platform + "&ad_sub_platform=" + ad_sub_platform
 				})
 			},
 			getQueryParams(url) {
@@ -256,20 +259,26 @@
 				this.$request(url, data, "POST").then(res => {
 					if (res.code == 0) {
 						this.close()
-						uni.showToast({
-							title: "预约成功",
-							duration: 2000
-						})
 						let lead_information_id = res.data.lead_information_id
 						let ad_platform = _this.param.ad_platform ? _this.param.ad_platform : ""
 						let ad_sub_platform = _this.param.ad_sub_platform ? _this.param.ad_sub_platform : ""
-						setTimeout(function() {
-							uni.reLaunch({
-								url: "/pages/index/index?from=ad&pro_id=" +
-									lead_information_id + "&ad_platform=" + ad_platform +
-									"&ad_sub_platform=" + ad_sub_platform
-							})
-						}, 1000)
+						uni.showModal({
+							title: "预约成功，将进入小程序报名和确认。",
+							showCancel: false,
+							success(resp) {
+								if (resp.confirm) {
+									setTimeout(function() {
+										uni.reLaunch({
+											url: "/pages/index/index?from=ad&pro_id=" +
+												lead_information_id + "&ad_platform=" +
+												ad_platform +
+												"&ad_sub_platform=" + ad_sub_platform
+										})
+									}, 1000)
+								}
+							}
+						})
+
 					}
 				})
 
@@ -431,18 +440,18 @@
 
 				.middle {
 					.mid_in_item {
-						&:last-child {
-							width: 173rpx;
-							height: 65rpx;
-							line-height: 65rpx;
-							text-align: center;
-							border-radius: 40rpx;
-							font-weight: 600;
-							font-size: 27rpx;
-							background: #2675F5;
-							color: #fff;
-							// border-bottom: 2rpx dashed #2675F5;
-						}
+						// &:last-child {
+						// 	width: 173rpx;
+						// 	height: 65rpx;
+						// 	line-height: 65rpx;
+						// 	text-align: center;
+						// 	border-radius: 40rpx;
+						// 	font-weight: 600;
+						// 	font-size: 27rpx;
+						// 	background: #2675F5;
+						// 	color: #fff;
+						// 	// border-bottom: 2rpx dashed #2675F5;
+						// }
 
 						.tit {
 							font-size: 25rpx;
@@ -489,6 +498,17 @@
 					color: #5A5A5A;
 					// padding-left: 22rpx;
 					box-sizing: border-box;
+
+					.sign_btn {
+						width: 173rpx;
+						height: 50rpx;
+						line-height: 50rpx;
+						text-align: center;
+						background: rgba(33, 111, 249, 0.15);
+						border-radius: 40rpx;
+						color: #216FF9;
+						font-weight: 600;
+					}
 				}
 			}
 		}

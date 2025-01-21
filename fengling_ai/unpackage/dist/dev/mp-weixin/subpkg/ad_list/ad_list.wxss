@@ -134,17 +134,6 @@ page {
   background: #52C41A;
   margin-right: 8rpx;
 }
-.view_record .cont .item .middle .mid_in_item:last-child {
-  width: 173rpx;
-  height: 65rpx;
-  line-height: 65rpx;
-  text-align: center;
-  border-radius: 40rpx;
-  font-weight: 600;
-  font-size: 27rpx;
-  background: #2675F5;
-  color: #fff;
-}
 .view_record .cont .item .middle .mid_in_item .tit {
   font-size: 25rpx;
   color: #5A5A5A;
@@ -179,5 +168,15 @@ page {
   font-size: 23rpx;
   color: #5A5A5A;
   box-sizing: border-box;
+}
+.view_record .cont .item .bottom .sign_btn {
+  width: 173rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  background: rgba(33, 111, 249, 0.15);
+  border-radius: 40rpx;
+  color: #216FF9;
+  font-weight: 600;
 }
 

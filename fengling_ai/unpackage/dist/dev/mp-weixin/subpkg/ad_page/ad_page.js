@@ -332,8 +332,10 @@ var _default = {
       var pages = getCurrentPages();
       var prev = pages[pages.length - 2];
       if (!prev) {
-        uni.navigateTo({
-          url: "/pages/index/index"
+        var ad_platform = this.params.ad_platform ? this.params.ad_platform : "";
+        var ad_sub_platform = this.params.ad_sub_platform ? this.params.ad_sub_platform : "";
+        uni.reLaunch({
+          url: "/pages/index/index?ad_platform=" + ad_platform + "&ad_sub_platform=" + ad_sub_platform
         });
       }
     },
@@ -405,7 +407,7 @@ var _default = {
           var ad_platform = _this.params.ad_platform ? _this.params.ad_platform : "";
           var ad_sub_platform = _this.params.ad_sub_platform ? _this.params.ad_sub_platform : "";
           uni.showModal({
-            title: "预约成功",
+            title: "预约成功，将进入小程序报名和确认。",
             showCancel: false,
             success: function success(resp) {
               if (resp.confirm) {

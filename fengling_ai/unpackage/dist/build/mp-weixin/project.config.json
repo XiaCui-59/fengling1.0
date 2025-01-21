@@ -11,8 +11,6 @@
     "minified": false,
     "newFeature": true,
     "bigPackageSizeSupport": true,
-    "enhance": false,
-    "packNpmRelationList": [],
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -20,8 +18,8 @@
     }
   },
   "compileType": "miniprogram",
-  "libVersion": "3.7.1",
-  "appid": "wx4c07bc53643db85e",
+  "libVersion": "3.7.6",
+  "appid": "wxba7ae6c3643ac944",
   "projectname": "employee_miniprograme",
   "condition": {},
   "editorSetting": {

@@ -164,8 +164,11 @@
 				let pages = getCurrentPages()
 				let prev = pages[pages.length - 2]
 				if (!prev) {
-					uni.navigateTo({
-						url: "/pages/index/index"
+					let ad_platform = this.params.ad_platform ? this.params.ad_platform : ""
+					let ad_sub_platform = this.params.ad_sub_platform ? this.params.ad_sub_platform : ""
+					uni.reLaunch({
+						url: "/pages/index/index?ad_platform=" + ad_platform + "&ad_sub_platform=" +
+							ad_sub_platform
 					})
 				}
 			},
@@ -234,7 +237,7 @@
 						let ad_platform = _this.params.ad_platform ? _this.params.ad_platform : ""
 						let ad_sub_platform = _this.params.ad_sub_platform ? _this.params.ad_sub_platform : ""
 						uni.showModal({
-							title: "预约成功",
+							title: "预约成功，将进入小程序报名和确认。",
 							showCancel: false,
 							success(resp) {
 								if (resp.confirm) {
